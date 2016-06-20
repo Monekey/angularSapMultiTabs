@@ -1,0 +1,60 @@
+<div class="modal-header">
+    <h3 class="modal-title">添加储值规则<i class="iconfont card-type-i"  ng-click="cancel()">&#xe633;</i></h3>
+</div>
+<div class="modal-body">
+    <div>
+         <table class="table card-type-table table-striped table-style-all">
+             <tbody class="text-nowrap">
+                    <tr class="table-tr-first">
+                        <th>
+                            <input
+                                    type="checkbox"
+                                    id="allRule"
+                                    name="allRule"
+                                    ng-model="isCheckAll"
+                                    ng-click="selectAllRule(isCheckAll,rules)">
+                        </th>
+                        <th>名称</th>
+                        <th>储值内容</th>
+                    </tr>
+                    <tr ng-repeat="rule in rules">
+                        <td>
+                            <input
+                                    type="checkbox"
+                                    ng-model="checked"
+                                    id="{{rule.id}}"
+                                    name="{{rule.name}}"
+                                    ng-checked="isRuleSelected(rule)"
+                                    ng-click="updateSelection($event,rule)">
+                        </td>
+                        <td ng-bind="rule.name"></td>
+                        <td ng-bind="savingWay[rule.savingType]"></td>
+                    </tr>
+             </tbody>
+         </table>
+        <div style="padding-bottom: 30px;">
+            <div style="float:left;display:inline;">已选{{getSelectCount()}}条</div>
+            <uib-pagination
+                    ng-show="pageInfo.total>5"
+                    total-items="pageInfo.total"
+                    ng-model="pageSet.currentPage"
+                    items-per-page="pageSet.numPerPage"
+                    max-size="pageSet.maxSize"
+                    class="pagination-sm pagination-ul"
+                    boundary-links="true"
+                    force-ellipses="true"
+                    ng-change="pageChanged()"
+                    previous-text="上一页"
+                    next-text="下一页"
+                    first-text="首页"
+                    last-text="尾页">
+            </uib-pagination>
+            <div ng-show="pageInfo.total>5" class="pagination-total">总共{{pageInfo.total}}条</div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer card-type-footer">
+    <button class="main-all-btn-b cart-type-bt-r" type="button" ng-click="confirm()">确定</button><!--
+    --><button class="main-all-btn-w" type="button" ng-click="cancel()">取消</button>
+</div>

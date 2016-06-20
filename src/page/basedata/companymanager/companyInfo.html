@@ -1,0 +1,37 @@
+<top-bar systems="systems" system-now="systemNow" tab-status="tabStatus"></top-bar>
+<div id="company" class="company" style="width: 800px;margin: 0 auto;padding-top: 60px;">
+    <div class="list-page screen">
+        <div class="canvas_title " style="line-height:normal;">集团信息</div>
+
+            <li class="list-group-item list-group-item-special">
+                <div class="media-left">
+                    <a href="#">
+                        <!--<img class="media-object" ng-src="shop.img" alt="...">-->
+                        <img class="media-object" ng-src="{{imgServer + company.logo}}" alt="">
+                    </a>
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading" ><span ng-bind="company.note"></span>
+
+                    </h4>
+                    <div class="shop-info1"><span ng-bind="company.companyName"></span></div>
+                    <div class="shop-info2"><span ng-bind="company.id"></span></div>
+
+                    <div class="col-sm-a" >状态：<span ng-if="company.ifEnable" class="shop-open" style="padding:3px 8px;margin-right:5px;" >已开通</span><span ng-if="!company.ifEnable" class="shop-close" style="padding:3px 8px;margin-right:5px;" >已停用</span></div>
+                    <div class="col-sm-a">版本：<span>正式版</span></div>
+                    <div class="col-sm-b" >微信卡：<span ng-if="company.ifEnable" class="shop-open">已开通</span><span ng-if="!company.ifEnable" class="shop-close">已停用</span></div>
+                    
+                    <div class="col-sm-a" >联系人：<span ng-bind="company.linkMan"></span></div>
+                    <div class="col-sm-a" >手机号：<span ng-bind="company.phone"></span></div>
+                    <div class="col-sm-b" >邮箱：<span ng-bind="company.email"></span></div>
+                   
+                    <div class="col-sm-a">城市：<span ng-bind="company.city"></span></div>
+                    <div class="col-sm-a">地址：<span ng-bind="company.address"></span></div>
+                    <div class="col-sm-b">注册时间：<span ng-bind="company.createTime|limitTo:10"></span></div>
+                    <!--<button type="button" class="main-all-btn-b"  ng-click="gotoEdit(company)" ng-if="edit" >修改</button>-->
+                </div>
+
+            </li>
+        </div>
+    </div>
+</div>

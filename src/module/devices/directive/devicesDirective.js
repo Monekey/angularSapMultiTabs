@@ -435,13 +435,9 @@ define(['angular', 'ui_bootstrap', 'ng_animate','esegece','sgc','base64'], funct
         			}
         		}
         	};
-
-        	
-        	
-        	
         	
  /**
-  * *************************************************************************************************
+  * *****************************打印机列表********************************************************************
   */       	
         	
             return {
@@ -449,43 +445,39 @@ define(['angular', 'ui_bootstrap', 'ng_animate','esegece','sgc','base64'], funct
                 	var me = this;
             		var isWin = true;
             		TDevices.isWin = isWin;
-            		
             		//平板报错修正 return前执行
             		this.rpt = new FastReport(true);
-            		
             		if(!isWin) return;
-            		
             		//初始化连接设备管理器配置
             		var cfg = {
             			location:"ws://127.0.0.1:5414", //TODO 连接设备的location地址
             			initCallBack:function(){
             				//发送给设备管理器contenxPath ,记得最后一个字符是 "/" !!
-//            				me.rpt.init("http://127.0.0.1:8080/saas/");
-            				
+//            				me.rpt.init("http://localhost:8080/saas/");
             				//加载打印机列表
             				me.rpt.printerlist(function(result){
-            					console.log(result);
-            					me.printerCallBack(result);
+            					$rootScope.printers=[];
+            					var printers = result.message.list;
+        						for (var i in printers) {
+        							var data = {
+                							"id":"",
+                							"name":""
+                					};
+        							data.id = i;
+        							data.name = printers[i];
+        							$rootScope.printers.push(data);
+        							console.log(data);
+        						};
             				});
             			},
-            			errCallBack:function(){
-            				var msg = "465465";
-            				console.log(msg);
-            			}
             		};
             		//传入cfg
             		TDevices.initWS(cfg);
-            		
-            		//上面的读取打印列表是通过TDevices初始化回调的, 第二次进入页面TDevices不会初始化了, 需要这里加载打印机列表
-            		if( TDevices.isReady() ){//如果还没初始化完毕, 不执行获取打印列表, 因为初始化回调里执行了
-            			if( me.printerInited!==true ){//如果还没初始化, 初始化打印机列表
-            				me.rpt.printerlist(function(result){
-            					me.printerCallBack(result);
-            					console.log(result);
-            				});
-            			}
-            		}
-            		var print = {
+            		TDevices.report = this.rpt;
+                },
+                
+                printjb:function(){
+                	var printinfo = {
             				"fileid" : 1,
             				"exporttype" : 1,
 	            			"printer" : "report",
@@ -497,32 +489,10 @@ define(['angular', 'ui_bootstrap', 'ng_animate','esegece','sgc','base64'], funct
             					]
             			};
 
-            		this.rpt.print(print);
-                	alert(22222);
+                	TDevices.report.print(printinfo);
+            		alert(22222);
                 },
                 
-                
-                printerCallBack: function(result) {
-            		var me = this;
-            		//如果打印机列表已经初始化, 不再重复
-            		if( me.printerInited===true )
-            			return;
-            		
-            		
-            		if(!result || !result.message || !result.message.list) {
-            			//tcsl.Msg.error( "加载打印机失败" );
-            			return;
-            		}
-            		var data = {};
-            		var printers = result.message.list;
-        			for (var i in printers) {
-        				//data.id = printers[i];
-        				data.name = printers[i];
-        			};
-            		
-            		me.printerInited = true;//打印机列表初始化完成
-            		
-            	},
  /**
   * 初始化设备
   */               

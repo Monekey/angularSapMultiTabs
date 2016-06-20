@@ -1,0 +1,249 @@
+<div >
+	<div class="score-rule-detail">
+		<dl class="rule-detail-dl row">
+			<dt class="rule-detail-dt">
+				<span class="rule-detail-dt-icon">■</span><span>基本信息</span>
+			</dt>
+			<dd>
+				<div class="panel-body panel-body-top-special two-form form-horizontal" >
+					<div  class="row">
+
+						<div class="col-sm-4 members-detail-row" style="margin-left:1px;">
+							<span for="name" class="col-sm-2 members-detail-head" style="width:auto;">时间：</span>
+							<div class="col-sm-8 members-detail-row company-col">
+								<span  class="ed-company members-detail-head"  ng-model="tradeinfo.createTime" ><span ng-bind="tradeinfo.createTime"></span></span>
+							</div>
+						</div>
+						<div class="col-sm-3 members-detail-row">
+							<span for="name" class="col-sm-4 members-detail-head" style="width:auto;">流水号：</span>
+							<div class="col-sm-6 members-detail-row company-col">
+								<span class=" ed-company  members-detail-head"  ng-model="tradeinfo.txCode" ><span ng-bind="tradeinfo.txCode"></span></span>
+							</div>
+						</div>
+						<div class="col-sm-3 members-detail-row">
+							<span for="name" class="col-sm-6 members-detail-head" style="width:auto;">交易终端号：</span>
+							<div class="col-sm-4 members-detail-row company-col">
+								<span  class=" ed-company members-detail-head"  ng-model="tradeinfo.terminalCode" ><span ng-bind="tradeinfo.terminalCode"></span></span>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="col-sm-10">
+						<div class="row col-sm-5">
+							<div class="members-detail-row">
+								<span for="name" class="col-sm-3 trade-padding-special members-detail-main members-left-special">操作人：</span>
+								<div class="col-sm-7 company-col members-detail-main members-detail-row members-bottom-special">
+									<span type="text" class=""  ng-model="tradeinfo.operationName"><span ng-bind="tradeinfo.operationName"></span></span>
+								</div>
+							</div>
+							<div class="members-detail-row">
+								<span for="name" class="col-sm-3  trade-padding-special members-detail-main members-left-special">卡号：</span>
+								<div class="col-sm-7 company-col members-detail-main members-detail-row members-bottom-special">
+									<span type="text" class="" ng-model="tradeinfo.cardNo"><span ng-bind="tradeinfo.cardNo"></span></span>
+								</div>
+							</div>
+							<div class="members-detail-row">
+								<span for="name" class="col-sm-3 trade-padding-special members-detail-main  members-left-special">卡类型：</span>
+								<div class="col-sm-7 company-col members-detail-main members-detail-row members-bottom-special">
+									<span type="text" class="" ng-model="tradeinfo.cardType"><span ng-bind="tradeinfo.cardType"></span></span>
+								</div>
+							</div>
+							<div class="members-detail-row ">
+								<span for="name" class="col-sm-3 trade-padding-special members-detail-main  members-left-special ">开户门店：</span>
+								<div class="col-sm-7 company-col members-detail-main members-detail-row members-bottom-special">
+									<span type="text" class="" ng-model="tradeinfo.openShopName"><span ng-bind="tradeinfo.openShopName"></span></span>
+								</div>
+							</div>
+							<div class="members-detail-row">
+								<span for="name" class="col-sm-3 trade-padding-special members-detail-main  members-left1-special">交易门店：</span>
+								<div class="col-sm-7 company-col members-detail-main members-detail-row ">
+									<span type="text" class="" ng-model="tradeinfo.xfShopName" ><span ng-bind="tradeinfo.xfShopName"></span></span>
+								</div>
+							</div>
+
+						</div>
+						<div class="row col-sm-5">
+							<div class="members-detail-row" >
+								<span for="name" class="col-sm-3 trade-padding-special members-detail-main  members-left-special">姓名：</span>
+								<div class="col-sm-7 company-col members-detail-main members-detail-row members-bottom-special">
+									<span type="text" class="" ng-model="tradeinfo.userName"><span ng-bind="tradeinfo.userName"></span></span>
+								</div>
+							</div>
+							<div class="members-detail-row">
+								<span for="name" class="col-sm-3 trade-padding-special members-detail-main members-left1-special">电话：</span>
+								<div class="col-sm-7 company-col members-detail-main members-detail-row">
+									<span type="text" class="" ng-model="tradeinfo.userPhone"><span ng-bind="tradeinfo.userPhone"></span></span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+
+					<!-- <span>交易时间:<a ng-model="member.name"><span ng-bind="tradeinfo.createTime"></span></span>
+                  <span>流水号：<a ng-click="opentradeInfoPan(trade)"><span ng-bind="tradeinfo.txCode"></span></a></span>
+                  <span>交易终端号:<a><span ng-bind="tradeinfo.terminalCode"></span></a></span>
+                  <span>操作人:<a><span ng-bind="tradeinfo.operationName"></span></a></span>
+                  <span>卡类型:<a><span ng-bind="tradeinfo.cardType"></span></a></span>
+                  <span>交易类型:<a><span ng-bind="tradeinfo.tradeType"></span></a></span>
+                  <span>姓名:<a><span ng-bind="tradeinfo.userName"></span></a></span>
+                  <span>电话:<a><span ng-bind="tradeinfo.userPhone"></span></a></span> -->
+				</div>
+			</dd>
+		</dl>
+		<hr/>
+	</div>
+	<div >
+		<div class="score-rule-detail">
+			<dl class="rule-detail-dl row">
+				<dt class="rule-detail-dt">
+					<span class="rule-detail-dt-icon">■</span><span>交易详情&nbsp<a style="font-size: 14px;margin-left: 10px;">账单明细></a></span>
+				</dt>
+				<dd>
+					<div class="panel-body panel-body-top-special">
+						<!--  <li ng-repeat="type in tradeTypelist.pageInfo.list">
+                                 <span>名称:<a><span ng-bind="type.typeName"></span></a></span>
+                         </li> -->
+						<li ng-if="tradeinfo.viewType==1" class="list-group-item" style="border:none;">
+							<p><span>账单金额（元）:<span ng-bind="tradeinfo.tradeContentBeans.billAmount|number:2"></span></span></p>
+							<p style="margin-top: 25px ;"><span>消费卡金额（元）:<span ng-bind="tradeinfo.tradeContentBeans.cardAmount|number:2"></span></span></p>
+							<p><span ng-repeat="tradeCustomer in tradeCustomers.tradeContentBeans track by $index">
+								<span ng-if="tradeCustomer.unit=='元'">
+										<span style="float:left"><span ng-bind="tradeCustomer.cardAccountTypeName"></span></span>
+										<span style="float:left" ng-if="!$last">
+										/
+										</span>
+										<span style="float:left" ng-if="$last">
+										（元）:
+										</span>
+								</span>
+							</span>
+							<span ng-repeat="tradeCustomer in tradeCustomers.tradeContentBeans track by $index">
+								<span ng-if="tradeCustomer.unit=='元'">
+										<span style="float:left"><span ng-bind="tradeCustomer.value|number:2"></span></span>
+										<span style="float:left" ng-if="!$last">
+										/
+										</span>
+										<span ng-if="$last">
+										</span>
+								</span>
+							</span></p></br>
+							<p style="margin-top: 25px ;"><span>消费积分（分）：<span ng-bind="tradeinfo.tradeContentBeans.score"></span></span></p>
+							<p><span>积分转化率:<span ng-bind="tradeinfo.tradeContentBeans.scoreConverRate"></span></span></p>
+							<p><span>积分转化金钱（元）:<span ng-bind="tradeinfo.tradeContentBeans.scoreConverMoney|number:2"></span></span></p>
+							<p ><span>消费券（元）：<span ng-bind="tradeinfo.tradeContentBeans.voucherConverMoney|number:2"></span><a>劵明细></a></span></p>
+							<p style="margin-top: 25px ;"><span>实时剩余金额（元）：<span ng-bind="tradeinfo.balanceMoney|number:2"></span></span></p>
+							<p><span>实时剩余积分（分）：<span ng-bind="tradeinfo.balanceScroe|number:2"></span></span></p>
+							<div ng-repeat="tradeCustomer in tradeCustomers.tradeContentBeans">
+								<span ng-if="tradeCustomer.unit=='分'">
+									<span ng-bind="tradeCustomer.cardAccountTypeName"></span>:
+									<span ng-if="tradeCustomer.addOrSub==0">
+										消费
+									</span>
+									<span ng-if="tradeCustomer.addOrSub==1">
+										增加
+									</span>
+									<span ng-bind="tradeCustomer.value|number:0"></span>
+									<span ng-bind="tradeCustomer.unit"></span>
+								</span>
+							</div>
+						</li>
+
+						<!-- 充值 -->
+						<li ng-if="tradeinfo.viewType==4" class="list-group-item" style="border:none;">
+							<p><span>账单金额（元）:<span ng-bind="tradeinfo.rechargeTypeExt.rechargeAmount|number:2"></span></span></p>
+							<p><span ng-repeat="tradeCustomer in tradeCustomers.tradeContentBeans track by $index">
+							<span ng-if="tradeCustomer.unit=='元'">
+									<span style="float:left"><span ng-bind="tradeCustomer.cardAccountTypeName"></span></span>
+									<span style="float:left" ng-if="!$last">
+									/
+									</span>
+									<span style="float:left" ng-if="$last">
+									（元）:
+									</span>
+							</span>
+						</span>
+						<span ng-repeat="tradeCustomer in tradeCustomers.tradeContentBeans track by $index">
+							<span ng-if="tradeCustomer.unit=='元'">
+									<span style="float:left"><span ng-bind="tradeCustomer.value|number:2"></span></span>
+									<span style="float:left" ng-if="!$last">
+									/
+									</span>
+									<span ng-if="$last">
+									</span>
+							</span>
+						</span></p></br>
+							<p><span>本次产生券金额（元）：<span ng-bind="tradeinfo.tradeContentBeans.voucherConverMoney|number:2"></span><a>劵明细></a></span></p>
+							<p><span>付款方式：<span ng-bind="tradeinfo.tsTypeName"></span></span></p>
+							<div ng-repeat="tradeCustomer in tradeCustomers.tradeContentBeans">
+								<span ng-if="tradeCustomer.unit=='分'">
+									<span ng-bind="tradeCustomer.cardAccountTypeName"></span>:
+									<span ng-if="tradeCustomer.addOrSub==0">
+										消费
+									</span>
+									<span ng-if="tradeCustomer.addOrSub==1">
+										增加
+									</span>
+									<span ng-bind="tradeCustomer.value|number:0"></span>
+									<span ng-bind="tradeCustomer.unit"></span>
+								</span>
+							</div>
+							<p><span>实时剩余金额（元）：<span ng-bind="tradeinfo.balanceMoney|number:2"></span></span></p>
+							<p><span>实时剩余积分（分）：<span ng-bind="tradeinfo.balanceScroe|number:2"></span></span></p>
+						</li>
+						
+						
+						<!-- 转账 -->
+						<li ng-if="tradeinfo.viewType==13" class="list-group-item" style="border:none;">
+							<p><span>转出卡号:
+							<span ng-bind="tradeinfo.tradeTransferTypeExt.outCardNo"></span></span></p>
+							<p><span>转出前余额
+							<span ng-if="tradeinfo.tradeTransferTypeExt.valueType==1">
+							<span ng-bind="tradeinfo.tradeTransferTypeExt.outPreBalance|number:2"></span>（元）</span>
+							<span ng-if="tradeinfo.tradeTransferTypeExt.valueType==2">
+							<span ng-bind="tradeinfo.tradeTransferTypeExt.outPreBalance|number:0"></span>（分）</span>
+							</span></p>
+							<p><span>转出金额
+							<span ng-if="tradeinfo.tradeTransferTypeExt.valueType==1">
+							<span ng-bind="tradeinfo.tradeTransferTypeExt.value|number:2"></span>（元）</span>
+							<span ng-if="tradeinfo.tradeTransferTypeExt.valueType==2">
+							<span ng-bind="tradeinfo.tradeTransferTypeExt.value|number:0"></span>（分）</span>
+							</span></p>
+							<p><span>转出后余额
+							<span ng-if="tradeinfo.tradeTransferTypeExt.valueType==1">
+							<span ng-bind="tradeinfo.tradeTransferTypeExt.outBalance|number:2"></span>（元）</span>
+							<span ng-if="tradeinfo.tradeTransferTypeExt.valueType==2">
+							<span ng-bind="tradeinfo.tradeTransferTypeExt.outBalance|number:0"></span>（分）</span>
+							</span></p>
+							<p><span>转入卡号:
+							<span ng-bind="tradeinfo.tradeTransferTypeExt.inCardNo"></span></span></p>
+							<p><span>转入前余额
+							<span ng-if="tradeinfo.tradeTransferTypeExt.valueType==1">
+							<span ng-bind="tradeinfo.tradeTransferTypeExt.inPreBalance|number:2"></span>（元）</span>
+							<span ng-if="tradeinfo.tradeTransferTypeExt.valueType==2">
+							<span ng-bind="tradeinfo.tradeTransferTypeExt.inPreBalance|number:0"></span>（分）</span>
+							</span></p>
+							<p><span>转入金额
+							<span ng-if="tradeinfo.tradeTransferTypeExt.valueType==1">
+							<span ng-bind="tradeinfo.tradeTransferTypeExt.value|number:2"></span>（元）</span>
+							<span ng-if="tradeinfo.tradeTransferTypeExt.valueType==2">
+							<span ng-bind="tradeinfo.tradeTransferTypeExt.value|number:0"></span>（分）</span>
+							</span></p>
+							<p><span>转入后余额
+							<span ng-if="tradeinfo.tradeTransferTypeExt.valueType==1">
+							<span ng-bind="tradeinfo.tradeTransferTypeExt.inBalance|number:2"></span>（元）</span>
+							<span ng-if="tradeinfo.tradeTransferTypeExt.valueType==2">
+							<span ng-bind="tradeinfo.tradeTransferTypeExt.inBalance|number:0"></span>（分）</span>
+							</span></p>
+						</li>
+					</div>
+				</dd>
+			</dl>
+			<hr/>
+			<div class="col-sm-2">
+		        <button type="button" class="main-all-btn-w" ng-click="cancel()">取消</button>
+		    </div>
+		</div>
+	</div>
+</div>

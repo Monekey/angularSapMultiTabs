@@ -1,0 +1,1 @@
+{"sessionId":null,"resultCode":null,"status":1,"errCode":0,"errMessage":null,"msg":null,"data":null,"showCount":1000000,"showName":"百年帝道餐饮集团","showLogo":"pic/20160607/14652807155222HC32UOG.png"}

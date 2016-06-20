@@ -1,9 +1,8 @@
 requirejs.config({
 
-    baseUrl: 'resources/page',
+    baseUrl: 'src/page',
     paths: {
         app: "../app",
-        module:"../module",
         //配置lib目录下的第三方公共包
         angular: "../lib/angular.min",
         jquery: "../lib/jquery.min",
@@ -32,17 +31,22 @@ requirejs.config({
         ngAjaxService: "../service/ngAjaxService",
         uploadService: "../service/upload",
         ngConstant: "../service/constant",//constant
+
+        //配置pos/service目录下自定义pos公共service
         posService: "pos/service/posService",
 
         //配置module目录下公共common module
         topBar:"../module/top-bar/directive/topBarDirective",
-        posTopbar: 'pos/pos-topbar/posTopbarDirective',
+        period: "../module/period-module/directive/periodDirect",
         conditionFilterDit:"../module/filter-module/directive/conditionDirective",
         listDit:"../module/list-module/directive/listDirective",
         modal: "../module/modal/directive/modalDirective",
         shopSelector:"../module/shopselector/directive/shopSelectorDirective",
         devices:"../module/devices/directive/devicesDirective",
-        rippleButton:"home/ripple-button/directive/rippleDirective",
+        rippleButton:"../module/home/ripple-button/directive/rippleDirective",
+
+        //配置pos/module目录下pos系统公共common module
+        posTopbar: 'pos/module/pos-topbar/posTopbarDirective',
         
         
         //配置assets/css目录下css样式
@@ -91,6 +95,10 @@ requirejs.config({
         ngAMD:{
             deps: ["angular"],
             exports:"ngAMD"
+        },
+        ngload:{
+            deps: ["angular"],
+            exports:"ngload"
         },
         router:{
             deps: ["angular"],

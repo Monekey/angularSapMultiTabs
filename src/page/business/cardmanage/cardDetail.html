@@ -1,0 +1,87 @@
+<div>
+	<div class="card-detail">
+		<dl class="card-detail-dl row">
+			<dt class="card-detail-dt">
+				<span class="card-detail-dt-icon">■</span><span>基本信息</span>
+			</dt>
+			<dd class="row">
+				<div class="col-sm-12">
+					<span>卡号：</span><span ng-bind="baseCardUsed.number"></span>
+				</div>
+			</dd>
+			<dd class="row">
+				<div class="col-sm-3">
+					<span>姓名：</span><span ng-bind="baseCardUsed.memberName"></span>
+				</div>
+				<div class="col-sm-6">
+					<span>手机号码：</span><span ng-bind="baseCardUsed.mobile"></span>
+				</div>
+			</dd>
+		</dl>
+		<hr/>
+		<dl class="card-detail-dl row">
+			<dt class="card-detail-dt">
+				<span class="card-detail-dt-icon">■</span><span>金额</span>
+			</dt>
+			<dd class="row">
+				<div class="col-sm-3">
+					<span>卡余额：</span><span><a ng-click="doTradeDetail(baseCardUsed)" ng-bind="chargeAccountObj.balance + donateAccountObj.balance | currency:''"></a></span>
+				</div>
+				<div class="col-sm-3">
+					<span>剩余本金：</span><span ng-bind="chargeAccountObj.balance | currency:''"></span>
+				</div>
+				<div class="col-sm-3">
+					<span>剩余赠送金额：</span><span ng-bind="donateAccountObj.balance | currency:''"></span>
+				</div>
+			</dd>
+			<dd class="row">
+				<div class="col-sm-3">
+					<span>累计储值金额：</span><span ng-bind="chargeAccountObj.cumulative + donateAccountObj.cumulative| currency:''"></span>
+				</div>
+				<div class="col-sm-3">
+					<span>累计消费金额：</span><span ng-bind="chargeAccountObj.consume +donateAccountObj.consume| currency:''"></span>
+				</div>
+			</dd>
+		</dl>
+		<hr/>
+		<dl class="card-detail-dl row">
+			<dt class="card-detail-dt">
+				<span class="card-detail-dt-icon">■</span><span>积分</span>
+			</dt>
+			<dd class="row">
+				<div class="col-sm-3">
+					<span>剩余积分：</span><span><a ng-click="doTradeDetail(baseCardUsed)" ng-bind="scoreAccountObj.balance |number:0"></a></span>
+				</div>
+				<div class="col-sm-3">
+					<span>累计产生积分：</span><span ng-bind="scoreAccountObj.cumulative |number:0"></span>
+				</div>
+				<div class="col-sm-3">
+					<span>累计兑换积分：</span><span ng-bind="scoreAccountObj.consume |number:0"></span>
+				</div>
+			</dd>
+		</dl>
+		<hr/>
+		<dl class="card-detail-dl row">
+			<dt class="card-detail-dt">
+				<span class="card-detail-dt-icon">■</span><span>次数</span>
+			</dt>
+			<dd class="row">
+				<div class="col-sm-3">
+					<span>剩余次数：</span><span><a ng-click="doTradeDetail(baseCardUsed)" ng-bind="timesAccountObj.balance |number:0"></a></span>
+				</div>
+				<div class="col-sm-3">
+					<span>累计储值次数：</span><span ng-bind="timesAccountObj.cumulative |number:0"></span>
+				</div>
+				<div class="col-sm-3">
+					<span>累计消费次数：</span><span ng-bind="timesAccountObj.consume |number:0"></span>
+				</div>
+			</dd>
+		</dl>
+		<hr/>
+		<div class="row card-detail-btn">
+			<div>
+				<button type="button " class="main-all-btn-w" ng-click="cancel()">返回</button>
+			</div>
+		</div>
+	</div>
+</div>

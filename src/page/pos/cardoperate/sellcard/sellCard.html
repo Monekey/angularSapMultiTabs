@@ -1,0 +1,457 @@
+<div class="list-page two-form relative border-none">
+<uib-tabset active="activeForm" style="background: white;padding: 20px;">
+    <!-- 会员tab -->
+    <uib-tab index="0" heading="实体卡" style="font-size: 16px;">
+        <form class="form-horizontal recharge-form scoll-fix-bottom-form" name="sellCardForm" ng-submit="saveRelSellCard()" autocomplete="off">
+            <div class="form-group">
+                <label for="mobile" class="col-sm-2 control-label  control-label-left">手机号码：</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control form-control-input" id="mobile"
+                           ng-model="relCardSell.cardInfo.mobile" autofocus="autofocus" maxlength="11"
+                           tooltip-trigger="blur" uib-tooltip="{{sellCardForm.mobile.$invalid?'请输入11位手机号码':''}}"
+                           ng-pattern="/^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/"
+                           ng-blur="validateMobile(0)" tooltip-placement="bottom" placeholder="请输入11位手机号码"/>
+                </div>
+                <div class="col-sm-5" >
+                    <!-- 建议必填 -->
+                    <p  class="form-control-static" style="font-size: 14px;" ng-if="relCardSell.displayCancelBind" >该手机号已和其它会员卡绑定，无法办新卡。 <a
+                            ng-click="cancelBindCard(0)">解除绑定</a></p>
+                </div>
+            </div>
+            <div class="form-group" ng-if="relCardSell.displayValidateCode">
+                <label class="col-sm-2 control-label control-label-left" for="smsCode">验证码：</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control form-control-input" name="smsCode" id="smsCode"
+                           ng-model="relCardSell.cardInfo.smsCode" 
+                           ng-blur="checkSellCardSmsCode(0)"
+                           style="width: 100px;display: inline-block;"/>
+                    <span ng-if="relCardSell.isValidCode" class="glyphicon glyphicon-ok-sign" style="color: green;display: inline-block;font-size: 14px;"></span>
+                    <span ng-if="!relCardSell.isValidCode"class="glyphicon glyphicon-remove-sign" style="color: red;display: inline-block;font-size: 14px;"></span>
+                </div>
+                <div class="col-sm-2">
+                    <button type="button" class="btn  btn-default" ng-click="getSellCardSmsCode(0)">发送验证码</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label control-label-left" for="cardNo"><font class="required-font-icon">*</font>卡号：</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control form-control-input"  autocomplete="off"
+                           ng-model="relCardSell.cardInfo.cardNo" ng-blur="checkCardNo(0)"
+                           tooltip-trigger="blur" placeholder="请读取或输入卡号" maxlength="16"
+                           uib-tooltip="{{sellCardForm.cardNo.$invalid?'请读取或输入卡号':''}}" 
+                           ng-pattern="/^[1-9](\d{4,9}|\d{11,15})$/" tooltip-placement="bottom" required/>
+                </div>
+                <div class="col-sm-5" >
+                    <p class="form-control-static" style="color: red" ng-if="relCardSell.invalidCardNoInfo" ng-bind="relCardSell.invalidCardNoInfo"></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label control-label-left" >卡型：</label>
+                <div class="col-sm-2">
+                    <!-- <p class="form-control-static"  ng-bind="relCardSell.cardInfo.cardTypeName" /> -->
+                    <select class="form-control" id="cardType" name="cardType" ng-model="relCardSell.cardInfo.cardTypeInfo"  required>
+          				<option ng-repeat="cardTypeInfo in allCardTypeList2"  value="{{cardTypeInfo.value}}">{{cardTypeInfo.showName}}</option>
+				  	</select>
+                </div>
+                <div class="col-sm-2" ng-if="relCardSell.cardInfo.cardTypeInfo.split(',')[1] >0 " style="color:#666666; padding-top:7px;">
+                    <span class="" for="cardCharge">工本费：</span>
+                    <span  class=""  ng-bind="relCardSell.cardInfo.cardTypeInfo.split(',')[1]|number:2" />
+                </div>
+                <!--<label class="col-sm-2 control-label control-label-left" for="cardCharge" ng-if="relCardSell.cardInfo.cardTypeInfo.split(',')[1] >0 ">工本费：</label>-->
+                <!--<div class="col-sm-2" ng-if="relCardSell.cardInfo.cardTypeInfo.split(',')[1] >0 ">-->
+                        <!--<p class="form-control-static"  ng-bind="relCardSell.cardInfo.cardTypeInfo.split(',')[1]|number:2" />-->
+                <!--</div>-->
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label control-label-left" for="password1"><font
+                        class="required-font-icon">*</font>密码：</label>
+                <div class="col-sm-6">
+                    <input type="password" class="form-control form-control-input" 
+                           ng-model="relCardSell.cardInfo.password" autocomplete="off" maxlength="6"
+                           tooltip-trigger="blur" placeholder="请输入6位数字密码" id="password1" name="password1"
+                           uib-tooltip="{{sellCardForm.password1.$invalid?'请输入6位数字密码':''}}"
+                           tooltip-placement="bottom" ng-pattern="/^\d{6}$/" required/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label control-label-left" for="repassword1"><font class="required-font-icon">*</font>确认密码：</label>
+                <div class="col-sm-6">
+                    <input type="password" class="form-control form-control-input" id="repassword1" name="repassword1"
+                           ng-model="relCardSell.cardInfo.repassword" autocomplete="off" maxlength="6"
+                           tooltip-trigger="blur" placeholder="请输入6位数字密码"
+                           uib-tooltip="{{validatePasswd(0)? tipMsg.repassword:''}}"
+                           tooltip-placement="bottom" required/>
+                </div>
+            </div>
+            <div class="form-group">
+                
+                <label class="col-sm-2 control-label control-label-left" >会员资料</label>
+                <div class="col-sm-9">
+                    <hr style="margin-top: 16px;"></hr>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label control-label-left" for="name">姓名：</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control form-control-input" name="name" id="name"
+                           ng-model="relCardSell.memberInfo.name"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="sex" class="col-sm-2 control-label control-label-left"><font class="required-font-icon">*</font>性别：</label>
+                <div class="col-sm-6  form-input-sex form-control-input">
+                    <input type="radio" name="sex" value="1" ng-model="relCardSell.memberInfo.sex"
+                                  required><label for="sex2" class="control-label-left">男</label>&nbsp;&nbsp;
+                    <input type="radio" name="sex" value="0" ng-model="relCardSell.memberInfo.sex"
+                                  required><label for="sex2" class="control-label-left">女</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="birthday" class="col-sm-2 control-label control-label-left"><font
+                        class="required-font-icon">*</font>生日：</label>
+                <div class="col-sm-2">
+                    <select name="birthday" class="form-control form-control-input "
+                            ng-model="relCardSell.memberInfo.birthdayType" style="height: 44px;">
+                        <option ng-repeat="birthdayTypeNode in birthdayTypeList" value="{{birthdayTypeNode.value}}">
+                            {{birthdayTypeNode.name}}
+                        </option>
+                    </select>
+
+                </div>
+                <div class="col-sm-4">
+                   <!--  <p class="input-group form-control-input">
+                        <input type="text" class="form-control form-control-input  form-control-input-width"
+                        		id="birthday" name="birthday" style="height: 32px"
+                               uib-datepicker-popup="yyyy/MM/dd" ng-model="relCardSell.memberInfo.birthday"
+                               is-open="popup1.opened" ng-required="true" close-text="Close"
+                               tooltip-trigger="blur" placeholder="请选择生日"
+                         	   uib-tooltip="{{sellCardForm.birthday.$invalid?'请选择生日':''}}"
+                           	   tooltip-placement="bottom" required/>
+							<span class="input-group-btn ">
+							 	<button type="button" class="btn btn-default company-btn-date"  ng-click="popup1.opened = true;">
+                                 	<i class="glyphicon glyphicon-calendar"></i>
+                                 </button>
+						    </span>
+                    </p> -->
+                   	<month-select  month="relCardSell.memberInfo.birthday" ng-model="relCardSell.memberInfo.birthday"   format="YYYY-MM-DD" required></month-select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label control-label-left" for="byInviteCode">邀请码：</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control form-control-input" name="byInviteCode" id="byInviteCode"
+                           ng-model="relCardSell.memberInfo.byInviteCode" maxlength="6" placeholder="请输入6位邀请码" tooltip-trigger="blur"
+                           uib-tooltip="{{sellCardForm.byInviteCode.$invalid?'请输入正确6位邀请码！':''}}"
+                           tooltip-placement="bottom" ng-pattern="/^[0-9A-Z]{6}$/" 
+                           ng-blur="checkByInviteCode(0)" />
+                </div>
+                <div class="col-sm-2" ng-if="relCardSell.memberInfo.byInviteName" style="color:#666666; padding-top:7px;">
+                    <span>邀请人：</span>
+                    <span ng-bind="relCardSell.memberInfo.byInviteName"></span>
+                </div>
+                <!--<label class="col-sm-2 control-label control-label-left " ng-if="relCardSell.memberInfo.byInviteName">邀请人：</label>-->
+                <!--<div class="col-sm-2" ng-if="relCardSell.memberInfo.byInviteName">-->
+                    <!--<p class="form-control-static"  ng-bind="relCardSell.memberInfo.byInviteName" ></p>-->
+                <!--</div>-->
+            </div>
+
+            <div class="col-sm-offset-1 more" ng-click="relCardSell.isCollapsed = !relCardSell.isCollapsed"
+                 ng-init="relCardSell.isCollapsed = true;"
+                 style="margin-bottom: 5px;">
+                <span ng-bind="relCardSell.isCollapsed|getMore:relCardSell.isCollapsed"></span>
+                <flex flex-data="!relCardSell.isCollapsed" style="float:none;"></flex>
+            </div>
+            <div uib-collapse="relCardSell.isCollapsed">
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label control-label-left" for="nation">民族：</label>
+                    <div class="col-sm-6 ">
+                        <select class="form-control form-control-input" name="nation" id="nation"
+                                ng-model="relCardSell.memberInfo.nation">
+                            <option ng-repeat="nationNode in nationList" value="{{nationNode.value}}">
+                                {{nationNode.name}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label control-label-left">证件：</label>
+                    <div class="col-sm-2">
+                        <select class="form-control form-control-input " name="cardKind" id="cardKind"
+                                ng-model="relCardSell.memberInfo.cardKind">
+                            <option ng-repeat="cardKindNode in cardKindList" value="{{cardKindNode.value}}">
+                                {{cardKindNode.name}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" style="height: 34px" placeholder="请输入证件号码" class="form-control form-control-input" id="certificateNo"
+                               name="certificateNo" ng-model="relCardSell.memberInfo.certificateNo"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="workUnit" class="col-sm-2 control-label control-label-left ">单位：</label>
+                    <div class="col-sm-3 ">
+                        <input type="text" placeholder="请输入单位名称" class="form-control form-control-input" id="workUnit" name="workUnit"
+                               ng-model="relCardSell.memberInfo.workUnit"/>
+                    </div>
+                    <label for="job" class="col-sm-1 control-label control-label-left ">职位：</label>
+                    <div class="col-sm-2 ">
+                        <input type="text" placeholder="请输入职位名称" class="form-control form-control-input " id="job" name="job"
+                               ng-model="relCardSell.memberInfo.job"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="address" class="col-sm-2 control-label control-label-left">地址：</label>
+                    <div class="col-sm-6 ">
+                        <input type="text" placeholder="请输入地址" class="form-control form-control-input " id="address" name="address"
+                               ng-model="relCardSell.memberInfo.address"/>
+                    </div>
+                </div>
+                <div class="form-group" style="margin-bottom:35px;">
+                    <label for="note" class="col-sm-2 control-label control-label-left">备注：</label>
+                    <div class="col-sm-6 ">
+                        <textarea type="text" class="form-control form-control-input " id="note" name="note" maxlength="20"
+                                  ng-model="relCardSell.memberInfo.note" style="height: auto;"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <button type="submit" class="btn btn-primary btn-large btn-ok" ng-disabled="sellCardForm.$invalid
+                    ||!relCardSell.isValidCardNo 
+                    ||(relCardSell.cardInfo.mobile && ( relCardSell.isRegistered || !relCardSell.isValidCode)) 
+                    ||(relCardSell.memberInfo.byInviteCode && !relCardSell.isValidInvite)">保存</button>
+                </div>
+                <div>
+                    <button type="button" class="btn  btn-default btn-large btn-cancel" ng-click="cancel()">取消</button>
+                </div>
+            </div>
+        </form>
+    </uib-tab>
+    <!-- 电子卡 -->
+    <uib-tab index="1" heading="电子卡" style="font-size: 16px;" ng-click="changeElectronicTab()">
+       	<form class="form-horizontal recharge-form scoll-fix-bottom-form" name="eleCardForm" ng-submit="saveEelSellCard()" autocomplete="off">
+            <div class="form-group">
+                <label for="mobile2" class="col-sm-2 control-label  control-label-left"><font class="required-font-icon">*</font>手机号码：</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control form-control-input" id="mobile2" name="mobile2"
+                           ng-model="eleCardSell.cardInfo.mobile" maxlength="11" required="required" autofocus="autofocus"
+                           tooltip-trigger="blur" uib-tooltip="{{eleCardForm.mobile2.$invalid?'请输入11位手机号码':''}}"
+                           ng-pattern="/^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/"
+                           ng-blur="validateMobile(1)" tooltip-placement="bottom" placeholder="请输入11位手机号码"/>
+                </div>
+                <div class="col-sm-5" >
+                    <!-- 建议必填 -->
+                    <p  class="form-control-static" ng-if="eleCardSell.displayCancelBind" >该手机号已和其它会员卡绑定，无法办新卡。 <a
+                            ng-click="cancelBindCard(1)">解除绑定</a></p>
+                </div>
+            </div>
+            <div class="form-group" ng-if="eleCardSell.displayValidateCode">
+                <label class="col-sm-2 control-label control-label-left" for="smsCode2">验证码：</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control form-control-input" name="smsCode2" id="smsCode2"
+                           ng-model="eleCardSell.cardInfo.smsCode" 
+                           ng-blur="checkSellCardSmsCode(1)"
+                           style="width: 100px;display: inline-block;"/>
+                    <span ng-if="eleCardSell.isValidCode" class="glyphicon glyphicon-ok-sign" style="color: green;display: inline-block;font-size: 14px;"></span>
+                    <span ng-if="!eleCardSell.isValidCode"class="glyphicon glyphicon-remove-sign" style="color: red;display: inline-block;font-size: 14px;"></span>
+                </div>
+                <div class="col-sm-2">
+                    <button type="button" class="btn  btn-default" ng-click="getSellCardSmsCode(1)">发送验证码</button>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="col-sm-2 control-label control-label-left" for="cardType2"><font class="required-font-icon">*</font>卡型：</label>
+                <div class="col-sm-3">
+                      <select class="form-control" id="cardType2" name="cardType2" ng-model="eleCardSell.cardInfo.cardType"  required
+                      		 ng-change="getCardNoAndTypeInfo(eleCardSell.cardInfo)">
+          				<option ng-repeat="cardTypeInfo in allCardTypeList"  value="{{cardTypeInfo.value}}">{{cardTypeInfo.showName}}</option>
+					  </select>
+                </div>
+                <div class="col-sm-1">
+                	 <p class="form-control-static"  ng-if="eleCardSell.cardInfo.cardCharge >0 "><span ng-bind="eleCardSell.cardInfo.cardCharge|number:2"></span></p>
+                </div>
+                <div class="col-sm-2"style="color:#666666;padding-top:7px;">
+                    <span>卡号：</span>
+                    <span ng-bind="eleCardSell.cardInfo.cardNo"></span>
+                </div>
+                <!--<label class="col-sm-1 control-label control-label-left" for="cardNo2">卡号：</label>-->
+                <!--<div class="col-sm-2" >-->
+                    <!--<p class="form-control-static" ng-bind="eleCardSell.cardInfo.cardNo"></p>-->
+                <!--</div>-->
+            </div>
+            
+            <div class="form-group">
+                <label class="col-sm-2 control-label control-label-left" for="password2"><font
+                        class="required-font-icon">*</font>密码：</label>
+                <div class="col-sm-6">
+                    <input type="password" class="form-control form-control-input" id="password2" name="password2"
+                           ng-model="eleCardSell.cardInfo.password" autocomplete="off" maxlength="6"
+                           tooltip-trigger="blur" placeholder="请输入6位数字密码"
+                           uib-tooltip="{{eleCardForm.password2.$invalid?'请输入6位数字密码':''}}"
+                           tooltip-placement="bottom" ng-pattern="/^\d{6}$/" required/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label control-label-left" for="repassword2"><font class="required-font-icon">*</font>确认密码：</label>
+                <div class="col-sm-6">
+                    <input type="password" class="form-control form-control-input"  id="repassword2" name="repassword2"
+                           ng-model="eleCardSell.cardInfo.repassword" autocomplete="off" maxlength="6"
+                           tooltip-trigger="blur" placeholder="请输入6位数字密码"
+                           uib-tooltip="{{validatePasswd(1)? tipMsg.repassword:''}}"
+                           tooltip-placement="bottom" required/>
+                </div>
+            </div>
+            <div class="form-group">
+                
+                <label class="col-sm-2 control-label control-label-left" >会员资料</label>
+                <div class="col-sm-9">
+                    <hr style="margin-top: 16px;"></hr>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label control-label-left" for="name2">姓名：</label>
+                <div class="col-sm-6">
+                    <input type="text" placeholder="请输入会员姓名" class="form-control form-control-input" name="name2" id="name2"
+                           ng-model="eleCardSell.memberInfo.name"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="sex2" class="col-sm-2 control-label control-label-left"><font class="required-font-icon">*</font>性别：</label>
+                <div class="col-sm-6  form-input-sex form-control-input">
+                    <input type="radio" id="sex2" name="sex2" value="1" ng-model="relCardSell.memberInfo.sex"
+                                  required><label for="sex2" class="control-label-left">男</label>&nbsp;&nbsp;
+                    <input type="radio" name="sex2" value="0" ng-model="relCardSell.memberInfo.sex"
+                                  required><label for="sex2" class="control-label-left">女</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="birthday2" class="col-sm-2 control-label control-label-left"><font
+                        class="required-font-icon">*</font>生日：</label>
+                <div class="col-sm-2">
+                    <select name="birthdayType2" class="form-control form-control-input "
+                            ng-model="eleCardSell.memberInfo.birthdayType" style="height: 44px;">
+                        <option ng-repeat="birthdayTypeNode in birthdayTypeList" value="{{birthdayTypeNode.value}}">
+                            {{birthdayTypeNode.name}}
+                        </option>
+                    </select>
+
+                </div>
+                <div class="col-sm-4">
+                    <!-- <p class="input-group form-control-input">
+                        <input type="text" class="form-control form-control-input  form-control-input-width"
+                        		id="birthday2" name="birthday2" style="height: 32px"
+                               uib-datepicker-popup="yyyy/MM/dd" ng-model="eleCardSell.memberInfo.birthday"
+                               is-open="popup2.opened" ng-required="true" close-text="Close"
+                               tooltip-trigger="blur" placeholder="请选择生日"
+                         	   uib-tooltip="{{eleCardForm.birthday2.$invalid?'请选择生日':''}}"
+                           	   tooltip-placement="bottom" required/>
+							<span class="input-group-btn ">
+							 	<button type="button" class="btn btn-default company-btn-date"  ng-click="popup2.opened = true;">
+                                 	<i class="glyphicon glyphicon-calendar"></i>
+                                 </button>
+						    </span>
+                    </p -->
+                    <month-select month="eleCardSell.memberInfo.birthday" ng-model="eleCardSell.memberInfo.birthday" format="YYYY-MM-DD" required></month-select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label control-label-left" for="byInviteCode2">邀请码：</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control form-control-input" name="byInviteCode" id="byInviteCode2"
+                           ng-model="eleCardSell.memberInfo.byInviteCode" maxlength="6" placeholder="请输入6位邀请码" tooltip-trigger="blur"
+                           uib-tooltip="{{eleCardForm.byInviteCode2.$invalid?'请输入正确6位邀请码！':''}}"
+                           tooltip-placement="bottom" ng-pattern="/^[0-9A-Z]{6}$/" 
+                           ng-blur="checkByInviteCode(1)" />
+                </div>
+                <div class="col-sm-2" ng-if="eleCardSell.memberInfo.byInviteName" style="color:#666666; padding-top:7px;">
+                    <span>邀请人：</span>
+                    <span ng-bind="eleCardSell.memberInfo.byInviteName"></span>
+                </div>
+                <!--<label class="col-sm-2 control-label control-label-left " ng-if="eleCardSell.memberInfo.byInviteName">邀请人：</label>-->
+                <!--<div class="col-sm-2" ng-if="eleCardSell.memberInfo.byInviteName">-->
+                    <!--<p class="form-control-static"  ng-bind="eleCardSell.memberInfo.byInviteName" ></p>-->
+                <!--</div>-->
+            </div>
+
+            <div class="col-sm-offset-1 more" ng-click="eleCardSell.isCollapsed = !eleCardSell.isCollapsed"
+                 ng-init="eleCardSell.isCollapsed = true;"
+                 style="margin-bottom: 5px;">
+                <span ng-bind="eleCardSell.isCollapsed|getMore:eleCardSell.isCollapsed"></span>
+                <flex flex-data="!eleCardSell.isCollapsed" style="float:none;"></flex>
+            </div>
+            <div uib-collapse="eleCardSell.isCollapsed">
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label control-label-left" for="nation2">民族：</label>
+                    <div class="col-sm-6 ">
+                        <select class="form-control form-control-input" name="nation2" id="nation2"
+                                ng-model="eleCardSell.memberInfo.nation">
+                            <option ng-repeat="nationNode in nationList" value="{{nationNode.value}}">
+                                {{nationNode.name}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label control-label-left">证件：</label>
+                    <div class="col-sm-2">
+                        <select class="form-control form-control-input " name="cardKind2" id="cardKind2"
+                                ng-model="eleCardSell.memberInfo.cardKind">
+                            <option ng-repeat="cardKindNode in cardKindList" value="{{cardKindNode.value}}">
+                                {{cardKindNode.name}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="text" placeholder="请输入证件号码" class="form-control form-control-input " id="certificateNo2"
+                               name="certificateNo2" ng-model="eleCardSell.memberInfo.certificateNo"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="workUnit2" class="col-sm-2 control-label control-label-left">单位：</label>
+                    <div class="col-sm-3 ">
+                        <input type="text" placeholder="请输入单位" class="form-control form-control-input" id="workUnit2" name="workUnit2"
+                               ng-model="eleCardSell.memberInfo.workUnit"/>
+                    </div>
+                    <label for="job" class="col-sm-1 control-label control-label-left ">职位：</label>
+                    <div class="col-sm-2 ">
+                        <input type="text" placeholder="请输入职位" class="form-control form-control-input " id="job2" name="job2"
+                               ng-model="eleCardSell.memberInfo.job"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="address2" class="col-sm-2 control-label control-label-left">地址：</label>
+                    <div class="col-sm-6 ">
+                        <input type="text" placeholder="请输入地址" class="form-control form-control-input " id="address2" name="address2"
+                               ng-model="eleCardSell.memberInfo.address"/>
+                    </div>
+                </div>
+                <div class="form-group" style="margin-bottom:35px;">
+                    <label for="note2" class="col-sm-2 control-label control-label-left">备注：</label>
+                    <div class="col-sm-6 ">
+                        <textarea type="text" class="form-control form-control-input " id="note2" name="note2" maxlength="20"
+                                  ng-model="eleCardSell.memberInfo.note" style="height: auto;"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <button type="submit" class="btn btn-primary btn-large btn-ok" ng-disabled="eleCardForm.$invalid
+                    ||eleCardSell.isRegistered || !eleCardSell.isValidCode
+                    ||!eleCardSell.cardInfo.cardNo
+                    ||( eleCardSell.memberInfo.byInviteCode && !eleCardSell.isValidInvite)">保存</button>
+                </div>
+                <div>
+                    <button type="button" class="btn  btn-default btn-large btn-cancel" ng-click="cancel()">取消</button>
+                </div>
+            </div>
+        </form>
+    </uib-tab>
+</uib-tabset>
+</div>
+
+
+

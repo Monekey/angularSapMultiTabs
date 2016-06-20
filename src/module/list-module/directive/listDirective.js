@@ -21,7 +21,7 @@ define(function (require) {
                     "pageSet": "="
                 },
                 replace: 'true',
-                templateUrl: 'resources/module/list-module/template/page_list.html',
+                templateUrl: 'src/module/list-module/template/page_list.html',
                 controller: 'com.tcsl.crm7.list2.pageListController'
             };
         }]);

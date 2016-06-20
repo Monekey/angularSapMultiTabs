@@ -1,0 +1,48 @@
+<div id="detailed">
+    <div class="reporter-text">
+        门店：<span>{{resultList.pageInfo.list[0].cname}}</span>
+    </div>
+        <div class="list-page">
+			<div class="canvas_title canvas-title-special">
+				<span class="canvas-title-1 ">门店结算报表</span>
+				<a class="list-table-button" ng-click="exportFile()">导出excel</a>
+			</div>
+            <condition-filter ng-hide="true" conditions="conditions"></condition-filter>
+            <div class="batch-charge-table">
+                <div class="list-table">
+                        <table class="table table-striped table-style-all">
+                            <tbody  class="text-nowrap">
+                                <tr  class="table-text-align">
+                                    <th>序号</th>
+                                    <th>本店名称</th>
+                                    <th>它店名称</th>
+                                    <th>它在本储值(元)</th>
+
+                                    <th>它在本消费(元)</th>
+                                    <th>本在它储值(元)</th>
+                                    <th>本在它消费(元)</th>
+                                    <th>结算结果</th>
+                                </tr>
+
+                                <tr ng-repeat="shop  in resultList.pageInfo.list" class="table-text-align">
+                                    <td style="text-align: right !important;">{{$index + 1}}</td>
+
+                                    <td>{{shop.cname}}</td>
+                                    <td>{{shop.name}}</td>
+                                    <td ng-click='openSaveMoney(shop,2)'><a>{{shop.in_tazaiben}}</a></td>
+                                    <td ng-click='openConsume(shop,1)'><a>{{shop.out_tazaiben}}</a></td>
+                                    <td ng-click='openSaveMoney(shop,1)'><a>{{shop.in_benzaiben}}</a></td>
+                                    <td ng-click='openConsume(shop,2)'><a>{{shop.out_benzaiben}}</a></td>
+                                    <td>{{shop.query}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                </div>
+            </div>
+	    </div>
+    <uib-pagination ng-show="resultList.pageInfo.total>10" total-items="resultList.pageInfo.total"
+                    ng-model="pageSet.currentPage" items-per-page="pageSet.numPerPage"
+                    max-size="pageSet.maxSize" class="pagination-ul pagination-sm" boundary-links="true"
+                    force-ellipses="true" ng-change="pageChanged()" previous-text="上一页"
+                    next-text="下一页" first-text="首页" last-text="尾页"></uib-pagination>
+</div>

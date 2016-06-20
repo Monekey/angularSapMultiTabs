@@ -1,0 +1,101 @@
+<div class="list-page two-form">
+	<div class="canvas_title">开卡信息
+	</div>
+	<div class="panel-body open-card-body">
+		<form class="form-horizontal" autocomplete="off" name="openNewCardForm" ng-submit="saveNewCard(newCard)"  novalidate> 
+	        
+	        <div class="form-group">
+	            <label for="text" class="col-sm-2 control-label control-label-left"><font color="red">*</font>起始卡号:</label>
+	            <div class="col-sm-1 open-card-p">
+	                <select ng-model="newCard.prefixInitNum"  required  class="form-control onen-card-connect-left" ng-change="checkInitNum(newCard)" >
+	                	<option ng-repeat="node in preNumList"  value="{{node}}">{{node}}</option>
+	                </select>
+	            </div>
+	            <div class="col-sm-4 open-card-p">
+	                <input type="text" class="form-control open-card-connect-right"  id="initNum" name="initNum" ng-model="newCard.initNum"  required placeholder="请输入4到15位数字作为起始卡号"
+	                ng-blur="checkInitNum(newCard)" style="padding-left: 5px;" maxlength="15"/>
+	            </div>
+	        </div>
+	        <div class="form-group">
+	            <label class="col-sm-2 control-label  control-label-left" for="openCount"><font color="red">*</font>张数:</label>
+	            <div class="col-sm-5 company-col">
+	                <input type="text" ng-pattern="/^\d+$/" class="form-control"  name="openCount" id="openCount"  ng-model="newCard.openCount"  style="width:100px;display: inline-block;" required
+	                placeholder="" ng-keyup="newCard.openCount=newCard.openCount>=1?newCard.openCount:''" maxlength="5">
+	                <span>注：每天最多开卡10001张</span>
+	            </div>
+	        </div>
+	        <div class="form-group">
+	            <div class="col-sm-offset-2 col-sm-10  company-col">
+	            	<label class="checkbox-inline">
+	                	<input type="checkbox"  id="isShield" name="isShield" ng-model="newCard.isShield"  ng-true-value="1"  ng-false-value="0" />屏蔽数字
+	                </label>
+	            </div>
+	        </div>
+	        <div class="form-group" class="form-control ng-hide" ng-show="newCard.isShield==1">
+	            <div class="col-sm-offset-2 col-sm-10 company-col">屏蔽卡号末
+	            	<input type="text" ng-pattern="/^\d+$/" class="form-control" name="shieldTailCount" id="shieldTailCount"  ng-model="newCard.shieldTailCount" style="width:80px;display: inline-block;"
+	            	ng-keyup="newCard.shieldTailCount=newCard.shieldTailCount>=1?newCard.shieldTailCount:''" maxlength="1"></input>
+	            	位，需要屏蔽的数字为
+	            	<input type="text" class="form-control" name="shieldTailNums" id="shieldTailNums"  ng-model="newCard.shieldTailNums" style="width:120px;display: inline-block;"></input>
+	            	注：多个数字用英文","隔开
+	            </div>
+	        </div>
+	        <div class="form-group">
+	        	 <label for="endNum" class="col-sm-2 control-label control-label-left"><font color="red">*</font>截止卡号:</label>
+	        	 <div class="col-sm-5 company-col">
+		          <input type="text" class="form-control"  id="endNum" name="endNum" ng-model="newCard.endNum" style="display: inline-block;" readonly="readonly" required  />
+	             </div>
+	              <div class="col-sm-2">
+	                <button type="button" class="main-all-btn-w"  ng-click="generateEndNum()">获取</button>
+		         </div>
+	        </div>
+	        <div class="form-group">
+	        	 <label for="shopId" class="col-sm-2 control-label control-label-left"><font color="red">*</font>开卡门店:</label>
+	        	 <div class="col-sm-3 company-col">
+		          	<select class="form-control" id="shopId" name="shopId" ng-model="newCard.shopId"  required>
+		          		<option ng-repeat="shopInfo in allShopList"  value="{{shopInfo.id}}">{{shopInfo.name}}</option>
+		          	</select>
+		         </div>
+	        </div>
+	        <div class="form-group">
+	        	 <label for="cardTypeId" class="col-sm-2 control-label control-label-left"><font color="red">*</font>卡类型:</label>
+	        	 <div class="col-sm-3 company-col">
+		          	<select class="form-control" id="cardTypeId" name="cardTypeId" ng-model="newCard.cardTypeId" required>
+		          		<option ng-repeat="cardTypeInfo in allCardTypeList"  value="{{cardTypeInfo.value}}">{{cardTypeInfo.showName}}</option>
+		          	</select>
+		         </div>
+		         <div class="col-sm-2 create-card-text">
+		          	<a ng-click="doCreateCardType()">新建卡型</a>
+		         </div>
+	        </div>
+	       <div class="form-group">
+	        	 <label for="validate" class="col-sm-2 control-label control-label-left" ><font color="red">*</font>有效期:</label>
+	        	 <div class="col-sm-10 company-col" id="validate" >
+		          	<label class="radio-inline"><input type="radio" name="validateType" id="validateType1" ng-model="newCard.validateType" value="1" ng-click="changeValidateType('1')"/>永久有效</label>
+		          	<label class="radio-inline"><input type="radio" name="validateType" id="validateType2" ng-model="newCard.validateType" value="2" ng-click="changeValidateType('2')"/>固定有效期</label>
+		          	<label class="radio-inline"><input type="radio" name="validateType" id="validateType3" ng-model="newCard.validateType" value="3" ng-click="changeValidateType('3')"/>相对有效期</label>
+		         </div>
+	        </div>
+			<div class="form-group">
+				<div ng-hide="hideBetweenTime" class="col-sm-offset-2 col-sm-5 company-col">
+					<period start-time="newCard.validateBeginTime" end-time="newCard.validateEndTime"></period>
+				</div>
+			</div>
+			<div class="form-group">
+				<div ng-hide="hideRelatvieDays" class="col-sm-offset-2 col-sm-10 company-col">
+					从售卡之日起<input type="text"  ng-pattern="/^\d+$/" id="relativeDays" name="relativeDays" ng-model="newCard.relativeDays" class="form-control w50" style="display: inline-block"
+								 ng-keyup="newCard.relativeDays=newCard.relativeDays>=1?newCard.relativeDays:''">天有效
+				</div>
+			</div>
+	        <div class="form-group">
+	            <div class="col-sm-offset-2 form-btn-left">
+	            <button type="submit" class="btn btn-primary main-all-btn-b" ng-disabled="openNewCardForm.$invalid || forbideSave" >保存</button>
+	            </div>
+	            <div class="col-sm-6 form-btn-right">
+	                <button type="button" class="main-all-btn-w" ng-click="cancel()">取消</button>
+	            </div>
+        	</div>
+	    </form>
+	</div>
+</div>
+

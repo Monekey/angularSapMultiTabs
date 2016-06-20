@@ -1,0 +1,92 @@
+<div class="overwrite-tab">
+    <uib-tabset active="activeForm">
+        <!-- 会员tab -->
+        <uib-tab index="0" heading="会员">
+            <!-- 过滤条件 -->
+            <condition-filter conditions="conditions"></condition-filter>
+            <!-- 会员列表展现 -->
+            <div class="list-page">
+                <div class="canvas_title " ng-bind="pageSet.title"></div>
+                <div class="list-table">
+                    <ul class="list-group list-group-special">
+                        <li class="list-group-item list-group-item-special list-members-manager" ng-repeat="member in resultList.pageInfo.list">
+                            <div class="media-left">
+                            	<span ng-if="member.photo && member.photo !=''">
+                                    <IMG class="media-object member-img" ng-src="{{imgServer + member.photo}}" alt="">
+                                </span>
+                                <span ng-if="!member.photo || member.photo ==''">
+                                    <IMG ng-if="!member.sex" CLASS="MEDIA-OBJECT member-img"
+                                         ng-src="resources/assets/images/member/female.png" ALT="..."/>
+                                    <IMG ng-if="member.sex" CLASS="MEDIA-OBJECT member-img"
+                                         ng-src="resources/assets/images/member/male.png" ALT="..."/>
+                                </span>
+                            </div>
+                            <div class="media-body membesr-manager-body">
+                                <div class="row member-head">
+                                    <div class="col-xs-5 member-list-head" >
+                                        <span ng-if="member.name && member.name !=''"><span ng-bind="member.name"></span></span>
+                                        <span ng-if="!member.name || member.name ==''" >无</span>
+                                        <!-- 男女标识 -->
+		                        	<span >
+                                         <i ng-if="!member.sex" class="iconfont" style="color: #ef4480;font-weight: normal;">&#xe648;</i><!-- 女-->
+                                         <i ng-if="member.sex"   class="iconfont" style="color: #1f66c7;font-weight: normal;">&#xe649;</i><!-- 男-->
+	                            	</span>
+                                        <!-- 账号类型 -->
+		                            <span >
+                                        <i ng-if="member.accountTypeId ==1" class="iconfont" style="color: #0dc91a;font-weight: normal;">&#xe64f;</i>
+                                        <i ng-if="member.accountTypeId ==2" class="iconfont" style="color: #ff8400;font-weight: normal;">&#xe64e;</i>
+                                        <i ng-if="member.accountTypeId ==3" class="iconfont" style="color: #009de8;font-weight: normal;">&#xe650;</i>
+	                            	</span>
+                                        <!-- 是否黑名单 -->
+		                            <span >
+		                            	<a ng-if="member.status" class="member-walled member-walled-s" ng-click="popBacklistInfo(member)">黑名单</a>
+		                            </span>
+                                    </div>
+                                    <div class="col-xs-7">
+                                        <!-- 操作按钮 -->
+		                            <span class="members-manager-btn" >
+		                            <a ng-if="memberCardBtn" ng-click="doCardDetail(member)" style="margin-right: 15px;">会员卡<span ng-if="member.cardCount" class="badgemember"><span ng-bind="member.cardCount"></span></span></a>
+		                            <a ng-if="sendMsgBtn" ng-click="sendMsg(member)" style="margin-right: 15px;">发送消息</a>
+		                            <a ng-if="editBtn" ng-click="doMemeberEdit(member)" style="margin-right: 15px;">修改</a>
+		                            <a ng-if="detailBtn" ng-click="doMemeberDetail(member)" style="margin-right: 15px;">详情</a>
+		                            <a  ng-click="doMemberStatus(member)" ng-if="!member.status && blackListBtn"
+                                        style="margin-right: 5px;">加入黑名单</a>
+		                            <a  ng-click="doMemberStatus(member)" ng-if="member.status && blackListBtn"
+                                        style="margin-right: 5px;">移除黑名单</a>
+		                            </span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-3"><i class="iconfont" style="color:#609ae8;margin-right:5px;">&#xe634;</i><span ng-bind="member.mobile"></span></div>
+                                    <div class="col-xs-3">邀请人：<span ng-bind="member.byInviteMemberName"></span></div>
+                                    <div class="col-xs-6">所属门店：<span ng-bind="member.shopName"></span></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <!--<IMG CLASS="MEDIA-OBJECT members-manager-img-2" src="resources/assets/images/member/birthday.png">-->
+                                        <i class="iconfont" style="color:#ffad4d;margin-right:5px;">&#xe62f;</i>
+                                        <span ng-bind="member.birthday|limitTo:10"></span>(阳历)
+                                    </div>
+                                    <div class="col-xs-3">我的邀请码：<span ng-bind="member.myInviteCode"></span></div>
+                                    <div class="col-xs-6">加入时间：<span ng-bind="member.createTime"></span></div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pageination-special" ng-show="resultList.pageInfo.total>10">
+                <uib-pagination  total-items="resultList.pageInfo.total" ng-model="pageSet.currentPage"
+                                items-per-page="pageSet.numPerPage" class="pagination-ul pagination-sm"
+                                max-size="pageSet.maxSize"
+                                boundary-links="true" force-ellipses="true" ng-change="pageChanged()"
+                                previous-text="上一页"
+                                next-text="下一页" first-text="首页" last-text="尾页"></uib-pagination>
+                <div class="pagination-total">总共{{resultList.pageInfo.total}}条</div>
+            </div>
+        </uib-tab>
+        <!-- <uib-tab index="1" heading="会员群组">
+            	正在开发中……
+        </uib-tab> -->
+    </uib-tabset>
+</div>

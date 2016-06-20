@@ -1,0 +1,96 @@
+ <div class="company-edit">
+    <form class="form-horizontal two-form" autocomplete="off" name="updateShopForm" ng-submit="saveShop(shop)" novalidate>
+        <div class="form-group">
+            <label class="col-sm-2 control-label control-label-left company-img">门店图片：</label>
+            <div class="col-sm-10 company-col col-company-img">
+                <img ng-src="{{imgServer + shop.img}}"  id="pic1" ng-if="shop.img" class="ed-shop-img" >
+                <!-- <img ngf-thumbnail="file || '/thumb.jpg'">-->
+                <img ngf-src="file" class="ed-shop-img" ngf-resize="{width: 110, height: 110, quality: 0.9}" ngf-no-object-url="true" >
+            </div>
+        </div>
+        <div class="row ">
+             <div class="col-sm-2"></div>
+             <div class="bt-upload-shop">
+                 <button type="button" id="img" class="main-all-btn-w " ngf-select="uploadShopImg($file, 'pic1', 'file1')" id="file1" accept="image/*">上传</button>
+                 <!--<input type="file" id="img" class="btn btn-default" ngf-select="uploadShopImg($file)" accept="image/*"/>-->
+
+             </div>
+            支持bmg,jpeg,jpeg,png,gif格式图片,文件需小于2M
+        </div>
+        <div class="form-group">
+            <label for="shopName" class="col-sm-2 control-label control-label-left">门店名称：</label>
+            <div class="col-sm-10 company-col">
+                <input type="text" class="form-control form-control-input ed-company"  id="shopName" name="shopName" placeholder="门店名称" maxlength="20" ng-model="shop.name" required tooltip-trigger="blur"
+                      ng-pattern="/^[A-Za-z0-9\u4e00-\u9fa5]{1,20}$/" uib-tooltip="{{updateShopForm.shopName.$invalid?'门店名称由数字、中文、英文组成':''}}" tooltip-placement="bottom">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label control-label-left" for="brand">品牌：</label>
+            <div class="col-sm-4 company-col">
+                <select  class="form-control form-control-input ed-company-2" name="brand" id="brand"  ng-selected="shop.brandId == brand.value"
+                         ng-options="brand.value as brand.showName for brand in brandList" ng-model="shop.brandId">
+                  <!--  <option ng-repeat="brand in brandList" ng-selected="shop.brandId == brand.value" >{{brand.showName}}</option>-->
+                </select>
+                <a ng-click="createBrand()">创建新品牌</a>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label control-label-left" for="district">所在地区：</label>
+            <!--<province-city-switch division="division" address="address"></province-city-switch>-->
+            <div class="col-sm-2 padding-s" >
+                <select  class="form-control form-control-input ed-company"  ng-model="province" ng-options="province.name for province in division"
+                        ng-change="changeProvince(province)">
+                    <option value="" class="form-control-point">省</option>
+                </select>
+            </div>
+            <div class="col-sm-2 padding-s" >
+                <select class="form-control form-control-input ed-company" style=""  ng-model="city" ng-options="city.name for city in province.subAreas">
+                    <option value="" class="form-control-point">市</option>
+                </select>
+            </div>
+            <div class="col-sm-2 padding-s">
+                <select class="form-control form-control-input ed-company" style="" ng-model="district" ng-options="area.name for area in city.subAreas" name="district" id="district" tooltip-trigger="blur"
+                        uib-tooltip="{{updateShopForm.district.$invalid?'请选择地区':''}}" tooltip-placement="bottom" required>
+                    <option value="" class="form-control-point">区</option>
+                </select>
+            </div>
+            <div class="col-sm-4 padding-s">
+                <label for="address" class="col-sm-3 control-label control-label-left">区域：</label>
+                <div class="col-sm-9 company-col company-edit-address control-label-input">
+                    <span class="ed-company form-control-point" ng-bind="area"></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="address" class="col-sm-2 control-label control-label-left">详细地址：</label>
+            <div class="col-sm-10 company-col">
+                <input type="text" class="form-control form-control-input ed-company-2 ed-company" id="address" name="address" placeholder="详细地址" ng-model="shop.address" tooltip-trigger="blur"
+                       uib-tooltip="{{updateShopForm.address.$invalid?'请填写详细地址':''}}" tooltip-placement="bottom" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="linkMan" class="col-sm-2 control-label control-label-left">联系人：</label>
+            <div class="col-sm-10 company-col">
+                <input type="text" class="form-control form-control-input ed-company"  id="linkMan" name="linkMan" placeholder="联系人" ng-model="shop.linkMan"  tooltip-trigger="blur"
+                       uib-tooltip="{{updateShopForm.linkMan.$invalid?'请填写有效的联系人':''}}" tooltip-placement="bottom"  maxlength="5">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="phone" class="col-sm-2 control-label control-label-left">手机号：</label>
+            <div class="col-sm-10 company-col">
+                <input type="text" class="form-control form-control-input ed-company-3 ed-company" name="phone" id="phone" placeholder="手机号" ng-model="shop.phone" tooltip-trigger="blur"
+                       uib-tooltip="{{updateShopForm.phone.$invalid?'请填写有效的手机号码':''}}" tooltip-placement="bottom" ng-pattern="/^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 form-btn-left">
+                <button type="submit" class="btn btn-primary main-all-btn-b" ng-disabled="updateShopForm.$invalid">保存</button>
+            </div>
+            <div class="col-sm-6 form-btn-right">
+                <button type="button" class="main-all-btn-w" ng-click="cancel()">取消</button>
+            </div>
+        </div>
+    </form>
+
+</div>
+

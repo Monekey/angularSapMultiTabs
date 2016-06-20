@@ -263,13 +263,13 @@ define(function (require) {
         return function (typeName) {
             var src = "";
             switch (typeName){
-                case '支付宝': src="resources/assets/images/pos/payment/zhifubao.png"; break;
-                case '现金': src="resources/assets/images/pos/payment/xianjin.png"; break;
-                case '微信': src="resources/assets/images/pos/payment/weixinzhifu.png"; break;
-                case '闪惠': src="resources/assets/images/pos/payment/shanhui.png"; break;
-                case '信用卡': src="resources/assets/images/pos/payment/creditcard.png"; break;
-                case '支票': src="resources/assets/images/pos/payment/piao.png"; break;
-                case '其他': src="resources/assets/images/pos/payment/other.png";break;
+                case '支付宝': src="src/assets/images/pos/payment/zhifubao.png"; break;
+                case '现金': src="src/assets/images/pos/payment/xianjin.png"; break;
+                case '微信': src="src/assets/images/pos/payment/weixinzhifu.png"; break;
+                case '闪惠': src="src/assets/images/pos/payment/shanhui.png"; break;
+                case '信用卡': src="src/assets/images/pos/payment/creditcard.png"; break;
+                case '支票': src="src/assets/images/pos/payment/piao.png"; break;
+                case '其他': src="src/assets/images/pos/payment/other.png";break;
             }
             // console.log(text+":"+css);
             return src;

@@ -10,9 +10,9 @@
  */
 define(function (require) {
     var angular = require("angular");
-    var module = require("ngAjaxService");
+    var ngAMD = require("ngAMD");
     var appConst = require("ngConstant");
-    module.directive('topBar', [
+    ngAMD.directive('topBar', [
         function () {
             return {
                 restrict: 'E',
@@ -22,12 +22,12 @@ define(function (require) {
                     "tabStatus": '='
                 },
                 replace: 'true',
-                templateUrl: 'resources/module/top-bar/template/topBar.html',
+                templateUrl: 'src/module/top-bar/template/topBar.html',
                 controller: 'com.tcsl.crm7.topBarController'
             };
         }]);
 
-    module.directive('flex', [//页面模块按钮通用伸缩事件
+    ngAMD.directive('flex', [//页面模块按钮通用伸缩事件
         function () {
             return {
                 restrict: 'E',
@@ -49,7 +49,7 @@ define(function (require) {
             };
         }]);
 
-    module.controller('com.tcsl.crm7.topBarController', [
+    ngAMD.controller('com.tcsl.crm7.topBarController', [
         '$scope',
         '$rootScope',
         '$state',

@@ -1,0 +1,52 @@
+<div id="savemoneydesc">
+        <div class="list-page">
+		<div class="canvas_title ">
+			<div class="canvas-title-1">付款方式分布</div>
+            <a class="list-table-button" ng-click="exportFile()">导出excel</a>
+		</div>
+			<div class="row">
+				<div class=" col-xs-6">
+					<div class="saveMoneyChart">
+						<div id="bttype{{index}}" style="width:400px;height:400px;"></div>
+					</div>
+				</div>
+				<div class=" col-xs-6 ">
+                    <div class="panel-body">
+                        <div class="list-page list-page-reporter">
+                            <table class="table table-striped table-style-all">
+                                <tbody class="text-nowrap">
+                                <tr class="table-text-align">
+                                    <th style="text-align: center">付款方式</th>
+                                    <th>笔数</th>
+                                    <th>储值本金(元)</th>
+                                    <th>储值赠送金额(元)</th>
+                                </tr>
+
+                                <tr ng-repeat="row in data track by $index" ng-class="{'table-first-row':$index==0}" class="table-text-align">
+                                    <td>{{row.name}}</td>
+                                    <td>{{row.bishu}}</td>
+                                    <td>{{row.value}}</td>
+                                    <td>{{row.zengsongjine}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+				</div>
+			</div>
+	    </div>
+
+        <condition-filter conditions="conditions"></condition-filter>
+        <!--<div class="list-table">-->
+		<!--<ul class="canvas_title tab btn-group tn-group-s">-->
+			<!--<li class="canvas-title-1">储值明细表</li>-->
+            <!--<a style="margin-right:20px;float:right" ng-click="exportFile()">导出excel</a>    			-->
+		<!--</ul>		-->
+	    <!--</div>-->
+        <div class="row reporter-text">
+            <div class="col-xs-4">交易笔数：<span>{{resultList.data[0].bishu}}</span></div>
+            <div class="col-xs-4">储值本金(元)：<span>{{resultList.data[0].value}}</span></div>
+            <div class="col-xs-4">储值赠送金额(元)：<span>{{resultList.data[0].zengsongjine}}</span> </div>
+        </div>
+        <page-list results="resultList" request-obj="requestObj" page-set="pageSet"></page-list>
+</div>

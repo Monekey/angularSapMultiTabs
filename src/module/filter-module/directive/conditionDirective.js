@@ -8,7 +8,7 @@
  */
 define(function (require) {
     var angular = require("angular");
-    var period = require("module/period-module/directive/periodDirect");
+    var period = require("period");
 
     var listModule = angular.module("com.tcsl.crm7.list", ['com.tcsl.crm7.service', 'ui.bootstrap']);
     //自定义筛选器指令
@@ -21,7 +21,7 @@ define(function (require) {
                     "resultName": "@"
                 },
                 replace: 'true',
-                templateUrl: 'resources/module/filter-module/template/condition_filter.html',
+                templateUrl: 'src/module/filter-module/template/condition_filter.html',
                 controller: 'com.tcsl.crm7.list.filterController'
             };
         }]);
@@ -336,7 +336,7 @@ define(function (require) {
                 if (list.length > 7) {//同一个过滤条件超过七个值，则分两个数组显示
                     var newArray = angular.copy(list);
                     more.value = list.splice(0, 7);
-                    more.templateUrl = "resources/module/filter-module/template/popver.html";
+                    more.templateUrl = "src/module/filter-module/template/popver.html";
                     more.moreValue = newArray.splice(7, (newArray.length - 1));
                 }
             }

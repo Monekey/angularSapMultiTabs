@@ -1,0 +1,62 @@
+<div>
+    <div class="score-rule-detail">
+        <dl class="rule-detail-dl row">
+            <dt class="rule-detail-dt">
+                <span class="rule-detail-dt-icon">■</span><span>基本信息</span>
+            </dt>
+            <dd>
+                <div>
+                    <span>升级规则名称：</span>
+                    <span ng-bind="card_upgrade_detaildata.name"></span>
+                </div>
+            </dd>
+            <dd>
+                <div class="">
+                    <span>升级规则类型：</span>
+                    <span ng-if="card_upgrade_detaildata.upgradeType==1">消费满</span>
+                    <span ng-if="card_upgrade_detaildata.upgradeType==3">积分满</span>
+                    <span ng-if="card_upgrade_detaildata.upgradeType==2">充值满</span>
+                    <span ng-if="card_upgrade_detaildata.upgradeType==4">余额满</span>
+                </div>
+            </dd>
+            <dd>
+                <div class="upgrade-rule-detail-concrete">
+                    <div> 规则内容：</div>
+                    <div class="upgrade-rule-detail-concrete-content">
+                    <table class="table table-striped table-style-all" style="border:1px solid #ddd;">
+                        <tr class="table-tr-first">
+                            <th>升级条件</th>
+                            <th>升级为</th>
+                        </tr>
+                        <tr ng-repeat="one in card_upgrade_detaildata.initList track by $index">
+                            <td>
+                                <span ng-if="card_upgrade_detaildata.upgradeType==1&&$index!=0">消费满(元)</span>
+                                <span ng-if="card_upgrade_detaildata.upgradeType==2&&$index!=0">充值满(元)</span>
+                                <span ng-if="card_upgrade_detaildata.upgradeType==3&&$index!=0">积分满(分)</span>
+                                <span ng-if="card_upgrade_detaildata.upgradeType==4&&$index!=0">余额满(元)</span>
+                                <span ng-if="$index==0">初始卡型:</span>
+                                <span ng-if="$index!=0" ng-bind="one.value"></span>
+                            </td>
+                            <td>
+                                <span ng-repeat="cardtype in comboList|filter:{'id':one.upCardTypeId}">{{cardtype.typeName}}</span>
+                            </td>
+                        </tr>
+                    </table>
+                        </div>
+                </div>
+            </dd>
+        </dl>
+        <hr/>
+        <div class="row score-rule-detail-btn">
+            <!--<dt>-->
+            <div class="form-btn-left score-rule-detail-edit-btn">
+                <button type="button " class="btn btn-primary main-all-btn-b" ng-click="gotoEdit(card_upgrade_detaildata) " ng-if="editcardUpgrade">修改</button>
+            </div>
+            <div class="col-sm-6 form-btn-right">
+                <button type="button " class="btn btn-default main-all-btn-w" ng-click="cancel() ">返回</button>
+            </div>
+            <!--</dt>-->
+
+        </div>
+    </div>
+</div>
