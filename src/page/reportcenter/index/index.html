@@ -1,0 +1,76 @@
+<div id="index">
+    <div class="shaixuan">
+        <div class="list-page">
+            <ul class="canvas_title canvas-title-special">
+                <li>关键指标</li>
+            </ul>
+            <table  class="table table-striped table-style-all" width="100%" style="margin-bottom: 0;">
+                <tbody class="tbody">
+                <tr class="report-head-color table-text-align">
+                    <th style="background-color:#d4eece;"></th>
+                    <th style="background-color:#d4eece;">总营业额(元)</th>
+                    <th style="background-color:#d4eece;">总笔数</th>
+                    <th style="background-color:#d4eece;">会员消费(元)</th>
+                    <th style="background-color:#d4eece;">会员笔数</th>
+                    <th style="background-color:#d4eece;">刷卡会员占比</th>
+                    <th style="background-color:#d4eece;">客单价(元)</th>
+                    <th style="background-color:#d4eece;">会员客单价(元)</th>
+                    <th style="background-color:#DFF1F3;">储值笔数</th>
+                    <th style="background-color:#DFF1F3;">储值金额(元)</th>
+                </tr>
+                <tr ng-repeat="query in list" class="table-text-align">
+                    <td ng-bind="query.showDate"></td>
+                    <td ng-bind="query.turnoverMoney"></td>
+                    <td ng-bind="query.turnoverCount"></td>
+                    <td ng-bind="query.memberMoney"></td>
+                    <td ng-bind="query.memberCount"></td>
+                    <td ng-bind="query.payCardProportion"></td>
+                    <td ng-bind="query.turnoverMoneyAvg"></td>
+                    <td ng-bind="query.memberMoneyAvg"></td>
+                    <td ng-bind="query.saveMoneyCount"></td>
+                    <td ng-bind="query.saveMoneySum"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="list-page">
+        <div class="canvas_title">
+            <div class="canvas-title-1">趋势分析</div>
+
+            <div class="card-inHead" style="margin-left: 40px;">
+                <div ng-repeat="date in dates track by $index" ng-click="setDateColor(date,2)" class="col-sm-1" style="width:80px;margin-top: 2px;"
+                     ng-cloak><a ng-class="{'add-inHead shaixuan-a-inHead':date.statu, 'shaixuan-a-inHead ': !date.statu}" ng-cloak ng-bind="date.name"><var ng-if="date.count" ng-bind="date.count"></var></a></div>
+                <!--<a class="data-filter" ng-repeat="date in dates"-->
+                   <!--ng-click="setDateColor(date,2)" ng-bind="date.name"></a>-->
+            </div>
+            <i class="iconfont myindex-i" tooltip-trigger="mouseenter"
+                uib-tooltip="注：所选时间段的指标数据包括本月，但都不包含本日。"
+                style="margin-left:20px;float:left" tooltip-placement="right">&#xe652;</i>
+          <!--ng-class="{true:'time-active',false:''}[date.statu]"-->
+        </div>
+        <div class="shaixuan_content clearfix">
+
+            <div class="col-sm-12 b">
+                <div id="main1" style="width: auto; height: 300px"></div>
+            </div>
+            <div class="col-sm-12">
+                <div id="main2" style="width: auto; height: 300px"></div>
+            </div>
+            <div class="col-sm-12">
+                <div id="main3" style="width: auto; height: 300px"></div>
+            </div>
+            <div class="col-sm-12">
+                <div id="main4" style="width: auto; height: 300px"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+

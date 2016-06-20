@@ -1,0 +1,59 @@
+<div class="panel panel-default">
+	<div class="canvas_title"><span>批量售卡</span>
+		<i class="iconfont select-param-i" ng-click="cancel()">&#xe633;</i>
+	</div>
+	<div class="two-form panel-body">
+		<form class="form-horizontal" autocomplete="off" name="batchSellCardForm" ng-submit="saveBatchSellCard(baseCardForSellVo)" > 
+	        
+	        <div class="form-group">
+	            <label for="sellCount" class="col-sm-3 control-label control-label-left"><font color="red">*</font>售卡张数:</label>
+	            <div class="col-sm-3">
+	                <input class="form-control" id="sellCount" type="number" min="0" ng-change="sellCountKeyUp()" ng-model="baseCardForSellVo.sellCount" required ></input>
+	            </div>
+	            
+	        </div>
+	        <div class="form-group">
+	            <div class="col-sm-5 col-sm-offset-3" style="padding-left:20px;">
+	            	<div class="row" style="margin-top:5px;margin-bottom: 5px;">
+	            		<div class="col-sm-12"><span>起始卡号:</span></div>
+	                </div>
+	                <div class="row">
+	            		<div class="col-sm-12" style="display: block;height: 20px;"><span ng-bind="baseCardForSellVo.startNo"></span></div>
+	                </div>
+	                <div class="row" style="margin-top:5px;margin-bottom: 5px;">
+	            		<div class="col-sm-12"><span>截止卡号:</span> </div>
+	                </div>
+	                <div class="row">
+	            		<div class="col-sm-12" style="display: block;height: 20px;"><span ng-bind="baseCardForSellVo.endNo"></span></div>
+	                </div>
+	            </div>
+	        </div>
+	        <div class="form-group">
+	        	 <label for="saledShopId" class="col-sm-3 control-label control-label-left"><font color="red">*</font>售卡门店:</label>
+	        	 <div class="col-sm-5">
+		          	<select class="form-control" id="saledShopId" name="saledShopId" ng-model="baseCardForSellVo.saledShopId"  required>
+		          		<option ng-repeat="shopInfo in allShopList"  value="{{shopInfo.id}}">{{shopInfo.name}}</option>
+		          	</select>
+		         </div>
+	        </div>
+	        
+	        <div class="form-group">
+	        	 <label for="charge" class="col-sm-3 control-label control-label-left">工本费:</label>
+	        	 <div class="col-sm-5" style="padding:7px;">
+		          	<span id="charge" >
+		          	<span ng-bind="baseCardForSellVo.sellCount"></span> x <span ng-bind="baseCardForSellVo.cardCharge | number:2"></span> =  <span ng-bind="baseCardForSellVo.cardCharge*baseCardForSellVo.sellCount | number:2"></span>
+		          	</span>
+		         </div>
+	        </div>
+	        <div class="batch-sell-card-bt">
+	            <div class="form-btn-left">
+	            	<button type="submit" class="btn btn-primary main-all-btn-b " ng-disabled="batchSellCardForm.$invalid">保存</button>
+	            </div>
+	            <div class="form-btn-right">
+	                <button type="button" class="main-all-btn-w " ng-click="cancel()">取消</button>
+	            </div>
+        	</div>
+	    </form>
+	</div>
+</div>
+

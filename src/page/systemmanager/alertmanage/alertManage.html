@@ -1,0 +1,194 @@
+<div>
+    <div class="alert-manage">
+        <uib-tabset active="activeForm">
+            <uib-tab index="0" heading="预警配置">
+                <div class="alert-page">
+                    <div class="col-sm-2 warning-tab">
+                        <div ng-init="activePill=0">
+                            <div>
+                                <div class="ul-head">
+                                    <span>1.预警阈值配置</span>
+                                </div>
+                                <div class="li-content">
+                                    <div ng-class="{'actived-status':activePill==0}" ng-click="activePill=0">
+                                        <span>交易预警</span>
+                                    </div>
+                                    <div ng-class="{'actived-status':activePill==1}" ng-click="activePill=1">
+                                        <span>订单预警</span>
+                                    </div>
+                                    <div ng-class="{'actived-status':activePill==2}" ng-click="activePill=2">
+                                        <span>短信预警</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="ul-head">
+                                    <span>2.预警通知配置</span>
+                                </div>
+                                <div class="li-content">
+                                    <div ng-class="{'actived-status':activePill==3}" ng-click="activePill=3">
+                                        <span>预警通知人</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-10">
+                        <div ng-show="activePill == 0" class="row">
+
+                            <div class="warning-content"
+                                 ng-include="'src/page/systemmanager/alertmanage/alertTransactionUpdate.html'"></div>
+
+                        </div>
+                        <div ng-show="activePill == 1" class="row warning-content">
+                            <div class="row warning-info">
+                                <div class="col-sm-12">
+                                    <label class="alert-label-s">订单预警</label>
+                                    <p>会员卡支付时，<input type="text" ng-pattern="/^\d+$/"
+                                                     ng-model="oderWarning.ruleInfo.inputlimitTime"
+                                                     ng-keyup="oderWarning.ruleInfo.inputlimitTime= oderWarning.ruleInfo.inputlimitTime>=0?oderWarning.ruleInfo.inputlimitTime:''">分钟内，输错密码次数超过<input
+                                            type="text" ng-pattern="/^\d+$/"
+                                            ng-model="oderWarning.ruleInfo.passwordInputErrorCount"
+                                            ng-keyup="oderWarning.ruleInfo.passwordInputErrorCount= oderWarning.ruleInfo.passwordInputErrorCount>=0?oderWarning.ruleInfo.passwordInputErrorCount:''">次
+                                    </p>
+                                    <p>下单后不结单时间超过<input type="text" ng-pattern="/^\d+$/"
+                                                        ng-model="oderWarning.ruleInfo.payLimitTime"
+                                                        ng-keyup="oderWarning.ruleInfo.payLimitTime= oderWarning.ruleInfo.payLimitTime>=0?oderWarning.ruleInfo.payLimitTime:''">分钟
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-2 alert-checkbox">
+                                    <button type="button" class="main-all-btn-b"
+                                            ng-click="saveOrderWarning(oderWarning)" ng-if="edit">保存
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-show="activePill == 2" class="row warning-content">
+                            <div class="row warning-info">
+                                <div class="col-sm-6">
+                                    <label class="alert-label-s">余额预警</label>
+                                    <p>短信不足<input type="text" ng-pattern="/^\d+$/"
+                                                  ng-model="smsWarning.ruleInfo.smsBalance"
+                                                  ng-keyup="smsWarning.ruleInfo.smsBalance= smsWarning.ruleInfo.smsBalance>=0?smsWarning.ruleInfo.smsBalance:''">时提醒
+                                        <i class="iconfont alert-tooltip-icon" tooltip-trigger="mouseenter"
+                                           uib-tooltip="注：余额低于该值时预警，预警时间段：8-22点。"
+                                           tooltip-placement="right" tooltip-append-to-body="true">&#xe652;</i>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-2 alert-checkbox">
+                                    <button type="button" class="main-all-btn-b"
+                                            ng-click="saveMessageWarning(smsWarning)" ng-if="edit">
+                                        保存
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-show="activePill == 3" class="row">
+
+                            <div class="warning-content waring-content-s"
+                                 ng-include="'src/page/systemmanager/alertmanage/alertNoticeManage.html'"></div>
+
+                        </div>
+                    </div>
+                </div>
+            </uib-tab>
+            <uib-tab index="1" heading="预警记录">
+                <div class="warning-records">
+                    <condition-filter conditions="conditions"></condition-filter>
+                    <div class="list-page">
+                        <div class="canvas_title" style="border-bottom: none">
+                            预警记录
+                            <button type="button" class="btn btn-primary list-table-button" ng-click="ignoreLog()"
+                                    ng-if="ignore">忽略
+                            </button>
+                            <button type="button" class="btn btn-primary list-table-button" ng-click="allIgnore()"
+                                    ng-if="ignoreAll">全部忽略
+                            </button>
+                            <button type="button" class="btn btn-primary list-table-button" ng-click="ignoreThisCard()"
+                                    ng-if="ignoreByCard">本卡忽略
+                            </button>
+                        </div>
+                        <div ng-show="!resultList.noData&&resultList.pageInfo.list.length<=0" class="no-data">
+                            <i class="iconfont">&#xe682;</i><span>没有查询到符合条件的筛选记录</span>
+                        </div>
+                        <div ng-show="resultList.noData&&resultList.pageInfo.list.length<=0" class="no-data">
+                            <img src="src/assets/images/list/zanwushuju.png"><span>数据空空如也<span ng-if="pageSet.button && create">，快去
+            <a ng-click="createNew(pageSet.button.newtab)">添加</a> 吧</span>！</span>
+                        </div>
+                        <div class="list-table" ng-show="resultList.pageInfo.list.length>0">
+                            <table class="table table-striped table-style-all alert-log-table">
+                                <tr class="table-tr-first">
+                                    <th><input type="checkbox" id="allRecord" name="allRecord" ng-model="checkAll"
+                                               ng-click="selectAllRecords(checkAll,resultList.pageInfo.list)"></th>
+                                    <th>序号</th>
+                                    <th>预警发生时间</th>
+                                    <th>预警类型</th>
+                                    <th>预警详情</th>
+                                    <th>卡号</th>
+                                    <th>卡型</th>
+                                    <th>姓名</th>
+                                    <th class="list-task-row">操作</th>
+                                </tr>
+                                <tr ng-repeat="data in resultList.pageInfo.list  track by $index"
+                                    class="table-list-special" ng-class="{'ignore-status': data.status==0}">
+                                    <td><input type="checkbox" ng-model="checked" ng-checked="isDataSelected(data)"
+                                               ng-click="updateSelection($event,data)" ng-disabled="data.status==0">
+                                    </td>
+                                    <td>
+                                        <span ng-bind="$index+1"></span>
+                                    </td>
+                                    <td>
+                                        <span ng-bind="data.createTime|date:'yyyy-MM-dd'"></span>
+                                    </td>
+                                    <td>
+                                        <span ng-bind="alertType[data.alertType]"></span>
+                                    </td>
+                                    <td>
+                                        <span ng-bind="data.info"></span>
+                                    </td>
+                                    <td>
+                                        <span ng-bind="data.cardNum"></span>
+                                    </td>
+                                    <td>
+                                        <span ng-bind="data.cardTypeName"></span>
+                                    </td>
+                                    <td>
+                                        <span ng-bind="data.memberName"></span>
+                                    </td>
+                                    <td class="list-task-row">
+                                        <i class="iconfont" tooltip-trigger="mouseenter"
+                                           uib-tooltip="详情" tooltip-placement="top"
+                                           ng-click=" goTradeDetail(data.tsId)" ng-hide="!data.tsId" ng-if="detail">
+                                            &#xe60f;</i>
+                                        <i class="iconfont" tooltip-trigger="mouseenter"
+                                           uib-tooltip="忽略" tooltip-placement="top"
+                                           ng-hide="data.status==0" ng-click=" ignoreThisLog(data.id)" ng-if="ignore">
+                                            &#xe682;</i>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div ng-show="pageSet.totalItems>10">
+                    <uib-pagination  total-items="pageSet.totalItems" ng-model="pageSet.currentPage"
+                                    items-per-page="pageSet.numPerPage" class="pagination-ul pagination-sm"
+                                    max-size="pageSet.maxSize"
+                                    boundary-links="true" force-ellipses="true" ng-change="pageChanged()"
+                                    previous-text="上一页" style="margin-top: -15px"
+                                    next-text="下一页" first-text="首页" last-text="尾页"></uib-pagination>
+                    <div class="pagination-total" style="margin-top: -15px">总共{{resultList.pageInfo.total}}条</div>
+                    </div>
+                    <!--<div class="list-table-button">-->
+
+                    <!--</div>-->
+
+                </div>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+
+</div>

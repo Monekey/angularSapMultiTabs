@@ -25,7 +25,7 @@ define(['angular', 'ui_bootstrap', 'ng_animate'], function (angular) {
                     }
                     var modalInstance = $uibModal.open({
                         animation: true,
-                        templateUrl: 'resources/module/modal/template/modal.html',
+                        templateUrl: 'src/module/modal/template/modal.html',
                         controller: 'com.tcsl.crm7.modalController',
                         size: getSize(info.type,info.size),
                         backdrop: true,

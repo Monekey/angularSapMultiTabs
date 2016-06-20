@@ -21,7 +21,7 @@ define(function (require) {
      bsLoadingOverlayService.setGlobalConfig({
      delay: 0,
      //activeClass: "",
-     templateUrl: 'resources/service/overlay.html'
+     templateUrl: 'src/service/overlay.html'
      });
      bsLoadingOverlayService.start({
      referenceId: 'overlay-div'
@@ -103,70 +103,65 @@ define(function (require) {
         $stateProvider
             .state("login",ngAMD.route({//登录页
                 url: "/login",
-                templateUrl: "resources/page/login/login.html",
-                controllerUrl: "resources/page/login/login.js"
+                templateUrl: "src/page/login/login.html",
+                controllerUrl: "src/page/login/login.js"
             }))
             .state("home",ngAMD.route({//后台
                 url: "/home",
-                templateUrl: "resources/page/home/home.html",
-                controllerUrl: "resources/page/home/home.js"
+                templateUrl: "src/module/home/home.html",
+                controllerUrl: "src/module/home/home.js"
             }))
             .state("report",ngAMD.route({//报表
                 url: "/report",
-                templateUrl: "resources/page/home/home.html",
-                controllerUrl: "resources/page/home/home.js"
+                templateUrl: "src/module/home/home.html",
+                controllerUrl: "src/module/home/home.js"
             }))
             .state("pos", ngAMD.route({//pos页
                 url: "/pos",
-                templateUrl: "resources/page/pos/pos.html",
-                controller:  [
-                    function () {
-                       //$state.go('pos.default');
-                        require('posTopbar');//只在pos系统中加载posTopbar,其它系统无需加载
-                    }
-                ]
+                templateUrl: "src/page/pos/pos.html",
+                controllerUrl: "src/page/pos/posCtrl.js"//只在pos系统中加载posTopbar,其它系统无需加载
             }))
             .state("pos.default", ngAMD.route({//pos页
                 url: "/default",
-                templateUrl: "resources/page/pos/default.html",
-                controllerUrl: "resources/page/pos/posCtrl.js"
+                templateUrl: "src/page/pos/default.html",
+                controllerUrl: "src/page/pos/posCtrl.js"
             }))
 
             .state("pos.selectedpos", ngAMD.route({//pos选择终端页
                 url: "/selectedpos",
-                templateUrl: "resources/page/pos/selectedpos/selectedpos.html",
-                controllerUrl: "resources/page/pos/selectedpos/selectedposCtrl.js"
+                templateUrl: "src/page/pos/selectedpos/selectedpos.html",
+                controllerUrl: "src/page/pos/selectedpos/selectedposCtrl.js"
             }))
             .state("pos.cardoperte",ngAMD.route({//卡操作公共页（左侧共享信息页）
                 url:"/cardoperte",
-                templateUrl:"resources/page/pos/cardoperate/cardoperate.html",
-                controllerUrl:"resources/page/pos/cardoperate/cardoperateCtrl.js"
+                templateUrl:"src/page/pos/cardoperate/cardoperate.html",
+                controllerUrl:"src/page/pos/cardoperate/cardoperateCtrl.js"
             }))
             .state("pos.cardoperte.mainpage",ngAMD.route({//卡操作主页（右侧动态切换页）
                 url:"/mainpage",
-                templateUrl:"resources/page/pos/cardoperate/mainpage/mainpage.html",
-                controllerUrl:"resources/page/pos/cardoperate/mainpage/mainpageCtrl.js"
+                templateUrl:"src/page/pos/cardoperate/mainpage/mainpage.html",
+                controllerUrl:"src/page/pos/cardoperate/mainpage/mainpageCtrl.js"
             }))
             .state("pos.editusr",ngAMD.route({//编辑user页
                 url:"/editusr",
-                templateUrl:"resources/page/pos/editusr/editusr.html",
-                controllerUrl:"resources/page/pos/editusr/editusrCtrl.js"
+                templateUrl:"src/page/pos/editusr/editusr.html",
+                controllerUrl:"src/page/pos/editusr/editusrCtrl.js"
             }))
             .state("pos.postradedetail",ngAMD.route({//pos交易管理
                 url:"/postrademanage/detail",
-                templateUrl:"resources/page/pos/postrademanage/tradeDetail.html",
-                controllerUrl:"resources/page/pos/postrademanage/tradeDetail.js"
+                templateUrl:"src/page/pos/postrademanage/tradeDetail.html",
+                controllerUrl:"src/page/pos/postrademanage/tradeDetail.js"
             }))
             .state("company",ngAMD.route({//集团页
                 url:"/company",
-                templateUrl:"resources/page/basedata/companymanager/companyInfo.html",
-                controllerUrl:"resources/page/basedata/companymanager/companyInfoCtroller.js"
+                templateUrl:"src/page/basedata/companymanager/companyInfo.html",
+                controllerUrl:"src/page/basedata/companymanager/companyInfoCtroller.js"
             }));
     }] );
 
 
-    var ngAMDCtrlRegister = ngAMD.bootstrap(test);
+   // var ngAMDCtrlRegister = ngAMD.bootstrap(app);
     return {
-        ngAMDCtrlRegister: ngAMDCtrlRegister
+        ngAMDCtrlRegister: ngAMD.bootstrap(test)
     };
 });

@@ -1,0 +1,85 @@
+<div>
+
+    <div class="list-page">
+
+        <div class="canvas_title">微信公众号对接:</div>
+
+        <div class="list-table">
+            <table class="table table-bordered">
+                <tr class="userinfo_h1">
+                    <th>微信原始ID</th>
+                    <th>开卡门店</th>
+                    <th>卡型</th>
+                    <th>操作</th>
+                </tr>
+                <tr>
+                    <td>
+                        <div ng-repeat="card in cards">
+                            <input type="checkbox" id={{card.id}} name="{{card.name}}"
+                                   ng-checked="isSelected(card.id)"/>{{card.typeName}}
+                        </div>
+                    </td>
+                    <td>消费预警阈值</td>
+                    <td>储值预警</td>
+                    <td>
+
+                    </td>
+                </tr>
+            </table>
+            <input type="checkbox" ng-checked=""/>允许修改密码
+            <input type="checkbox" ng-checked=""/>开通微信储值
+            卡初始密码： <input type="radio" ng-checked=""/>无密码<input type="radio">手机号后6位
+        </div>
+    </div>
+
+    <div class="list-page">
+        <div class="canvas_title">大众点评对接</div>
+
+        <div class="list-table">
+            <form class="form-horizontal"  name="" ng-submit="" novalidate>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">开卡门店:</label>
+                    <div class="col-sm-2">
+                        <select class="form-control" ng-model="province">
+                            <option value="">..</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">*卡型:</label>
+                    <div class="col-sm-2">
+                        <select class="form-control" ng-model="dsd">
+                            <option value="">..</option>
+                        </select>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="list-page">
+        <div class="canvas_title">支付宝对接</div>
+
+        <div class="list-table">
+            <form class="form-horizontal"  name="" ng-submit="" novalidate>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">开卡门店:</label>
+                <div class="col-sm-2">
+                    <select class="form-control" ng-model="province">
+                        <option value="">..</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">*卡型:</label>
+                <div class="col-sm-2">
+                    <select class="form-control" ng-model="dsd">
+                        <option value="">..</option>
+                    </select>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,60 @@
+<div class="list-page two-form border-none">
+	<div class="canvas_title">充值
+	</div>
+	<div class="panel-body">
+		<form class="form-horizontal recharge-form" autocomplete="off" name="rechargeForm" ng-submit="saveRecharge()" novalidate>
+			<div class="form-group">
+				<label for="cardNo" class="col-sm-3 control-label control-label-left">卡号/手机号：</label>
+				<div class="col-sm-8 company-col">
+				  <input type="text" class="form-control  form-control-input consume-text-size" id="cardNo" name="cardNo" placeholder="请输入卡号或手机号" ng-model="rechargeVo.cardNo" required="required" ng-disabled="cardNoDisabled"
+				  ng-blur="getMemeberAndCardInfo()" autofocus
+				  ng-pattern="/^(((13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8})|([1-9](\d{4,9}|\d{11,15})))$/" maxlength="16"
+				  tooltip-trigger="blur" uib-tooltip="{{rechargeForm.cardNo.$invalid && rechargeForm.cardNo.$dirty ?'请填写正确的卡号/手机号':''}}" tooltip-placement="bottom" >
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="payMoney" class="col-sm-3 control-label control-label-left">支付金额(元)：</label>
+				<div class="col-sm-8 company-col">
+				  <input type="text" class="form-control  form-control-input consume-text-size" id="value"  name="value" placeholder="请输入支付金额" ng-model="rechargeVo.value" required="required"
+				  ng-pattern="/^[1-9]\d{0,6}(\.\d{1,2})?$/"
+				  tooltip-trigger="blur" uib-tooltip="{{rechargeForm.value.$invalid && rechargeForm.value.$dirty?'请输入正确支付金额！':''}}" tooltip-placement="bottom" >
+				</div>
+			</div>
+			<div class="form-group">
+
+					<label for="btn-group" class="col-sm-3 control-label control-label-left" >支付类型：</label>
+					<div class="col-sm-9 company-col" >
+						<!-- <div class="btn-group" role="group" aria-label="..." id="btn-group" style="margin-left:10px;">
+						  <button type="button" class="btn btn-default" ng-repeat="tsType in tsTypeList" ng-click="changeTsType(tsType)" ng-bind="tsType.name"></button>
+						</div> -->
+						<div class="pos-payment">
+							<div ng-repeat="tsType in tsTypeList" class="pos-payment-outside relative">
+				                <div ng-click="changeTsType(tsType)" class="pos-payment-inside">
+									<input type="radio" name="typeRadio" ng-checked="tsType.id == rechargeVo.tsTypeId">
+									<span class="paySpan">
+                                        <img ng-src="{{getPaymentUrl(tsType.name)}}">
+                                        <span class="text-center">
+                                           <span ng-bind="tsType.name"></span>
+                                        </span>
+                                    </span>
+			                     	<div  ng-if="tsType.id == rechargeVo.tsTypeId">
+			                   			<i class="iconfont iconfont-left correctIcon">&#xe639;</i>
+			                   		</div>
+			                   	</div>
+
+				           </div>
+			           </div>
+					</div>
+
+			</div>
+
+			<div class="form-group consume-btn">
+		        <div class="col-sm-offset-3 col-sm-2 pl0">
+		            <button type="submit"  class="btn btn-primary btn-default pos-btn" ng-disabled="rechargeForm.$invalid || forbideSave">确定(Enter)</button>
+		        </div>
+		        <div class="col-sm-6">
+		            <button type="button"  class="btn btn-default pos-btn" ng-click="goBack()">取消(Esc)</button>
+		        </div>
+		   </div>
+		</form>
+</div>

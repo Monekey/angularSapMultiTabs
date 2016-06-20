@@ -1,0 +1,125 @@
+<div class="login-back" ng-style="gbkCss" style="background: linear-gradient(#092554 , #155385);">
+    <div class="login-back" style="position: absolute;width: 100%;"></div>
+    <div class="login-nav">
+        <i class="iconfont">&#xe604;</i><span>吾享CRM</span>
+    </div>
+    <div class="login-div">
+        <div class="login-carousel">
+            <uib-carousel active="0" interval="3000" no-wrap="false">
+                <uib-slide  ng-repeat="slide in slides track by slide.id" index="slide.id">
+                    <img ng-src="{{slide.image}}" style="margin:auto;">
+                </uib-slide>
+            </uib-carousel>
+        </div>
+
+
+        <form class="form-horizontal login-form" autocomplete="off" name="login" ng-submit="loginSystem(user)" novalidate>
+            <div class="col-xs-12 mb15">
+                <label class="login-left">
+                    欢迎进入吾享CRM系统
+                </label>
+                <span class="login-right login-register">
+                    <i class="iconfont">&#xe684;</i>
+                    <a href="">立即注册</a>
+                </span>
+            </div>
+            <div class="form-group">
+                <div class="input-group col-xs-offset-1 col-xs-10">
+                  <span class="input-group-addon" >
+                    <i class="iconfont">&#xe64d;</i>
+                  </span>
+                    <!--ng-class="{false:'ng-valid',true:'ng-invalid'}[getValid(user.name)]" -->
+                    <input type="text" class="form-control"  id="userName" name="userName" placeholder="手机号/邮箱" ng-model="user.name" required tooltip-trigger="blur mouseenter" ng-focus="focu =true" autofocus
+                           uib-tooltip="{{login.userName.$invalid?'请填写正确的邮箱或手机号':''}}" ng-pattern="/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])|^1[3|4|5|7|8]\d{9}$/" tooltip-placement="top-right">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group col-xs-offset-1 col-xs-10">
+                  <span class="input-group-addon">
+                     <i class="iconfont">&#xe64c;</i>
+                  </span>
+                    <input type="password" class="form-control " id="password" name="password" placeholder="密码" ng-model="user.password" required tooltip-trigger="blur"
+                           uib-tooltip="{{login.password.$invalid?'请填写密码':''}}" tooltip-placement="top-right">
+                </div>
+            </div>
+            <nav class="col-xs-12 mt10">
+                <span class="login-left login-rmbPassword">
+                    <input type="checkbox" id="rmbPassword" ng-model="isRmbPassword">
+                    <label for="rmbPassword">记住密码</label>
+                </span>
+                <a href="" class="login-right">忘记密码？</a>
+            </nav>
+            <div class="form-group">
+                <div class="input-group col-xs-offset-1 col-xs-10">
+                    <button type="submit" class="btn btn-primary col-xs-12 main-all-btn-b" ng-disabled="login.$invalid || getValid(user.name)">登&nbsp;&nbsp;&nbsp;录</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div class="login-panel">
+    <div class="container">
+        <div class="col-sm-4">
+            <div class="thumbnail">
+                <img src="src/assets/images/login/ico1.png"/>
+                <div class="caption">
+                    <h3>电子会员</h3>
+                    <p>支持通过微信、大众点评等平台发展会员</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="thumbnail">
+                <img src="src/assets/images/login/ico6.png"/>
+                <div class="caption">
+                    <h3>权益管理</h3>
+                    <p>储值、积分、打折、兑换、券等模块自由选择</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="thumbnail">
+                <img src="src/assets/images/login/ico3.png"/>
+                <div class="caption">
+                    <h3>会员画像</h3>
+                    <p>精准查看会员的群体特征、消费轨迹、兴趣爱好等</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="thumbnail">
+                <img src="src/assets/images/login/ico2.png"/>
+                <div class="caption">
+                    <h3>异店结算</h3>
+                    <p>连锁店财务异店结算不再困惑</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="thumbnail">
+                <img src="src/assets/images/login/ico4.png"/>
+                <div class="caption">
+                    <h3>营销分析</h3>
+                    <p>多维度分析营销活动结果</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="thumbnail">
+                <img src="src/assets/images/login/ico5.png"/>
+                <div class="caption">
+                    <h3>7*24服务</h3>
+                    <p>7*24小时服务保障，让您使用放心</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer style="text-align: center;padding:20px 0;background: #e2e5ed;color:#666666;">
+    <p>Copyright ©1998-2016 天津市神州商龙科技股份有限公司版权所有</p>
+</footer>
+
+

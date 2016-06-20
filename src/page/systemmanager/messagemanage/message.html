@@ -1,0 +1,185 @@
+<div>
+    <div class="message-content">
+        <uib-tabset active="activeForm">
+            <!-- 会员tab -->
+            <uib-tab index="0" heading="业务通知短信">
+                <div class="list-page">
+                    <div class="canvas_title canvas-title-special"> 业务通知短信
+                    </div>
+                    <div class="panel-collapse collapse in">
+                        <div class="panel-body" >
+                            <table class="table table-striped table-style-all message-table-style">
+                                <tr>
+                                    <th class="col-sm-3" style="padding-left: 20px;">卡型</th>
+                                    <th class="col-sm-7">需发送通知的业务</th>
+                                    <th style="text-align: center;" class="col-sm-2">
+                                        <div class="table--sort-special ml5 mr10">
+                                            操作
+                                        </div>
+                                    </th>
+                                </tr>
+                                <tr ng-repeat="sysSMSBusines in sysSMSBusiness track by $index">
+                                    <td class="col-sm-3" style="padding-left: 20px;">
+                                        <div class="input-group" uib-dropdown is-open="dropdown.isopen"
+                                             auto-close="outsideClick">
+                                            <input style="background-color: white;cursor: pointer;border-radius: 5px !important;padding-right: 40px;"
+                                                   type="text" class="form-control" id="inputSuccess3"
+                                                   ng-model="sysSMSBusines.cardTypeName"
+                                                   aria-describedby="inputSuccess3Status"
+                                                   uib-dropdown-toggle readonly>
+                                            <span class="form-control-feedback"><i class="iconfont">&#xe600;</i></span>
+
+                                            <div class="dropdown-menu" uib-dropdown-menu role="menu"
+                                                 aria-labelledby="single-button" style="height:200px;overflow-y: auto">
+                                                <div role="menuitem" ng-repeat="card in cards">
+                                                    <div>
+                                                        <input type="checkbox" ng-model="checked" id="{{card.value}}"
+                                                               name="{{card.showName}}"
+                                                               ng-checked="isCardSelected(card.value,sysSMSBusines)"
+                                                               ng-click="updateSelection($event,card,sysSMSBusines)">
+                                                        {{card.showName}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="col-sm-7">
+                                        <div class="row mb10">
+                                            <span class="col-sm-3 checkbox">
+                                                <input type="checkbox" name="" ng-true-value="1" ng-false-value="0"
+                                                       ng-model="sysSMSBusines.sellCardFlg"/>售卡
+                                            </span>
+                                             <span class="col-sm-3 checkbox">
+                                                <input type="checkbox" name="" ng-true-value="1" ng-false-value="0"
+                                                       ng-model="sysSMSBusines.consumeAmountFlg"/>消费
+                                            </span>
+                                             <span class="col-sm-3 checkbox">
+                                                <input type="checkbox" name="" ng-true-value="1" ng-false-value="0"
+                                                       ng-model="sysSMSBusines.consumeTimesFlg"/>消费次数
+                                            </span>
+                                             <span class="col-sm-3 checkbox">
+                                                <input type="checkbox" name="" ng-true-value="1" ng-false-value="0"
+                                                       ng-model="sysSMSBusines.savingAmountFlg"/>充值金额
+                                            </span>
+
+                                        </div>
+                                        <div class="row mb10">
+                                             <span class="col-sm-3 checkbox">
+                                                <input type="checkbox" name="" ng-true-value="1" ng-false-value="0"
+                                                       ng-model="sysSMSBusines.savingTimesFlg"/>充值次数
+                                            </span>
+                                            <span class="col-sm-3 checkbox">
+                                                 <input type="checkbox" name="" ng-true-value="1" ng-false-value="0"
+                                                   ng-model="sysSMSBusines.reportLossFlg"/>挂失
+                                            </span>
+
+                                             <span class="col-sm-3 checkbox">
+                                                <input type="checkbox" name="" ng-true-value="1" ng-false-value="0"
+                                                       ng-model="sysSMSBusines.modifyPasswordFlg"/>修改密码
+                                             </span>
+                                             <span class="col-sm-3 checkbox">
+                                                <input type="checkbox" name="" ng-true-value="1" ng-false-value="0"
+                                                       ng-model="sysSMSBusines.resetPasswordFlg"/>重置密码
+                                             </span>
+                                        </div>
+                                        <div class="row">
+                                              <span class="col-sm-3 checkbox">
+                                                <input type="checkbox" name="" ng-true-value="1" ng-false-value="0"
+                                                       ng-model="sysSMSBusines.addIntegralFlg"/>增加积分
+                                              </span>
+                                              <span class="col-sm-3 checkbox">
+                                                <input type="checkbox" name="" ng-true-value="1" ng-false-value="0"
+                                                       ng-model="sysSMSBusines.exchangeFlg"/>积分兑换
+                                              </span>
+                                              <span class="col-sm-3 checkbox">
+                                                <input type="checkbox" name="" ng-true-value="1" ng-false-value="0"
+                                                       ng-model="sysSMSBusines.cardUpgradeFlg"/>卡升级
+                                              </span>
+                                              <span class="col-sm-3 checkbox">
+                                                <input type="checkbox" name="" ng-true-value="1" ng-false-value="0"
+                                                       ng-model="sysSMSBusines.cancelFlg"/>撤销
+                                              </span>
+                                        </div>
+                                    </td>
+                                    <td class="col-sm-2 list-task-row text-nowrap relative">
+                                        <i class="iconfont" style="cursor: pointer;" ng-click="addRow()" tooltip-trigger="mouseenter" uib-tooltip="增加" tooltip-placement="top">&#xe67c;</i>
+                                        <i ng-if="sysSMSBusiness.length>1" style="cursor: pointer;" class="iconfont" ng-click="minusRow($index)" tooltip-trigger="mouseenter" uib-tooltip="删除" tooltip-placement="top">
+                                            &#xe67d;</i>
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="save-business-btn">
+                    <button type="button" class="main-all-btn-b" ng-click="saveSysSMSBusiness()" ng-if="edit">保存
+                    </button>
+                    <span>注：保存后立即生效</span>
+                </div>
+            </uib-tab>
+
+
+            <uib-tab index="1" heading="生日短信">
+                <div class="list-page">
+                    <div class="canvas_title">
+                        <div class="canvas_title_ctrlDiv">
+                            <label>生日短信</label>&nbsp;
+                            <input type="checkbox" style="margin-left: 5px;margin-right: 5px;" ng-model="sysSMSBirthday.status" ng-true-value="1"
+                                   ng-false-value="0">
+                            <label>开启生日短信</label>
+                        </div>
+
+                    </div>
+                    <div class="panel-collapse collapse in">
+                        <div class="panel-body panel-birthday-body">
+                            <form class="form-horizontal" autocomplete="off" name="sysSMSBirthdayEdit" novalidate>
+                                <div class="row remind-input">
+                                    提前<input type="text" ng-pattern="/^\d+$/" id="day" name="day"
+                                             ng-model="sysSMSBirthday.day"
+                                             ng-keyup="sysSMSBirthday.day=sysSMSBirthday.day>=0?sysSMSBirthday.day:''"
+                                             ng-required="true"
+                                >天提醒
+                                    <i class="iconfont" tooltip-trigger="mouseenter"
+                                       uib-tooltip="注：生日短信，每日09:30发送" tooltip-trigger="focus"
+                                       tooltip-placement="right">&#xe652;</i>
+                                </div>
+
+                                    <div class="row template-label remind-input">
+                                        <label>短信内容模板:</label>
+                                        <a ng-class="{'clickStyle': status.templateType==0}"
+                                           ng-click="status.templateType=0">会员生日</a>
+                                        <a ng-class="{'clickStyle': status.templateType==1}"
+                                           ng-click="status.templateType=1">亲友生日</a>
+                                    </div>
+                                <div class="row remind-input" style="margin-left: -10px;">
+                                    <div class="col-sm-6" ng-show="status.templateType==0">
+                                   <textarea class="form-control textarea-input" id="memberTemplate"
+                                             name="memberTemplate" rows="3" cols="30"
+                                             ng-model="sysSMSBirthday.memberTemplate" ng-required="true"></textarea>
+                                    </div>
+                                    <div class="col-sm-6" ng-show="status.templateType==1">
+                                   <textarea class="form-control textarea-input" id="relativesTemplate"
+                                             name="relativesTemplate" rows="3" cols="30"
+                                             ng-model="sysSMSBirthday.relativesTemplate" ng-required="true"></textarea>
+                                    </div>
+                                </div>
+
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="save-business-btn">
+                    <button type="button" class="main-all-btn-b" ng-click="saveSysSMSBirthday()"
+                            ng-disabled="sysSMSBirthdayEdit.$invalid" ng-if="edit">保存
+                    </button>
+                    <span>注：保存后立即生效</span>
+                </div>
+            </uib-tab>
+
+        </uib-tabset>
+    </div>
+
+
+</div>

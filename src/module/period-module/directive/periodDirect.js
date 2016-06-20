@@ -6,9 +6,9 @@
  *        2016/4/20 LSZ create
  *        2016/6/3  LSZ  update 封装jedate日期插件
  */
-define(['ngAjaxService', 'jedate'], function (module) {
+define(['ngAMD', 'jedate'], function (ngAMD) {
 
-    module.directive('period', [
+    ngAMD.directive('period', [
         function () {
             return {
                 restrict: 'E',
@@ -27,7 +27,7 @@ define(['ngAjaxService', 'jedate'], function (module) {
             };
         }]);
 
-    module.factory('variable', [
+    ngAMD.factory('variable', [
         function () {
             var variable = 0;
             return {
@@ -38,7 +38,7 @@ define(['ngAjaxService', 'jedate'], function (module) {
             }
         }]);
 
-    module.controller('com.tcsl.crm7.periodController', [
+    ngAMD.controller('com.tcsl.crm7.periodController', [
         '$scope',
         'variable',
         '$timeout',
@@ -186,7 +186,7 @@ define(['ngAjaxService', 'jedate'], function (module) {
         }
     ]);
 
-    module.directive('monthSelect', [
+    ngAMD.directive('monthSelect', [
         function () {
             return {
                 restrict: 'E',
@@ -200,7 +200,7 @@ define(['ngAjaxService', 'jedate'], function (module) {
             };
         }]);
 
-    module.controller('com.tcsl.crm7.monthController', [
+    ngAMD.controller('com.tcsl.crm7.monthController', [
         '$scope',
         'variable',
         '$timeout',
