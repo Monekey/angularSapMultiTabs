@@ -1,0 +1,39 @@
+#rem {
+  /* PX to REM Calculation */
+  /* Use REM to create Padding */
+  /* Use REM to create Margin */
+  /* Use REM to create Border */
+}
+.upgrade-rule-concrete {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding-top: 15px;
+}
+.upgrade-rule-concrete input[type=text] {
+  height: 34px;
+  width: 50px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding-left: 10px;
+  margin: 0px 5px;
+}
+.upgrade-rule-concrete select {
+  height: 34px;
+  width: 110px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.upgrade-rule-detail-concrete {
+  display: table-row;
+}
+.upgrade-rule-detail-concrete div {
+  display: table-cell;
+}
+.upgrade-rule-detail-concrete-content {
+  border: 1px solid #ccc;
+  padding: 5px;
+  border-radius: 5px;
+}
+.upgrade-rule-detail-concrete-content table {
+  width: 400px;
+}

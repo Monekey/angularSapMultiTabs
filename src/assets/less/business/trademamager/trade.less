@@ -1,0 +1,72 @@
+@import "../../common/mixins.less";
+@import "../../common/variables.less";
+/*交易类型样式*/
+.trade-type-style(@backgroundColor:#d7d7d7){
+  color: white;
+  background: @backgroundColor;
+  padding:4px 8px;
+  font-size:12px;
+  border-radius: 17px;
+}
+
+//消费
+.trade-type-sale{
+  .trade-type-style(#6586e4)
+}
+//充值
+.trade-type-recharge{
+  .trade-type-style(#f9bd3d)
+}
+//积分
+.trade-type-score{
+  .trade-type-style(#75c46a)
+}
+//转账
+.trade-type-transfer{
+  .trade-type-style(#9dc9ee)
+}
+//售卡
+.trade-type-sellCard{
+  .trade-type-style(#5ebfef)
+}
+//换卡
+.trade-type-changeCard{
+  .trade-type-style(#9dc9ee)
+}
+//退卡
+.trade-type-backCard{
+  .trade-type-style(#9dc9ee)
+}
+//挂失
+.trade-type-loss{
+  .trade-type-style(#9dc9ee)
+}
+//取消挂失
+.trade-type-cancelLoss{
+  .trade-type-style(#9dc9ee)
+}
+//修改密码
+.trade-type-changePassword{
+  .trade-type-style(#9dc9ee)
+}
+//重置密码
+.trade-type-resetPassword{
+  .trade-type-style(#9dc9ee)
+}
+
+//修改卡型
+.trade-type-changeCardType{
+  .trade-type-style(#9dc9ee)
+}
+//修改有效期
+.trade-type-validity{
+  .trade-type-style(#9dc9ee)
+}
+.batch-charge-table{
+  .list-table{
+    overflow-x: auto;
+    table{
+      min-width:1361px;
+    }
+  }
+}

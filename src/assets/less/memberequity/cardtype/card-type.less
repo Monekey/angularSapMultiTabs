@@ -1,0 +1,65 @@
+@import "../../common/mixins.less";
+@import "../../common/variables.less";
+strong{
+  font-weight: 700 !important;
+}
+.textarea-input{
+  border:1px solid #ddd;
+  border-radius: 4px;
+  textarea{
+    border: none;
+    resize: none;
+    &:focus{
+      box-shadow:none;
+    }
+  }
+  span{
+    display: block;
+    text-align: end;
+  }
+}
+.remindColor{
+  color:red;
+}
+.rule-panel-collapse{
+  .form-group{
+    margin-left:0;
+  }
+  .rule-panel-collapse-label-title{
+    margin-left:-10px;
+  }
+  .new-score-rule-btn{
+    margin-right:10px;
+  }
+  .card-type-clear-date{
+    margin-left:30px;
+  }
+  input[type=text]{
+    height: 34px;
+    width: 50px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding-left: 10px;
+    margin: 0px 5px;
+  }
+  select{
+    height: 34px;
+    width: 70px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  .tooltip-icon{
+    //color:#666666;
+  }
+  .checkbox{
+    margin-left: 20px;
+  }
+  .span-inline{
+    display: inline-block;
+  }
+  .span-selected-account{
+    float:right;
+    margin-right: 10px;
+    padding-top: 7px;
+  }
+}

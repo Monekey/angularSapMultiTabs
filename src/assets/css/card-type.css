@@ -1,0 +1,64 @@
+#rem {
+  /* PX to REM Calculation */
+  /* Use REM to create Padding */
+  /* Use REM to create Margin */
+  /* Use REM to create Border */
+}
+strong {
+  font-weight: 700 !important;
+}
+.textarea-input {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+.textarea-input textarea {
+  border: none;
+  resize: none;
+}
+.textarea-input textarea:focus {
+  box-shadow: none;
+}
+.textarea-input span {
+  display: block;
+  text-align: end;
+}
+.remindColor {
+  color: red;
+}
+.rule-panel-collapse .form-group {
+  margin-left: 0;
+}
+.rule-panel-collapse .rule-panel-collapse-label-title {
+  margin-left: -10px;
+}
+.rule-panel-collapse .new-score-rule-btn {
+  margin-right: 10px;
+}
+.rule-panel-collapse .card-type-clear-date {
+  margin-left: 30px;
+}
+.rule-panel-collapse input[type=text] {
+  height: 34px;
+  width: 50px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding-left: 10px;
+  margin: 0px 5px;
+}
+.rule-panel-collapse select {
+  height: 34px;
+  width: 70px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.rule-panel-collapse .checkbox {
+  margin-left: 20px;
+}
+.rule-panel-collapse .span-inline {
+  display: inline-block;
+}
+.rule-panel-collapse .span-selected-account {
+  float: right;
+  margin-right: 10px;
+  padding-top: 7px;
+}

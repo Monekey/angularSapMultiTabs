@@ -1,0 +1,59 @@
+#rem {
+  /* PX to REM Calculation */
+  .rem(@px: 20px; @base: @font-size-base) {
+    @rem: ((@px / @base) * 1rem);
+  }
+
+  .custom-property(@property; @px: 20px; @base: @font-size-base) {
+    .rem(@px, @base);
+      @{property}: @rem;
+  }
+
+  .custom-property-important(@property; @px: 20px; @base: @font-size-base) {
+    .rem(@px, @base);
+      @{property}: @rem !important;
+  }
+
+  /* Use REM to create Padding */
+  .padding-direction(@selector: top; @px: 20px; @base: @font-size-base) {
+    .rem(@px; @base);
+    padding-@{selector}: @rem;
+  }
+  .padding-all(@top: 20px; @right: 20px; @bottom: 20px; @left: 20px; @base: @font-size-base) {
+    #rem.padding-direction(top, @top, @base);
+    #rem.padding-direction(right, @right, @base);
+    #rem.padding-direction(bottom, @bottom, @base);
+    #rem.padding-direction(left, @left, @base);
+  }
+
+  /* Use REM to create Margin */
+  .margin-direction(@selector: top; @px: 20px; @base: @font-size-base) {
+    .rem(@px; @base);
+    margin-@{selector}: @rem;
+  }
+  .margin-all(@top: 20px; @right: 20px; @bottom: 20px; @left: 20px; @base: @font-size-base) {
+    #rem.margin-direction(top, @top, @base);
+    #rem.margin-direction(right, @right, @base);
+    #rem.margin-direction(bottom, @bottom, @base);
+    #rem.margin-direction(left, @left, @base);
+  }
+
+  /* Use REM to create Border */
+  .border(@style: solid; @px: 20px; @color: transparent; @base: @font-size-base) {
+    border-style: @style;
+    .rem(@px; @base);
+    border-width: @rem;
+    border-color: @color;
+  }
+
+  .border-direction(@selector: top; @style: solid; @px: 20px; @color: transparent; @base: @font-size-base) {
+    border-@{selector}-style: @style;
+    .rem(@px; @base);
+    border-@{selector}-width: @rem;
+    border-@{selector}-color: @color;
+  }
+}
+
+
+
+

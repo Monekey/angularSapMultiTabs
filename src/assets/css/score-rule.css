@@ -1,0 +1,249 @@
+#rem {
+  /* PX to REM Calculation */
+  /* Use REM to create Padding */
+  /* Use REM to create Margin */
+  /* Use REM to create Border */
+}
+.condition-select {
+  width: 75px;
+  padding: 0px 6px !important;
+  margin-left: -5px !important;
+  border: 1px solid #E4E4E4 !important;
+}
+@media (max-width: 1440px) {
+  .condition-select {
+    font-size: 12px !important;
+    height: 27px;
+  }
+}
+@media (max-width: 2000px) {
+  .condition-select {
+    font-size: 14px;
+    height: 30px;
+  }
+}
+.card {
+  margin: 10px 0;
+  color: #333333;
+}
+.card > div {
+  padding: 5px 0;
+  cursor: pointer;
+  text-align: center;
+}
+.card > div a {
+  color: #333333;
+}
+.card > .col-sm-1 > :hover,
+.card li:hover {
+  color: #4287e5;
+  text-decoration: none;
+}
+.add {
+  border: 1px solid #4287e5 !important;
+  border-radius: 4px;
+  text-decoration: none;
+  color: #4287e5;
+}
+.add a {
+  color: #4287e5 !important;
+}
+.shaixuan-a {
+  color: #555;
+  padding: 5px 10px;
+}
+.shaixuan-a:hover {
+  color: #4287e5;
+  text-decoration: none;
+}
+/*谷歌解决文字两端对齐*/
+.shaixuan .shaixuan_content .main {
+  border: none;
+  text-align: left;
+  margin-left: 5px;
+  color: #999999;
+  cursor: auto;
+  text-align: justify;
+}
+.consume input {
+  margin-left: 0;
+}
+.new_rule_zhongduan .rule_info p:nth-of-type(1) {
+  display: inline-block;
+}
+.zhongduan_btn {
+  float: right;
+}
+.score_rule {
+  height: 200px;
+  border: 1px solid #ddd;
+  margin-top: 15px;
+  padding-left: 20px;
+}
+.asc-sort {
+  color: #337AB7;
+}
+.desc-sort {
+  color: black;
+}
+.table-hr-sort {
+  float: left;
+  margin-right: 10px;
+}
+.table-hr-sort > i {
+  transform: scale(0.65);
+  display: block;
+}
+.table-hr-sort > i:nth-child(2) {
+  margin-top: -10px;
+}
+.table-hr-sort:hover {
+  cursor: pointer;
+}
+.table-sort-icon {
+  position: absolute;
+  margin-top: -5px;
+}
+.table {
+  margin-bottom: 0;
+}
+.select-all {
+  padding: 0;
+}
+.list-group-special {
+  margin-bottom: -1px;
+}
+.score-rule-concrete {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.score-rule-concrete input[type=text] {
+  height: 34px;
+  width: 50px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding-left: 10px;
+  margin: 0px 5px;
+}
+.score-rule-concrete select {
+  height: 34px;
+  width: 70px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.score-rule-concrete strong {
+  font-weight: 700;
+}
+.score-rule-concrete .score-rule-concrete-p {
+  margin-bottom: 15px;
+}
+.score-rule-concrete .score-rule-concrete-demo {
+  color: #999999;
+}
+.form-group-terminal label {
+  text-align: left;
+}
+.form-group-terminal button {
+  float: right;
+}
+.score-rule-detail .rule-detail-dl,
+.score-rule-detail .rule-detail-dl-second,
+.score-rule-detail .rule-detail-dl-third {
+  margin-left: 10px;
+  margin-right: 0;
+  line-height: 2;
+}
+.score-rule-detail .rule-detail-dl dd,
+.score-rule-detail .rule-detail-dl-second dd,
+.score-rule-detail .rule-detail-dl-third dd {
+  margin-left: 20px;
+  line-height: 2;
+}
+.score-rule-detail .rule-detail-dl-second-dt {
+  font-weight: 700;
+  font-size: 15px;
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
+.score-rule-detail .rule-detail-dl-second-first-dt {
+  font-weight: 700;
+  font-size: 15px;
+  margin-bottom: 15px;
+}
+.score-rule-detail .rule-detail-dl-third-dt {
+  font-weight: initial;
+  line-height: 2;
+}
+.score-rule-detail .rule-detail-dt {
+  font-size: 16px;
+  color: #666666;
+  margin-bottom: 15px;
+}
+.score-rule-detail .rule-detail-dt-icon {
+  color: #f5b93c;
+  margin-right: 5px;
+}
+.score-rule-detail .score-rule-detail-concrete {
+  display: table-row;
+}
+.score-rule-detail .score-rule-detail-concrete div {
+  display: table-cell;
+}
+.score-rule-detail .score-rule-detail-concrete-content {
+  border: 1px solid #ccc;
+  padding: 5px;
+  border-radius: 5px;
+}
+.score-rule-detail .score-rule-detail-content-span {
+  color: #ff0000;
+  font-size: 20px;
+}
+.score-rule-detail .score-rule-detail-content-select {
+  color: #008000;
+  font-size: 20px;
+}
+.score-rule-detail .score-rule-detail-btn {
+  margin-left: 20px;
+}
+.score-rule-detail .score-rule-detail-btn .score-rule-detail-edit-btn {
+  float: left;
+}
+.score-rule-detail .switch-open-status {
+  border-radius: 15px;
+  padding: 4px 8px;
+  background-color: #73cc62;
+  color: white;
+  font-size: 12px;
+  margin-left: 10px;
+}
+.table-rule-style {
+  border: 1px solid #ddd;
+}
+.table-rule-style tbody {
+  display: block;
+  max-height: 200px;
+  overflow-y: auto;
+}
+.table-rule-style thead {
+  margin-bottom: -1px;
+}
+.table-rule-style thead,
+.table-rule-style tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+.score-rule-validate-week {
+  margin-top: 7px;
+}
+.score-rule-validate-week :hover {
+  cursor: pointer;
+}
+.score-rule-validate-week span {
+  margin-right: 10px;
+  padding: 5px;
+}
+.score-rule-detail-validate-week {
+  margin-right: 10px;
+  padding: 5px;
+}

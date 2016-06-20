@@ -1,0 +1,20 @@
+<div class="more-popver" style="width: 200px;">
+    <div class="form-group">
+        <div class="input-group"  ng-click="forbidden($event)">
+            <input type="text" class="form-control" placeholder="搜索" ng-model="filterSearch" >
+                <span class="input-group-btn">
+                 <button class="btn btn-default" type="button" ng-click="findModal(condition, filterSearch)">
+                     <i class="iconfont" style="margin-right:0;">&#xe61f;</i>
+                 </button>
+                </span>
+        </div>
+    </div>
+
+    <ul style="max-height: 100px;overflow-y: auto;">
+        <li ng-repeat="mc in condition.moreValue" ng-click="ruleStatus_click(condition, mc)"
+            ng-class="{'add col-sm-12':mc.state, 'col-sm-12': !mc.state}" ng-bind="mc.name"  ng-show="condition.moreValue"></li>
+
+        <li ng-repeat="mc in moreConditions.moreValue track by $index" ng-click="ruleStatus_click(moreConditions, mc)"
+            ng-class="{'add col-sm-12':mc.state, 'col-sm-12': !mc.state}" ng-bind="mc.name" ng-hide="condition.moreValue"></li>
+    </ul>
+</div>

@@ -1,0 +1,127 @@
+#rem {
+  /* PX to REM Calculation */
+  /* Use REM to create Padding */
+  /* Use REM to create Margin */
+  /* Use REM to create Border */
+}
+.alert-manage strong {
+  font-weight: 700 !important;
+}
+.alert-manage .alert-page {
+  height: 700px;
+}
+.alert-manage .warning-tab {
+  height: 100%;
+  padding: 20px;
+  text-align: center;
+  border-right: 1px solid #e2e5ed;
+}
+.alert-manage .warning-tab .ul-head {
+  color: #999999;
+  margin-bottom: 15px;
+}
+.alert-manage .warning-tab .li-content div {
+  margin-bottom: 15px;
+  color: #333333;
+}
+.alert-manage .warning-tab .li-content div:hover {
+  color: #4287e5;
+}
+.alert-manage .warning-tab .li-content div span {
+  cursor: pointer;
+}
+.alert-manage .warning-tab .li-content .actived-status span {
+  color: #4287e5;
+  border: 1px solid #4287e5;
+  border-radius: 5px;
+  padding: 4px 8px;
+}
+.alert-manage .warning-content {
+  height: 100%;
+  padding: 20px 0 0 0;
+}
+.alert-manage .warning-content label {
+  color: #333;
+  font-weight: normal;
+}
+.alert-manage .warning-content input[type="text"] {
+  height: 34px;
+  width: 60px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
+  text-align: center;
+}
+.alert-manage .warning-info p {
+  margin: 0 0 10px !important;
+}
+.alert-manage .warning-info .warning-info-head {
+  color: #999999;
+  margin: 15px 0;
+}
+.alert-manage .alert-tooltip-icon {
+  color: #c5ccda;
+}
+.alert-manage .alert-notice-head {
+  margin-bottom: 15px;
+}
+.alert-manage .alert-notice-head span {
+  height: 32px;
+  line-height: 32px;
+}
+.alert-manage .alert-notice-head button {
+  float: right;
+}
+.alert-manage .alert-log-table th,
+.alert-manage .alert-log-table td {
+  padding-left: 20px;
+}
+.alert-manage .row {
+  margin: 0;
+}
+.alert-manage .ignore-status {
+  color: #ccc;
+}
+.aler-bottom {
+  margin-bottom: 25px !important;
+}
+.alert-row-left {
+  width: 160px;
+  line-height: 32px;
+  float: left;
+}
+.alert-label-s {
+  margin-bottom: 15px;
+}
+.alert-checkbox-input {
+  margin-top: 10px;
+}
+.alert-checkbox {
+  margin-top: 20px;
+}
+.waring-content-s {
+  margin-left: 15px;
+}
+.alert-notice-checkbox {
+  margin: 0 !important;
+}
+.recipient-selector-footer {
+  text-align: center;
+  border: none;
+}
+.recipient-btn {
+  margin-right: 10px;
+}
+.table-bordered-s {
+  border: 1px solid #e2e5ed;
+}
+.recipent-i {
+  cursor: pointer;
+  float: right;
+  margin-right: 0;
+}
+.recipient-lable {
+  width: auto;
+  line-height: 30px;
+}

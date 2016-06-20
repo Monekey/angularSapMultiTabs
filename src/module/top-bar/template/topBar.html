@@ -1,0 +1,64 @@
+<div class="head" >
+    <div ng-class="{true:'wuxiang-logo-bar',false:'wuxiang-pullLeft-logo-bar'}[tabStatus!='pullLeft']"onclick="window.open('http://w.wuuxiang.com/')" style="cursor: pointer">
+        <i class="iconfont" >&#xe604;</i>
+        <span class="wuxiang-font" ng-if="tabStatus!='pullLeft'">吾享CRM</span>
+    </div>
+    <div class="head-left-1" ng-click="toggleTab()" style="cursor: pointer;" >
+        <i ng-if="tabStatus=='pullRight'" class="iconfont iconfont-4" >&#xe64b;</i>
+        <i ng-if="tabStatus=='pullLeft'" class="iconfont iconfont-4">&#xe63d;</i>
+    </div>
+
+    <div class="system-change" ng-class="{'head-use-click':status.isopenSystem}" ng-mouseenter="status.isopenSystem=true" ng-mouseleave="status.isopenSystem=false" uib-dropdown is-open="status.isopenSystem">
+        <div uib-dropdown-toggle ng-disabled="true" >
+            <span ng-bind="systemNow.system"></span>
+            <i class="iconfont" ng-if="!status.isopenSystem">&#xe600;</i>
+            <i class="iconfont" ng-if="status.isopenSystem">&#xe601;</i>
+        </div>
+        <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
+            <li role="menuitem" ng-repeat="system in systems"><a ng-click="switchSystem(system)" ng-bind="system.system"></a></li>
+        </ul>
+    </div>
+
+    <div class="head-user-info" >
+
+        <div class="head-use-emp-info" ng-class="{'head-use-click':status.isopen}" ng-mouseenter="status.isopen=true" ng-mouseleave="status.isopen=false" uib-dropdown is-open="status.isopen">
+            <div uib-dropdown-toggle  ng-disabled="true">
+                 <i class="iconfont">&#xe603;</i>
+                 <span ng-bind="user.userName"></span>
+                 <i class="iconfont" ng-if="!status.isopen">&#xe600;</i>
+                <i class="iconfont" ng-if="status.isopen">&#xe601;</i>
+            </div>
+            <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
+                <li ><a href="#">账号管理</a></li>
+                <li ><a ng-click="logoutSystem(user)">退出</a></li>
+            </ul>
+        </div>
+        <div class="head-use-message-info" ng-class="{'head-use-click':status.isopenMessage}" uib-dropdown ng-mouseenter="status.isopenMessage=true" ng-mouseleave="status.isopenMessage=false"  is-open="status.isopenMessage">
+            <div  uib-dropdown-toggle ng-disabled="true">
+                 <i class="iconfont">&#xe602;</i>
+                <span>通知</span>
+                <span ng-if="messageAcount>0" class="badge message-account">
+                    <span ng-bind="messageAcount" ></span>
+                </span>
+            </div>
+            <ul  ng-if="messages.length>0&&messages.length<=5" class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
+                <li ng-repeat="message in messages track by $index"><a href="#" ng-bind="message.$text.msg"></a></li>
+                <!--<li><a href="#" class="see-all">查看全部</a></li>-->
+            </ul>
+            <ul  ng-if="messages.length>5" class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
+                <li><a href="#" ng-bind="messages[0].$text.msg"></a></li>
+                <li><a href="#" ng-bind="messages[1].$text.msg"></a></li>
+                <li><a href="#" ng-bind="messages[2].$text.msg"></a></li>
+                <li><a href="#" ng-bind="messages[3].$text.msg"></a></li>
+                <li><a href="#" ng-bind="messages[4].$text.msg"></a></li>
+                <li><a href="#" class="see-all">查看全部</a></li>
+            </ul>
+        </div >
+
+        <div class="head-use-company-info" ng-click="gotoCompany()">
+            <img  class="head-use-company-img" ng-src="{{companyImgServer + user.companyLogo}}" >
+            <span ng-bind="user.companyName"></span>
+        </div>
+        <!--<a ng-click="logoutSystem(user)">退出</a>-->
+    </div>
+</div>

@@ -1,0 +1,11 @@
+#rem {
+  /* PX to REM Calculation */
+  /* Use REM to create Padding */
+  /* Use REM to create Margin */
+  /* Use REM to create Border */
+}
+.exchange-rule-concrete {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding-top: 15px;
+}

@@ -1,0 +1,19 @@
+<div>
+  <p class="input-group col-xs-5" style="float:left;">
+    <input type="text" class="form-control" uib-datepicker-popup="yyyy/MM/dd" ng-model="startTime" datepicker-options="options1"
+           is-open="popup1.opened"  ng-change="getBeginDate()" close-text="关闭" current-text="今天" clear-text="清除"/>
+						  <span class="input-group-btn">
+							<button type="button" class="btn btn-default" ng-click="popup1.opened = !popup1.opened;"><i
+                                    class="glyphicon glyphicon-calendar"></i></button>
+						  </span>
+  </p>
+  <div class="col-xs-1" style="margin-top:4px;padding-left: 10px; ">至</div>
+  <p class="input-group col-xs-5">
+    <input type="text" class="form-control" uib-datepicker-popup="yyyy/MM/dd" ng-model="endTime" datepicker-options="options2"
+           is-open="popup2.opened" ng-change="getBeginDate()" close-text="关闭" current-text="今天" clear-text="清除"/>
+						  <span class="input-group-btn">
+							<button type="button" class="btn btn-default" ng-click="popup2.opened = !popup2.opened;"><i
+                                    class="glyphicon glyphicon-calendar"></i></button>
+						  </span>
+  </p>
+</div>

@@ -1,0 +1,68 @@
+#rem {
+  /* PX to REM Calculation */
+  /* Use REM to create Padding */
+  /* Use REM to create Margin */
+  /* Use REM to create Border */
+}
+.message-content .panel-body {
+  padding: 0;
+}
+.message-content .save-business-btn {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.message-content .panel-birthday-body {
+  padding: 15px;
+}
+.message-content .panel-birthday-body > div {
+  margin-top: 20px;
+}
+.message-content .remind-input {
+  margin-left: 5px;
+  margin-bottom: 15px;
+}
+.message-content .remind-input i {
+  color: #c5ccda;
+}
+.message-content .remind-input input[type="text"] {
+  height: 34px;
+  width: 60px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
+  text-align: center;
+}
+.message-content .remind-input label {
+  font-weight: normal;
+}
+.message-content .remind-input .clickStyle {
+  color: #4287E5;
+  border-bottom: 2px solid #4287E5;
+}
+.message-content .remind-input a {
+  margin-left: 10px;
+  padding: 5px;
+  border-bottom: 2px solid white;
+  text-decoration: none;
+  color: #333333;
+}
+.message-content .remind-input a:hover {
+  color: #4287E5;
+  border-bottom: 2px solid #4287E5;
+}
+.message-content .dropdown-menu {
+  width: 100%;
+}
+.message-content .dropdown-menu > div {
+  margin-left: 20px;
+}
+.message-content .message-table-style th,
+.message-content .message-table-style td {
+  padding-left: 15px;
+}
+.message-content .checkbox {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 35px;
+}

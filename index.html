@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>crm7</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="resources/lib/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="resources/assets/css/main.css">
+    <link rel="stylesheet" href="resources/assets/css/base.css">
+</head>
+<!--<body ng-controller="testCtrl" bs-loading-overlay="overlay-div"  bs-loading-overlay-delay="500">-->
+<body>
+<div style="width:100%;height:100%;position: absolute;z-index:999;background: white;"  ng-hide="overlay">
+    <img src="resources/assets/images/loading alpha.gif"  style="position: absolute; top: 350px; left: 45%;"/>
+</div>
+
+<div style="width:100%;height:100%;position: fixed;z-index:998;background: rgba(0, 0, 0, 0.51);"  ng-if="lockSys" ng-controller="testCtrl">
+    <div class="form-group col-sm-offset-2 col-sm-8 pl0" style="position:absolute;margin-top:300px;">
+        <div class="col-sm-offset-1 col-sm-6">
+            <input type="password" class="form-control unlockPswInput" placeholder="请输入密码" ng-model="paramValue" ng-keyup="hotEnterKey(paramValue,$event)">
+        </div>
+                <div class="col-sm-2 pl10 pr0">
+                    <button class="btn btn-primary unlockSystemBtn" ng-click="clearLock(paramValue)">解锁系统</button>
+                </div>
+                 <div class="col-sm-2 pl10 pr0">
+                    <button class="btn btn-primary exitSystemBtn" ng-click="logoutSystem()">退出系统</button>
+                </div>
+    </div>
+</div>
+
+<div style="width:100%;height:100%;position: absolute;z-index:98;background: rgba(0, 0, 0, 0.51);"  ng-if="backGroud"></div>
+<div ui-view style="height: 100%;overflow-y: auto;" id="ui-view">
+
+</div>
+
+<script data-main="resources/config.js" src="resources/lib/require.min.js"></script>
+<!--
+<script data-main="resources/config-dev.js" src="resources/lib/require.js"></script>
+-->
+</body>
+</html>
