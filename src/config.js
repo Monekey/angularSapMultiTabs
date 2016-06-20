@@ -35,6 +35,7 @@ requirejs.config({
         //配置pos/service目录下自定义pos公共service
         posService: "pos/service/posService",
 
+
         //配置module目录下公共common module
         topBar:"../module/top-bar/directive/topBarDirective",
         period: "../module/period-module/directive/periodDirect",
