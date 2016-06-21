@@ -1,0 +1,100 @@
+<div>
+    <div class="score-rule-detail">
+        <dl class="rule-detail-dl row">
+            <dt class="rule-detail-dt">
+                <span class="rule-detail-dt-icon">■</span><span>基本信息</span>
+            </dt>
+            <dd>
+                <div>
+                    <span>兑换规则名称：</span><span ng-bind="rule_data.exchangeRule.name"></span>
+                </div>
+            </dd>
+            <dd>
+                <div class="">
+                    <span>兑换类型：</span> <span ng-if="rule_data.exchangeRule.giftType == 0">电子券</span>
+                    <span ng-if="rule_data.exchangeRule.giftType == 1">实物</span>
+                </div>
+            </dd>
+            <dd>
+                <div class="">
+                    <span>兑换内容：</span> <span ng-bind="rule_data.exchangeRule.giftName"></span>
+                </div>
+            </dd>
+            <dd>
+                <span>兑换方式：</span> <span ng-if="rule_data.exchangeRule.exchangeOnLine == 1">线上兑换</span>
+                <span ng-if="rule_data.exchangeRule.exchangeOffLine == 1">线下兑换</span>
+            </dd>
+            <dd>
+                <span>累计积分额：</span> <span ng-bind="rule_data.exchangeRule.limitScore"></span>&nbsp;&nbsp;&nbsp;&nbsp;<small>注：会员累计积分满足该条件才能兑换</small>
+            </dd>
+            <dd>
+                <span>兑换积分额：</span> <span ng-bind="rule_data.exchangeRule.castScore"></span>&nbsp;&nbsp;&nbsp;&nbsp;<small>注：兑换一次将扣减的积分数</small>
+            </dd>
+        </dl>
+        <hr/>
+        <dl class="rule-detail-dl row">
+            <dt class="rule-detail-dt">
+                <span class="rule-detail-dt-icon">■</span><span>终端限制</span>
+            </dt>
+            <dd>
+                <div>
+                    <span>适用终端</span>
+                </div>
+            </dd>
+            <dd>
+                <div class="col-md-6">
+                    <table class="table table-striped table-style-all table-rule-style">
+                        <thead>
+                        <tr class="table-tr-first">
+                            <th>终端号</th>
+                            <th>终端名称</th>
+                            <th>所属门店</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="relTerminal in relTerminals ">
+                            <td ng-bind="relTerminal.code "></td>
+                            <td ng-bind="relTerminal.showName "></td>
+                            <td ng-bind="relTerminal.shopName "></td>
+                        </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+            </dd>
+
+        </dl>
+        <hr/>
+        <dl class="rule-detail-dl row">
+            <dt class="rule-detail-dt">
+                <span class="rule-detail-dt-icon">■</span><span>有效期限制</span>
+            </dt>
+            <dd>
+                <div ng-if="rule_data.exchangeRule.isTime==1">
+                    <span>有效日期：</span>
+                    <span><span ng-bind="date_start"></span>至<span ng-bind="date_end"></span></span>
+                </div>
+            </dd>
+            <dd>
+
+                <div ng-if="rule_data.exchangeRule.isWeek==1">
+                    <span>有效星期：</span>
+                    <span class="score-rule-detail-validate-week " ng-class="{ 'add':i.state} "
+                          readonly="true " ng-repeat='i in weekDate' ng-bind="i.date"></span>
+                </div>
+            </dd>
+        </dl>
+        <hr/>
+        <div class="row score-rule-detail-btn">
+            <!--<dt>-->
+            <div class="form-btn-left score-rule-detail-edit-btn">
+                <button type="button " class="btn btn-primary main-all-btn-b" ng-click="gotoEdit(rule_data) " ng-if="editExchangeRule">修改</button>
+            </div>
+            <div class="col-sm-6 form-btn-right">
+                <button type="button " class="btn btn-default main-all-btn-w" ng-click="cancel() ">返回</button>
+            </div>
+            <!--</dt>-->
+
+        </div>
+    </div>
+</div>

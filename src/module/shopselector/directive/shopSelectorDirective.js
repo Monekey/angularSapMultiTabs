@@ -5,11 +5,9 @@
  * @createTime: 2016-04-21
  * @updateHistory
  */
-define(['ngAjaxService','angular','jquery','zTree','css!shop_selector_css','css!zTree_css'],function (ngAjaxService, angular,$,zTree) {
-  var module= angular.module("ajaxmodule");
-
+define(['ngAMD','jquery','zTree','css!shop_selector_css','css!zTree_css'],function (ngAMD,$,zTree) {
     //自定义门店选择器factory
-    ngAjaxService.factory('shopSelectorService', [
+    ngAMD.factory('shopSelectorService', [
         '$uibModal',
         '$q',
         function ($uibModal,$q) {
@@ -24,7 +22,7 @@ define(['ngAjaxService','angular','jquery','zTree','css!shop_selector_css','css!
                     var deferred = $q.defer();
                     var modalInstance = $uibModal.open({
                         animation: true,
-                        templateUrl: 'resources/module/shopselector/template/shopSelector.html',
+                        templateUrl: 'src/module/shopselector/template/shopSelector.html',
                         controller: 'shopSelectorController',
                         size: 'lg',
                         resolve: {
@@ -46,7 +44,7 @@ define(['ngAjaxService','angular','jquery','zTree','css!shop_selector_css','css!
             }
         }]);
     //modal factory 加载模板对应的controller
-    module.controller('shopSelectorController',[
+    ngAMD.controller('shopSelectorController',[
         "$scope","$rootScope","ajaxService","paramSet", "$uibModalInstance","$timeout",
         function($scope,$rootScope,ajaxService,paramSet,$uibModalInstance,$timeout){
 
@@ -598,6 +596,4 @@ define(['ngAjaxService','angular','jquery','zTree','css!shop_selector_css','css!
             }
 
         }]);
-
-    return module;
 });

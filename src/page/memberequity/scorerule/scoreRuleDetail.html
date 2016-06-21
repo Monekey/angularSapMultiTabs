@@ -1,0 +1,114 @@
+<div>
+    <div class="score-rule-detail">
+        <dl class="rule-detail-dl row">
+            <dt class="rule-detail-dt">
+                <span class="rule-detail-dt-icon">■</span><span>基本信息</span>
+            </dt>
+            <dd>
+                <div>
+                    <span>积分规则名称：</span><span ng-bind="rule_data.scoreRule.name"></span>
+                </div>
+            </dd>
+            <dd>
+                <div class="">
+                    <span>积分方式：</span><span ng-if="rule_data.scoreRule.type==0">按金额</span><span
+                        ng-if="rule_data.scoreRule.type==1">按操作</span>
+                </div>
+            </dd>
+            <dd>
+                <div class="score-rule-detail-concrete">
+                    <div>积分规则：</div>
+                    <div class="score-rule-detail-concrete-content" ng-if="rule_data.scoreRule.type==1">
+                        <p>
+                            <span>以下操作:</span>
+                            <span ng-repeat=" task in operationlist track by $index " ng-cloak>{{task.name}}<span
+                                    ng-hide="$index==operationlist.length-1 ">+</span></span>
+                        </p>
+                        <p><span>每次，积</span><span class="score-rule-detail-content-span"
+                                                  ng-bind="rule_data.scoreRule.howScore"></span><span>分</span></p>
+                    </div>
+                    <div class="score-rule-detail-concrete-content" ng-if="rule_data.scoreRule.type==0">
+                        <p>
+                            <span ng-cloak>每{{operationlist[0].name}}</span><span class="score-rule-detail-content-span"
+                                                                                  ng-bind="rule_data.scoreRule.howMoney"></span>
+                            <span>元积</span><span class="score-rule-detail-content-span"
+                                                 ng-bind="rule_data.scoreRule.howScore"></span><span>分</span><span
+                                ng-cloak>不满{{scoreRule.howMoney}}元时，按</span>
+                            <span class="score-rule-detail-content-select"
+                                  ng-bind="handling(rule_data.scoreRule.handling)"></span><span>处理</span>
+                            <br/>
+                                <span ng-if="multipleShow ">
+                                            <span>生日享受</span><span class="score-rule-detail-content-span"
+                                                                   ng-bind="rule_data.scoreRule.multiple"></span><span>倍积分</span>
+                                </span>
+                        </p>
+                    </div>
+                </div>
+            </dd>
+        </dl>
+        <hr/>
+        <dl class="rule-detail-dl row">
+            <dt class="rule-detail-dt">
+                <span class="rule-detail-dt-icon">■</span><span>终端限制</span>
+            </dt>
+            <dd>
+                <div>
+                    <span>适用终端</span>
+                </div>
+            </dd>
+            <dd>
+                <div class="col-md-6">
+                    <table class="table table-striped table-style-all table-rule-style">
+                        <thead>
+                        <tr class="table-tr-first">
+                            <th>终端号</th>
+                            <th>终端名称</th>
+                            <th>所属门店</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="relTerminal in relTerminals">
+                            <td ng-bind="relTerminal.code"></td>
+                            <td ng-bind="relTerminal.showName"></td>
+                            <td ng-bind="relTerminal.shopName"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </dd>
+
+        </dl>
+        <hr/>
+        <dl class="rule-detail-dl row">
+            <dt class="rule-detail-dt">
+                <span class="rule-detail-dt-icon">■</span><span>有效期限制</span>
+            </dt>
+            <dd>
+                <div ng-if="rule_data.scoreRule.isTime==1">
+                    <span>有效日期：</span>
+                    <span><span ng-bind="date_start"></span>至<span ng-bind="date_end"></span></span>
+                </div>
+            </dd>
+            <dd>
+
+                <div ng-if="rule_data.scoreRule.isWeek==1">
+                    <span>有效星期：</span>
+                    <span class="score-rule-detail-validate-week " ng-class="{ 'add':i.state} "
+                                            readonly="true " ng-repeat='i in weekDate' ng-bind="i.date"></span>
+                </div>
+            </dd>
+        </dl>
+        <hr/>
+        <div class="row score-rule-detail-btn">
+            <!--<dt>-->
+            <div class="form-btn-left score-rule-detail-edit-btn">
+                <button type="button " class="btn btn-primary main-all-btn-b" ng-click="gotoEdit(rule_data) " ng-if="editScoreRule">修改</button>
+            </div>
+            <div class="col-sm-6 form-btn-right">
+                <button type="button " class="btn btn-default main-all-btn-w" ng-click="cancel() ">返回</button>
+            </div>
+            <!--</dt>-->
+
+        </div>
+    </div>
+</div>

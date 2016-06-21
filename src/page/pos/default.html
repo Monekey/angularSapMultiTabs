@@ -1,0 +1,53 @@
+  <div class="container-fliud">
+      <div class="selectpos relative">
+
+          <div class="row list-page two-form">
+              <div class="canvas_title">
+                  选择终端
+                  <button class="back-home-page-btn" ng-click="goselectedpos()" ng-show="isPosHome()"><i class="iconfont">&#xe681;</i>回到首页</button>
+              </div>
+          </div>
+          <div class="row mt20 mb20 ml10">
+              <div class="col-xs-12 mb10">请选择您营业的门店：</div>
+              <div class="col-xs-4">
+                   <select class="form-control" name="shopid" id="shopid" style="height:40px;cursor: pointer;"
+                      ng-selected="userterminal.shopId == shop.shopId"
+                      ng-options="shop.shopId as shop.showName for shop in usershopcombo"
+                      ng-model="userterminal.shopId"
+                      ng-change="getShopTerminal(userterminal.shopId)">
+                  </select>
+              </div>
+          </div>
+          <div class="row ml10">
+              <div class="col-xs-12">请选择您营业的终端：</div>
+              <div class="col-xs-12">
+                  <div class="row posEndCan">
+
+                      <div class="col-xs-3 pr0 width-20" ng-repeat="one in usershopterminal track by $index">
+
+                          <div class="posCell" ng-model="one.teminalId" ng-click="clickterminal($index,one)">
+                              <div class="text-center">
+                              <span ng-bind="one.teminalCode"></span>
+                            </div>
+                              <div class="text-center">
+                              <span ng-bind="one.name"></span>
+                            </div>
+                            <div class="checkedIcon" ng-if="one.teminalId==userterminal.terminalId"><i class="iconfont iconfont-left correctIcon">&#xe639;</i></div>
+                          </div>
+
+                      </div>
+
+                  </div>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-xs-12 bottomBtn">
+                  <button type="submit" class="btn btn-default main-all-btn-b mt10" ng-click="confirmIn()">
+                              开始营业
+                  </button>
+              </div>
+          </div>
+
+      </div>
+
+  </div>

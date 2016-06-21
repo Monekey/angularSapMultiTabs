@@ -1,0 +1,100 @@
+<div id="updateCompany" >
+    <form class="form-horizontal two-form" autocomplete="off" name="updateCompanyForm" ng-submit="saveCompany(company)" novalidate >
+        <div class="form-group">
+            <label class="col-sm-2 control-label control-label-left company-img">集团图片：</label>
+            <div class="col-sm-10 company-col col-company-img">
+                <img ng-src="{{imgServer + company.logo}}" id="pic1" ng-if="company.logo" class="ed-company-img">
+                <!-- <img ngf-thumbnail="file || '/thumb.jpg'">-->
+                <img ngf-src="file"  class="ed-company-img" ngf-resize="{width: 110, height: 110, quality: 0.9}" ngf-no-object-url="true">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class=" bt-upload-company">
+                <button type="button" id="img" class="main-all-btn-w " ngf-select="uploadCompanyImg($file, 'pic1', 'file1')" id="file1" accept="image/*">上传</button>
+                <!--<input type="file" id="img" class="btn btn-default" ngf-select="uploadShopImg($file)" accept="image/*"/>-->
+                支持bmg,jpeg,jpeg,png,gif格式图片,文件需小于2M
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="companyName" class="col-sm-2 control-label control-label-left">集团名称：</label>
+            <div class="col-sm-10 company-col">
+                <input type="text" class="form-control form-control-input ed-company"  id="companyName" name="companyName" placeholder="集团名称" 
+               		   maxlength="20" ng-model="company.companyName" required tooltip-trigger="blur" ng-pattern="/^[A-Za-z0-9\u4e00-\u9fa5]{1,20}$/"
+                       uib-tooltip="{{updateCompanyForm.companyName.$invalid?'集团名称由数字、中文、英文组成':''}}" tooltip-placement="bottom" >
+             </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label control-label-left" for="brand">简称：</label>
+            <div class="col-sm-10 company-col">
+                <input type="text" class="form-control form-control-input ed-company ed-company-2"  id="companyNote" name="companyNote" placeholder="选填" maxlength="15" ng-model="company.note"  tooltip-trigger="blur" uib-tooltip="{{updateCompanyForm.note.$invalid?'请填简称':''}}" tooltip-placement="bottom" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label control-label-left" for="linkMan">联系人：</label>
+            <div class="col-sm-10 company-col">
+                <input type="text" class="form-control form-control-input ed-company "  id="linkMan" name="linkMan" placeholder="联系人" maxlength="15" ng-model="company.linkMan"  tooltip-trigger="blur" uib-tooltip="{{updateCompanyForm.linkMan.$invalid?'请填写联系人':''}}" tooltip-placement="bottom" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="phone" class="col-sm-2 control-label control-label-left">手机号：</label>
+            <div class="col-sm-10 company-col">
+                <input type="text" class="form-control form-control-input ed-company "  id="phone" name="phone" placeholder="手机号" ng-model="company.phone" tooltip-trigger="blur" uib-tooltip="{{updateCompanyForm.phone.$invalid?'请填写详细手机号':''}}" tooltip-placement="bottom" ng-pattern="/^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="email" class="col-sm-2 control-label control-label-left">邮箱：</label>
+            <div class="col-sm-10 company-col">
+                <input type="text" class="form-control form-control-input ed-company ed-company-2"  id="email" name="email" placeholder="邮箱" ng-model="company.email" tooltip-trigger="blur" uib-tooltip="{{updateCompanyForm.email.$invalid?'请填写有效的邮箱':''}}" tooltip-placement="bottom" maxlength="55" ng-pattern="/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label control-label-left" for="district">注册地：</label>
+            <!--<province-city-switch division="division" address="address"></province-city-switch>-->
+            <div class="col-sm-2 padding-s">
+                <select  class="form-control form-control-input ed-company" ng-model="province" ng-options="province.name for province in division"
+                         ng-change="changeProvince(province)">
+                    <option value="" class="form-control-point">省</option>
+                </select>
+            </div>
+            <div class="col-sm-3 padding-s">
+                <select class="form-control form-control-input ed-company" style="width: 85%;" ng-model="city" ng-options="city.name for city in province.subAreas">
+                    <option value="" class="form-control-point">市</option>
+                </select>
+            </div>
+            <div class="col-sm-5 padding-s">
+                <select class="form-control form-control-input ed-company" style="width:57%;" ng-model="district" ng-options="area.name for area in city.subAreas" name="district" id="district" tooltip-trigger="blur"
+                        uib-tooltip="{{updateCompanyForm.district.$invalid?'请选择地区':''}}" tooltip-placement="bottom" required>
+                    <option value="" class="form-control-point">区</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group ">
+            <label for="address" class="col-sm-2 control-label control-label-left">区域：</label>
+            <div class="col-sm-10 company-col company-edit-address control-label-input">
+                <span class="ed-company form-control-point">{{area}}</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="address" class="col-sm-2 control-label control-label-left">详细地址：</label>
+            <div class="col-sm-10 company-col">
+                <input type="text" class="form-control form-control-input ed-company "  id="address" name="address" placeholder="详细地址" ng-model="company.address" tooltip-trigger="blur" uib-tooltip="{{updateCompanyForm.address.$invalid?'请填写详细地址':''}}" tooltip-placement="bottom" required>
+            </div>
+        </div>
+        <!--           <div class="form-group"> -->
+        <!--             <label for="address" class="col-sm-2 control-label">注册时间:</label> -->
+        <!--             <div class="col-sm-10"> -->
+        <!--                 <input type="data" class="form-control" style="width:80%;" id="address" name="address" placeholder="注册时间" ng-model="shop.address" tooltip-trigger="blur" uib-tooltip="{{updateShopForm.address.$invalid?'请填写注册时间':''}}" tooltip-placement="bottom" required> -->
+        <!--             </div> -->
+        <!--         </div> -->
+        <div class="form-group">
+            <div class="col-sm-offset-2 form-btn-left">
+                <button type="submit" class="btn btn-primary main-all-btn-b"  ng-disabled="updateCompanyForm.$invalid">保存</button>
+            </div>
+            <div class="col-sm-6 form-btn-right">
+                <button type="button" class="main-all-btn-w" ng-click="cancel()">取消</button>
+            </div>
+        </div>
+    </form>
+</div>

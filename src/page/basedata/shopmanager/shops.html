@@ -1,0 +1,59 @@
+<div>
+    <condition-filter conditions="conditions"></condition-filter>
+    <!--<page-list results="resultList" request-obj="requestObj" page-set="pageSet" new-fun="newFun"></page-list>-->
+
+    <div class="list-page">
+        <div class="canvas_title canvas-title-special" ng-bind="pageSet.title"></div>
+        <div class="list-table">
+            <ul class="list-group shop-list-group-s">
+                <li class="list-group-item shops-list-item" ng-repeat="shop  in resultList.pageInfo.list">
+                    <div class="media-left">
+                        <a href="#">
+                            <!--<img class="media-object" ng-src="shop.img" alt="...">-->
+                            <img class="media-object shop-list-img" ng-src="{{imgServer + shop.img}}" alt="..." >
+                        </a>
+                    </div>
+                    <div class="media-body shops-list-data">
+                        <div class="media-heading shops-list-head" ><span ng-bind="shop.name"></span>
+                            <span ng-if="shop.ifEnable" class="shop-open">已开通</span><span ng-if="!shop.ifEnable" class="shop-close">已停用</span>
+                            <a style="float: right;" ng-click="openNew(shop)" ng-if="edit"><i class="iconfont">&#xe63f;</i>修改</a>
+                        </div>
+                        <div class="shop-info"><span ng-bind="shop.cityName"></span><span>&nbsp,&nbsp</span>   <span ng-bind="shop.countyName"></span></div>
+                        <div class="shop-info"><span>门店编码：</span><span ng-bind="shop.id"></span>   <span style="margin-left:8px;color:#999999;">|</span><span style="margin-left:12px;">终端数：</span><a ng-click="doTeminal(shop)"><span ng-bind="shop.count"></span></a></div>
+                        <div ng-if="shop.leastDay >= 0" class="shop-info">还有<span class="shops-day-color1" ng-bind="shop.leastDay|getAbs:shop.leastDay"></span>天服务到期
+                            <span ng-if="shop.leastDay < 30">,请您及时<a style="margin:0 5px;">续费</a></span>
+                        </div>
+                        <div ng-if="shop.leastDay < 0" class="shop-info1">服务已逾期<span class="shops-day-color2" ng-bind="shop.leastDay|getAbs:shop.leastDay"></span>天,请您及时<a style="margin:0 5px;">续费</a></div>
+
+                        <div ng-click="shop.isCollapsed = !shop.isCollapsed" class="pull-right shops-list-more" ng-init="shop.isCollapsed = true;" ng-bind="shop.isCollapsed|getMore:shop.isCollapsed">
+                        </div>
+
+                        <div uib-collapse="shop.isCollapsed" style="line-height: 2">
+                            <br>
+                            <span  style="padding:0;">开通时间：</span><span  style="height: 20px;" ng-cloak ng-bind="shop.createTime|limitTo : 10"></span><br>
+                            <span  style="padding:0;">到期时间：</span><span  style="height: 40px;" ng-cloak ng-bind="shop.endTime|limitTo : 10"></span><br>
+
+                            <span  style="padding:0;">详细地址：</span><span  style="height: 20px;" ng-bind="shop.address"></span><br>
+                            <span  style="padding:0;">联系人：</span><span  style="height: 20px;" ng-bind="shop.linkMan"></span><br>
+                            <span  style="padding:0;">电话：</span><span  style="height: 40px;" ng-bind="shop.phone"></span><br>
+
+                            <span  style="padding:0;">区域：</span><span  style="height: 20px;" ng-cloak ng-bind="getArea(shop.cityId)"></span><br>
+                  			<span  style="padding:0;">集团号：</span><span  style="height: 20px;" ng-bind="shop.companyId"></span><br>
+                  			<span  style="padding:0;">集团名称：</span><span  style="height: 20px;" ng-bind="shop.companyName"></span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="pageination-special" ng-show="resultList.pageInfo.total>10">
+        <uib-pagination  total-items="resultList.pageInfo.total" ng-model="pageSet.currentPage"
+                        items-per-page="pageSet.numPerPage" class="pagination-ul pagination-sm"
+                        max-size="pageSet.maxSize"
+                        boundary-links="true" force-ellipses="true" ng-change="pageChanged()"
+                        previous-text="上一页"
+                        next-text="下一页" first-text="首页" last-text="尾页"></uib-pagination>
+        <div class="pagination-total">总共{{resultList.pageInfo.total}}条</div>
+    </div>
+
+</div>

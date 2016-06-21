@@ -1,0 +1,112 @@
+<div class="list-page two-form border-none">
+	<div class="canvas_title">计次卡
+	</div>
+	<div class="panel-body">
+	<uib-tabset active="activeForm" style="background: white;margin-top: 10px;font-size: 16px">
+    <!-- 会员tab -->
+    <uib-tab index="0" heading="充值" ng-init="focusOn=true"  ng-click="focusOn2=!focusOn2;focusOn=true;">
+		<form class="form-horizontal recharge-form" autocomplete="off" name="rechargeForm" ng-submit="saveRecharge()" novalidate>
+		<div class="form-group">
+			<label for="cardNo" class="col-sm-3 control-label control-label-left">卡号/手机号：</label>
+			<div class="col-sm-8 company-col">
+			  <input type="text" class="form-control  form-control-input consume-text-size" id="cardNo" name="cardNo" placeholder="请输入卡号或手机号" ng-model="rechargeVo.cardNo" required="required" ng-disabled="cardNoDisabled"
+			  ng-blur="getMemeberAndCardInfo(rechargeTimeOper)" set-focus="focusOn" maxlength="16"
+			  ng-pattern="/^(((13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8})|([1-9](\d{4,9}|\d{11,15})))$/"
+			  tooltip-trigger="blur" uib-tooltip="{{rechargeForm.cardNo.$invalid && rechargeForm.cardNo.$dirty ?'请填写正确的卡号/手机号':''}}" tooltip-placement="bottom" >
+			</div>
+		</div>
+		<div class="form-group" ng-if="rechargeVo.isValidTimeAccount">
+				<label  class="col-sm-3 control-label sr-only ">剩余次数</label>
+				<div class="col-sm-8 consume-text-c">
+				  	<p class="form-control-static ">剩余次数：<span ng-bind="rechargeVo.timeBalance|number:0"></span></p>
+				</div>
+		</div>
+		<div class="form-group">
+			<label for="time" class="col-sm-3 control-label control-label-left">次数：</label>
+			<div class="col-sm-8 company-col">
+			  <input type="text" class="form-control  form-control-input consume-text-size" id="time"  name="time" placeholder="请输入充值次数" ng-model="rechargeVo.time" required="required"
+			  ng-pattern="/^[1-9]\d{0,6}$/" maxlength="6"
+			  tooltip-trigger="blur" uib-tooltip="{{rechargeForm.time.$invalid && rechargeForm.time.$dirty?'请输入正确充值次数！':''}}" tooltip-placement="bottom" >
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="value1" class="col-sm-3 control-label control-label-left">支付金额(元)：</label>
+			<div class="col-sm-8 company-col">
+			  <input type="text" class="form-control  form-control-input consume-text-size" id="value1"  name="value1" placeholder="请输入支付金额" ng-model="rechargeVo.value" required="required"
+			  ng-pattern="/^[1-9]\d{0,6}(\.\d{1,2})?$/"
+			  tooltip-trigger="blur" uib-tooltip="{{rechargeForm.value1.$invalid && rechargeForm.value1.$dirty?'请输入正确支付金额！':''}}" tooltip-placement="bottom" >
+			</div>
+		</div>
+		<div class="form-group">
+				<label for="btn-group" class="col-sm-3 control-label control-label-left" >支付类型：</label>
+				<div class="col-sm-9 company-col" >
+					<!-- <div class="btn-group" role="group" aria-label="..." id="btn-group" style="margin-left:10px;">
+					  <button type="button" class="btn btn-default" ng-repeat="tsType in tsTypeList" ng-click="changeTsType(tsType)" ng-bind="tsType.name"></button>
+					</div> -->
+					<div class="pos-payment">
+						<div ng-repeat="tsType in tsTypeList" class="pos-payment-outside relative">
+			                <div ng-click="changeTsType(tsType)" class="pos-payment-inside">
+								<input type="radio" name="typeRadio" ng-checked="tsType.id == rechargeVo.tsTypeId">
+								<span class="paySpan">
+	                                      <img ng-src="{{getPaymentUrl(tsType.name)}}">
+	                                      <span class="text-center">
+	                                         <span ng-bind="tsType.name"></span>
+	                                      </span>
+	                                  </span>
+		                     	<div  ng-if="tsType.id == rechargeVo.tsTypeId">
+		                   			<i class="iconfont iconfont-left correctIcon">&#xe639;</i>
+		                   		</div>
+		                   	</div>
+	
+			           </div>
+		           </div>
+				</div>
+			</div>
+			<div class="form-group consume-btn">
+		        <div class="col-sm-offset-3 col-sm-2 pl0">
+		            <button type="submit"  class="btn btn-primary btn-default pos-btn" ng-disabled="rechargeForm.$invalid || rechargeVo.forbideSave">确定(Enter)</button>
+		        </div>
+		        <div class="col-sm-6">
+		            <button type="button"  class="btn btn-default pos-btn" ng-click="goBack()">取消(Esc)</button>
+		        </div>
+		   </div>
+		</form>
+	</uib-tab>
+    <uib-tab index="1" heading="消费" ng-init="focusOn2=false"  ng-click="focusOn= !focusOn;focusOn2= true;">
+	    <form class="form-horizontal recharge-form" autocomplete="off" name="consumeForm" ng-submit="saveConsume()" novalidate>
+			<div class="form-group">
+				<label for="cardNo" class="col-sm-3 control-label control-label-left">卡号/手机号：</label>
+				<div class="col-sm-8 company-col">
+				  <input type="text" class="form-control  form-control-input consume-text-size" id="cardNo" name="cardNo" placeholder="请输入卡号或手机号" ng-model="consumeVo.cardNo" required="required" ng-disabled="cardNoDisabled"
+				  ng-blur="getMemeberAndCardInfo(cosumeTimeOper)" set-focus="focusOn2" maxlength="16"
+				  ng-pattern="/^(((13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8})|([1-9](\d{4,9}|\d{11,15})))$/"
+				  tooltip-trigger="blur" uib-tooltip="{{consumeForm.cardNo.$invalid && consumeForm.cardNo.$dirty ?'请填写正确的卡号/手机号':''}}" tooltip-placement="bottom" >
+				</div>
+			</div>
+			<div class="form-group" ng-if="consumeVo.isValidTimeAccount">
+				<label  class="col-sm-3 control-label sr-only ">剩余次数</label>
+				<div class="col-sm-8 consume-text-c">
+				  	<p class="form-control-static ">剩余次数：<span ng-bind="consumeVo.timeBalance|number:0"></span></p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="time2" class="col-sm-3 control-label control-label-left">次数：</label>
+				<div class="col-sm-8 company-col">
+				  <input type="text" class="form-control  form-control-input consume-text-size" id="time2"  name="time2" placeholder="请输入消费次数" ng-model="consumeVo.time" required="required"
+				  ng-pattern="/^[1-9]\d{0,6}$/" maxlength="6"
+				  tooltip-trigger="blur" uib-tooltip="{{consumeForm.time2.$invalid && consumeForm.time2.$dirty ?'请输入正确充值次数！':''}}" tooltip-placement="bottom" >
+				</div>
+			</div>
+		
+			<div class="form-group consume-btn">
+		        <div class="col-sm-offset-3 col-sm-2 pl0">
+		            <button type="submit"  class="btn btn-primary btn-default pos-btn" ng-disabled="consumeForm.$invalid || consumeVo.forbideSave">确定(Enter)</button>
+		        </div>
+		        <div class="col-sm-6">
+		            <button type="button"  class="btn btn-default pos-btn" ng-click="goBack()">取消(Esc)</button>
+		        </div>
+		   </div>
+		</form>    
+    </uib-tab>
+	</uib-tabset>
+</div>

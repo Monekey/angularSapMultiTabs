@@ -6,9 +6,9 @@
  *       2016/3/9 LSZ  create
  */
 define(function (require) {
-    var public = require("publicService");
+    var ngAMD = require("ngAMD");
 
-    public.constant('appConstant', {
+    ngAMD.constant('appConstant', {
         systemCode:{
             pos:10003,
             home:10001
@@ -217,7 +217,8 @@ define(function (require) {
         //服务器设置
         servers: {
         	//local: 'http://192.168.4.140:8080/crm7/'//测试环境
-            local: window.location.href.split('#')[0],//本地环境
+            //local: window.location.href.split('#')[0],//本地环境
+            local: 'http://'+window.location.host+'/angularSapMultiTabs/src/testData/',
             imgServer: 'http://192.168.12.40/'//图片前缀地址
         },
         //种族
@@ -237,9 +238,9 @@ define(function (require) {
             {"name":"阴历","value":"1"}],
         sexTypeList:[{"name":"男","value":"1"},
             {"name":"女","value":"0"}],
-        accountTypePhotos:[{"typeId":1,"url":"resources/assets/images/member/accountType_1.png"},
-            {"typeId":2,"url":"resources/assets/images/member/accountType_2.png"},
-            {"typeId":3,"url":"resources/assets/images/member/accountType_3.png"}
+        accountTypePhotos:[{"typeId":1,"url":"src/assets/images/member/accountType_1.png"},
+            {"typeId":2,"url":"src/assets/images/member/accountType_2.png"},
+            {"typeId":3,"url":"src/assets/images/member/accountType_3.png"}
         ]
     });
 });

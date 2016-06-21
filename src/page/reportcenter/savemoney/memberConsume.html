@@ -1,0 +1,10 @@
+<div id="memberConsume">
+
+    <condition-filter conditions="conditions"></condition-filter>
+    <div class="row reporter-text" >
+        <div class="col-sm-4">交易笔数：<span>{{resultList.data.tranCount}}</span></div>
+        <div class="col-sm-4">消费本金：<span>{{resultList.data.money}}</span></div>
+        <div class="col-sm-4">消费赠送金额：<span>{{resultList.data.zongsongjine}}</span></div>
+    </div>
+    <page-list results="resultList" request-obj="requestObj" page-set="pageSet"></page-list>
+</div>

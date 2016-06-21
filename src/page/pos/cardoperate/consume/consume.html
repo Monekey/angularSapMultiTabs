@@ -1,0 +1,104 @@
+<div class="list-page two-form border-none">
+	<div class="canvas_title">消费</div>
+	<div class="panel-body">
+		<form class="form-horizontal recharge-form" autocomplete="off" name="form"
+			ng-submit="doConsume()" novalidate>
+			<div class="form-group">
+				<label for="cardNo" class="col-sm-3 control-label control-label-left">卡号：</label>
+				<div class="col-sm-7 company-col ">
+					<label class="control-label" ng-if="!flg.isCardNo">{{consumeVo.cardNo}}</label>
+					<input ng-if="flg.isCardNo" type="text"
+						class="form-control  form-control-input consume-text-size"
+						id="cardNo" name="cardNo" placeholder="请输入卡号或手机号"
+						ng-model="consumeVo.cardNo" required="required"
+						 ng-blur="getMemeberAndCardInfo()"
+						ng-pattern="/^(((13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8})|([1-9](\d{4,9}|\d{11,15})))$/"
+						tooltip-trigger="blur"
+						uib-tooltip="{{form.cardNo.$invalid && form.cardNo.$dirty ?'请填写正确的卡号或手机号':''}}"
+						tooltip-placement="bottom"  set-focus="true"/>
+				</div>
+				<div class="col-sm-2"></div>
+
+			</div>
+			<div class="form-group">
+				<label for="allMoney" class="col-sm-3 control-label control-label-left">消费金额：</label>
+				<div class="col-sm-7 company-col ">
+					<input type="text" class="form-control  consume-text-size form-control-input " id="allMoney" name="allMoney"
+						placeholder="请输入消费金额" ng-model="consumeVo.allMoney"
+						required="required"
+						ng-change="allMoneyChange()"/> 
+						<!-- ng-pattern="/^[1-9]\d{0,6}(\.\d{1,2})?$/"
+						tooltip-trigger="blur"
+						uib-tooltip="{{form.allMoney.$invalid && form.allMoney.$dirty ?'请输入正确账单金额':''}}"
+						tooltip-placement="bottom"/> --> 
+				</div>
+				<div class="col-sm-2"></div>
+			</div>
+
+			<div class="form-group consume-form-group">
+
+				<label for="consumeScore" class="col-sm-3 control-label control-label-left"></label>
+				<div class="col-sm-9 company-col">
+					<div class="form-group">
+						<label class="col-sm-12 control-label control-label-left consume-form-label" ><span class="consume-label-icon">■</span>积分支付：</label>
+						<div class="col-sm-12">
+								<div class="col-sm-8 consume-padding input-group">
+									<input type="text" class="form-control  form-control-input consume-text-size"  id="consumeScore" name="consumeScore"
+										   ng-model="consumeVo.consumeScore"
+										   ng-disabled="!flg.isScore"
+										   ng-change="scoreChange()"
+										   required="required" />
+									<!-- ng-pattern="/^[1-9]\d{0,6}(\.\d{1,2})?$/"
+                                    ng-disabled="!flg.isScore" tooltip-trigger="blur"
+                                    uib-tooltip="{{form.consumeScore.$invalid && form.consumeScore.$dirty?'请输入正确支付金额！':''}}"
+                                    tooltip-placement="bottom" -->
+									<span class="form-control-feedback">可用积分：<span ng-bind="consumeVo.ableScore|number:0" ></span></span>
+								</div>
+							<div class="col-sm-3 consume-padding consume-text-c deduction-money-text">-<span ng-bind="consumeVo.scoreMoney"></span>元</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="form-group consume-form-group">
+				<label for="consumeMoney" class="col-sm-3 control-label control-label-left"></label>
+				<div class="col-sm-9 company-col">
+					<div class="form-group">
+						<label class="col-sm-12 control-label control-label-left consume-form-label"><span class="consume-label-icon">■</span>卡余额支付：</label>
+						<div class="col-sm-12">
+							<div class="col-sm-8 consume-padding input-group">
+								<input type="text" class="form-control  form-control-input  consume-text-size consume-text-c"  name="consumeMoney" id="consumeMoney"
+									   ng-model="consumeVo.consumeMoney" ng-disabled="true">
+								<span class="form-control-feedback">
+									可用余额:<span ng-bind="consumeVo.ableMoney|number:2" ></span>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-2"></div>
+
+			</div>
+			<div class="row last-tip-text">
+				<div class="col-sm-3 company-col"></div>
+				<div class="col-xs-7 company-col form-control-point">
+					<i class="iconfont">&#xe682;</i>
+					消费金额
+					(<span class="procedure-span" ng-bind="consumeVo.allMoney"></span>)
+					-会员卡积分
+					(<span class="procedure-span"  ng-bind="consumeVo.consumeScore"></span>)
+					-卡余额支付
+					(<span class="procedure-span" ng-bind="consumeVo.consumeMoney"></span>)
+					=<span class="result-span" ng-bind="caldiff()" ></span>
+				</div>
+			</div>
+			<div class="form-group consume-btn consume-custom-btn">
+				<div class="col-sm-offset-3 col-sm-2 pl0">
+					<button type="submit" class="btn btn-primary btn-default pos-btn" ng-disabled="form.$invalid||!flg.isSave">确定(Enter)</button>
+				</div>
+				<div class="col-sm-6">
+					<button type="button" class="btn btn-default pos-btn" ng-click="goBack()">取消(Esc)</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

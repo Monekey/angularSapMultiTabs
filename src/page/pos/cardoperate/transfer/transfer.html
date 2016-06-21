@@ -1,0 +1,123 @@
+<div class="list-page two-form border-none">
+	<div class="canvas_title">卡转账</div>
+	<div class="panel-body">
+		<form class="form-horizontal recharge-form" autocomplete="off" name="form"
+			ng-submit="doTransfer()" novalidate>
+			<!-- <div class="form-group"><label class="col-sm-12 control-label">{{valid.errMsg}}</label></div> -->
+			<div class="form-group">	
+				<label for="outCardNo" class="col-sm-3 control-label control-label-left">转出卡号：</label>
+				<div class="col-sm-7 company-col ">
+					<input type="text"
+						class="form-control  form-control-input consume-text-size"
+						id="outCardNo" name="outCardNo" placeholder="请输入卡号或手机号"
+						ng-model="transferVo.outCardNo" required="required"
+						ng-disabled="!flg.isCardNo" ng-blur="getMemeberAndCardInfo()"
+						ng-pattern="/^(((13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8})|([1-9](\d{4,9}|\d{11,15})))$/"
+						tooltip-trigger="blur"
+						uib-tooltip="{{form.outCardNo.$invalid && form.outCardNo.$dirty ?'请填写正确的卡号/手机号':''}}"
+						tooltip-placement="bottom" set-focus="true"/>
+				</div>
+				<div class="col-sm-2"></div>
+
+			</div>
+			<div class="form-group">
+				<label for="inCardNo" class="col-sm-3 control-label control-label-left">转入卡号：</label>
+				<div class="col-sm-7 company-col ">
+					<input type="text"
+						class="form-control  form-control-input consume-text-size"
+						id="inCardNo" name="inCardNo" placeholder="请输入卡号或手机号"
+						ng-model="transferVo.inCardNo" required="required"
+						ng-pattern="/^(((13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8})|([1-9](\d{4,9}|\d{11,15})))$/"
+						tooltip-trigger="blur"
+						uib-tooltip="{{form.inCardNo.$invalid && form.inCardNo.$dirty ?'请填写正确的卡号/手机号':''}}"
+						tooltip-placement="bottom"/>
+				</div>
+				<div class="col-sm-2"></div>
+			</div>
+
+			<div class="form-group">
+
+				<label for="consumeScore" class="col-sm-3 control-label control-label-left">转账类型：</label>
+				<div class="col-sm-9 company-col" >
+						<!-- <div class="btn-group" role="group" aria-label="..." id="btn-group" style="margin-left:10px;">
+						  <button type="button" class="btn btn-default" ng-repeat="tsType in tsTypeList" ng-click="changeTsType(tsType)" ng-bind="tsType.name"></button>
+						</div> -->
+						<div class="pos-payment pos-payment-ml">
+							<div  class="pos-payment-outside relative">
+				                <div ng-click="changeType(0)" class="pos-payment-inside">
+									<input type="radio" name="typeRadio" ng-checked="transferVo.type == 0">
+									<span class="paySpan">
+                                       
+                                        <span class="text-center">
+                                           <span >金额</span>
+                                        </span>
+                                    </span>
+			                     	<div  ng-if="transferVo.type == 0">
+			                   			<i class="iconfont iconfont-left correctIcon">&#xe639;</i>
+			                   		</div>
+			                   	</div>
+
+				           </div>
+				           <div class="pos-payment-outside relative">
+				                <div ng-click="changeType(1)" class="pos-payment-inside">
+									<input type="radio" name="typeRadio" ng-checked="transferVo.type == 1">
+									<span class="paySpan">
+                                        
+                                        <span class="text-center">
+                                           <span >积分</span>
+                                        </span>
+                                    </span>
+			                     	<div  ng-if="transferVo.type == 1">
+			                   			<i class="iconfont iconfont-left correctIcon">&#xe639;</i>
+			                   		</div>
+			                   	</div>
+
+				           </div>
+			           </div>
+					</div>
+
+			</div>
+			<div class="form-group">
+
+				<label ng-if="transferVo.type == 0" for="value" class="col-sm-3 control-label control-label-left">转账金额(元)：</label>
+				<label ng-if="transferVo.type == 1" for="value" class="col-sm-3 control-label control-label-left">转账积分：</label>
+
+				<div ng-if="transferVo.type == 0"  class="col-sm-7 company-col">
+					<input 
+						type="text"
+						class="form-control  form-control-input consume-text-size"
+						id="value" name="value" placeholder="请输入金额"
+						ng-model="transferVo.value" required="required"
+						ng-pattern="/^[1-9]\d{0,6}(\.\d{1,2})?$/" tooltip-trigger="blur"
+						uib-tooltip="{{form.value.$invalid && form.value.$dirty?'请输入合法金额！':''}}"
+						tooltip-placement="bottom"> 
+					
+
+				</div>
+				<div ng-if="transferVo.type == 1"  class="col-sm-7 company-col"> 
+					<input
+						ng-if="transferVo.type == 1" type="text"
+						class="form-control  form-control-input consume-text-size"
+						id="value" name="value" placeholder="请输入积分"
+						ng-model="transferVo.value" required="required"
+						ng-pattern="/^[1-9]\d{0,6}?$/" tooltip-trigger="blur"
+						uib-tooltip="{{form.value.$invalid && form.value.$dirty?'请输入合法积分！':''}}"
+						tooltip-placement="bottom">
+
+				</div>
+				<div class="col-sm-2"></div>
+
+			</div>
+	
+			<div class="form-group consume-btn">
+				<div class="col-sm-offset-3 col-sm-2 pl0">
+					<button type="submit" class="btn btn-primary btn-default pos-btn" ng-disabled="form.$invalid||!flg.isSave">确定(Enter)</button>
+				</div>
+				<div class="col-sm-6">
+					<button type="button" class="btn btn-default pos-btn" ng-click="goBack()">取消(Esc)</button>
+				</div>
+			</div>
+			</div>
+		</form>
+	</div>
+</div>

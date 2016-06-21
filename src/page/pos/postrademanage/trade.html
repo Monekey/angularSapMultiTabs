@@ -1,0 +1,178 @@
+<condition-filter conditions="conditions"></condition-filter>
+<div class="list-page border-none">
+    <div class="canvas_title canvas-title-special">
+        <span ng-bind="pageSet.title"></span>
+        <button class="back-home-page-btn" ng-click="goselectedpos()" ng-show="isPosHome()"><i class="iconfont">&#xe681;</i>回到首页</button>
+    </div>
+    <div class="list-table">
+        <div class="panel panel-default list-group" ng-repeat="trade  in resultList.pageInfo.list">
+            <div class="panel-heading trade-list-heading row" style="margin: 0px">
+                <span class="col-sm-3 ">流水号：<span ng-bind="trade.txCode"></span> </span>
+                <span class="col-sm-4">时间：<span ng-bind="trade.createTime"></span> </span>
+                <span class="col-sm-3 ">终端号：<span ng-bind="trade.terminalCode"></span>  </span>
+                <span class="col-sm-2">操作人：<span ng-bind="trade.operationName"></span> </span>
+                <!--<span class="mr50">&lt;!&ndash; 交易类型：<span ng-bind="trade.tradeType"></span> &ndash;&gt; </span>-->
+            </div>
+
+            <div class="panel-body panel-body-special">
+                         <div class="col-sm-3">
+                            <!-- 消费 -->
+                            <div ng-if="trade.viewType==1">
+                                <!--<i class="trade-icon trade-icon1 iconfont">&#xe62c;</i>-->
+                                <div  class="trade-icon-message">
+                                    <div>交易类型：<span ng-bind="trade.tradeType" class="trade-type-sale"></span></div>
+                                    <div>消费卡金额： <span ng-bind="trade.tradeContentBeans.cardAmount|number:2"></span> 元</div>
+                                    <div>消费积分： <span ng-bind="trade.tradeContentBeans.scoreConverMoney|number:2"></span> 元（<span ng-bind="trade.tradeContentBeans.score"></span>积分抵）</div>
+                                    <div>消费券：<span ng-bind="trade.tradeContentBeans.voucherConverMoney|number:2"></span> 元</div>
+                                </div>
+                                
+                            </div>
+                            <!-- 卡操作-修改卡型 -->
+                            <div ng-if="trade.viewType==2">
+                                <!--<i class="trade-icon trade-icon2 iconfont">&#xe62c;</i>-->
+                                <div class="trade-icon-message">
+                                    <div>交易类型：<span ng-bind="trade.tradeType" class="trade-type-changeCardType"></span></div>
+                                    <div>旧卡型：<span ng-bind="trade.tradeEditCardBean.oldCardName"></span> </div>
+                                     <div>新卡型：<span ng-bind="trade.tradeEditCardBean.newCardName"></span> </div>
+                                </div>
+                            </div>
+                             <!-- 卡操作-换卡新卡 -->
+                            <div ng-if="trade.viewType==3">
+                                <!--<i class="trade-icon trade-icon3 iconfont">&#xe62c;</i>-->
+                                <div  class="trade-icon-message">
+                                    <div>交易类型：<span ng-bind="trade.tradeType" class="trade-type-changeCard"></span></div>
+                                    <div>旧卡号：<span ng-bind="trade.tradeChangeCardBean.oldCardNumber"></span> </div>
+                                    <div>新卡型：<span ng-bind="trade.tradeChangeCardBean.newCardName"></span> </div>
+                                    <div>新卡号：<span ng-bind="trade.tradeChangeCardBean.newCardNumber"></span></div>
+                                    <div>工本费：<span ng-bind="trade.tradeChangeCardBean.cardCharge|number:2"></span>元 </div>
+                                </div>
+                            </div>
+                             <!-- 卡操作-换卡原卡 -->
+                            <div ng-if="trade.viewType==103">
+                                <!--<i class="trade-icon trade-icon3 iconfont">&#xe62c;</i>-->
+                                <div  class="trade-icon-message">
+                                    <div>交易类型：<span ng-bind="trade.tradeType" class="trade-type-changeCard"></span></div>
+                                    <div>旧卡号：<span ng-bind="trade.tradeChangeCardBean.oldCardNumber"></span> </div>
+                                    <div>新卡型：<span ng-bind="trade.tradeChangeCardBean.newCardName"></span> </div>
+                                    <div>新卡号：<span ng-bind="trade.tradeChangeCardBean.newCardNumber"></span></div>
+                                    <div>工本费：<span ng-bind="trade.tradeChangeCardBean.cardCharge|number:2"></span>元 </div>
+                                </div>
+                            </div>
+                            <!-- 充值 -->
+                            <div ng-if="trade.viewType==4">
+                                <div>交易类型：<span ng-bind="trade.tradeType" class="trade-type-recharge"></span></div>
+                               <!--  <div>赠送积分:<span ng-bind="trade.rechargeTypeExt.score"></span> 折合人民币  <span ng-bind="trade.rechargeTypeExt.scoreConverMoney|number:2"></span> 元</div> -->
+                                <div>充值金额：<span ng-bind="trade.rechargeTypeExt.rechargeAmount|number:2"></span> 元</div>
+                                <div>赠送金额：<span ng-bind="trade.rechargeTypeExt.donatedAmount|number:2"></span> 元</div>
+                            </div>
+                            <!-- 卡操作-售卡 -->
+                            <div ng-if="trade.viewType==5">
+                                <div>交易类型：<span ng-bind="trade.tradeType" class="trade-type-sellCard"></span></div>
+                                <div>工本费：<span ng-bind="trade.sellCardTypeExt.cardCharge"></span> 元</div>
+                            </div>
+                             <!-- 卡操作-修改有效期 -->
+                            <div ng-if="trade.viewType==6">
+                                <div>交易类型：<span ng-bind="trade.tradeType" class="trade-type-validity"></span></div>
+                                <div>旧有效期：
+                                <span ng-bind="trade.editValidDateTypeExt.oldBeginValidDate"></span>-
+                                <span ng-bind="trade.editValidDateTypeExt.oldValidDate"></span>
+                                </div>
+                                <div>新有效期：
+                                <span ng-bind="trade.editValidDateTypeExt.newBeginValidDate"></span>-
+                                <span ng-bind="trade.editValidDateTypeExt.newValidDate"></span>
+                                </div>
+                            </div>
+                            <!-- 卡操作-退卡 -->
+                            <div ng-if="trade.viewType==7">
+                                <div>交易类型：<span ng-bind="trade.tradeType" class="trade-type-backCard"></span></div>
+                                <div>退卡金额：<span ng-bind="trade.annulCardTypeExt.annulAmount"></span> 元</div>
+                            </div>
+                             <!-- 解绑 -->
+                             <div ng-if="trade.viewType==101" >
+                                 <div>交易类型：<span ng-bind="trade.tradeType" class="trade-type-transfer"></span></div>
+                                 <div>手机号：<span ng-bind="trade.changeCardMobileExt.mobile"></span> </div>
+                             </div>
+                               <!-- 绑定 -->
+                             <div ng-if="trade.viewType==102" >
+                                 <div>交易类型：<span ng-bind="trade.tradeType" class="trade-type-transfer"></span></div>
+                                 <div>手机号：<span ng-bind="trade.changeCardMobileExt.mobile"></span></div>
+                             </div>
+                              <!-- 转账钱 -->
+                             <div ng-if="trade.viewType==13&&trade.tradeTransferTypeExt.valueType==1">
+                                 <div>交易类型：<span ng-bind="trade.tradeType" class="trade-type-transfer"></span></div>
+                                 <div>转账金额：<span ng-bind="trade.tradeTransferTypeExt.value|number:2"></span>元</div>
+                             </div>
+                             <!-- 转账积分 -->
+                              <div ng-if="trade.viewType==13&&trade.tradeTransferTypeExt.valueType==2">
+                                 <div>交易类型：<span ng-bind="trade.tradeType" class="trade-type-transfer"></span></div>
+                                 <div>转账积分：<span ng-bind="trade.tradeTransferTypeExt.value|number:0"></span>分</div>
+                             </div>
+                              <!-- 积分 -->
+                             <div ng-if="trade.viewType==8">
+                                 <div>交易类型：<span ng-bind="trade.tradeType" class="trade-type-score"></span></div>
+                                 <div ng-if="trade.tradeAddOrSubScoreExt.opType==1">增加积分：<span ng-bind="trade.tradeAddOrSubScoreExt.scoreBalance|number:0"></span>分</div>
+                                 <div ng-if="trade.tradeAddOrSubScoreExt.opType==2">扣减积分：<span ng-bind="trade.tradeAddOrSubScoreExt.scoreBalance|number:0"></span>分</div>
+                             </div>
+                             <!-- 其他没有详情的 -->
+                             <div ng-if="trade.viewType==0">
+                                 <div>交易类型：<span ng-bind="trade.tradeType" class="trade-type-transfer"></span></div>
+                             </div>
+                             
+                             
+                             
+                             
+                             
+                             
+                             <!-- 卡操作-挂失 -->
+                             <div ng-if="trade.viewType==9">
+                                 <div>交易类型：<span ng-bind="trade.tradeType" class="trade-type-loss"></span></div>
+                             </div>
+                             <!-- 卡操作-取消挂失 -->
+                             <div ng-if="trade.viewType==10">
+                                 <div>交易类型：<span ng-bind="trade.tradeType" class="trade-type-cancelLoss"></span></div>
+                             </div>
+                             <!-- 卡操作-修改密码 -->
+                             <div ng-if="trade.viewType==11">
+                                 <div>交易类型：<span ng-bind="trade.tradeType" class="trade-type-changePassword"></span></div>
+                             </div>
+                             <!-- 卡操作-重置密码 -->
+                             <div ng-if="trade.viewType==12">
+                                 <div>交易类型：<span ng-bind="trade.tradeType" class="trade-type-resetPassword"></span></div>
+                             </div>
+                             <!--&lt;!&ndash; 默认 &ndash;&gt;-->
+                             <!--<div ng-if="trade.viewType==14">-->
+                                 <!--<div>交易类型：<span ng-bind="trade.tradeType"></span></div>-->
+                             <!--</div>-->
+                        </div>
+                        <div class="col-sm-4">
+                            <div>卡号：<span ng-bind="trade.cardNo"></span> </div>
+                            <div>卡类型： <span ng-bind="trade.cardType"></span> </div>
+                            <div>交易门店：<span ng-bind="trade.xfShopName"></span> </div>
+                            <div>售卡门店：<span ng-bind="trade.openShopName"></span> </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div>姓名：<span ng-bind="trade.userName"></span> </div>
+                            <div>电话：<span ng-bind="trade.userPhone"></span> </div>
+                        </div>
+                      <div class="col-sm-2">
+                          <!--  <div><a  ng-if="trade.viewType==1" ng-click="opentradeInfoPan(trade)" >详情 </a></div> -->
+                           <div style="float:left;margin-right: 10%"><a  ng-click="opentradeInfoPan(trade)" >详情 </a></div>
+                             <div><a  ng-click="opentradeInfoPan(trade)" >撤销 </a></div>
+                        </div> 
+                        
+                    </div>
+        </div>
+    </div>
+</div>
+<div class="pageination-special" ng-show="resultList.pageInfo.total>10">
+    <uib-pagination  total-items="resultList.pageInfo.total" ng-model="pageSet.currentPage"
+                    items-per-page="pageSet.numPerPage"
+                    max-size="pageSet.maxSize" class="pagination-sm" style="float:right;display:inline;"
+                    boundary-links="true" force-ellipses="true" ng-change="pageChanged()" previous-text="上一页"
+                    next-text="下一页" first-text="首页" last-text="尾页"></uib-pagination>
+    <div class="pagination-total">总共{{resultList.pageInfo.total}}条</div>
+</div>
+
+
+
+

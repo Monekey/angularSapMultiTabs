@@ -1,0 +1,122 @@
+    <div class="row" ng-cloak>
+        <div class="row aler-bottom">
+                <div class="col-sm-6 warning-info">
+                    <label>消费预警阈值</label>
+                    <div class="warning-info-head">
+                        <span >金额：</span>
+                    </div>
+                    <div class="row">
+                        <div class="alert-row-left">
+                            <p>每卡<strong>每笔</strong>消费金额超过
+                        </div>
+                        <div >
+                            <input type="text" ng-pattern="/^\d+$/" ng-model="consumeWarning.ruleInfo.oneSalePrice"ng-keyup="consumeWarning.ruleInfo.oneSalePrice= consumeWarning.ruleInfo.oneSalePrice>=0?consumeWarning.ruleInfo.oneSalePrice:''">元</p>
+                        </div>
+                        <div class="alert-row-left">
+                            <p>每卡<strong>日累计</strong>消费金额超过
+                        </div>
+                        <div>
+                            <input type="text" ng-pattern="/^\d+$/" ng-model="consumeWarning.ruleInfo.daySalePrice" ng-keyup="consumeWarning.ruleInfo.daySalePrice= consumeWarning.ruleInfo.daySalePrice>=0?consumeWarning.ruleInfo.daySalePrice:''">元</p>
+                        </div>
+                        <div class="alert-row-left">
+                            <p>每卡<strong>周累计</strong>消费金额超过
+                        </div>
+                        <div>
+                            <input type="text" ng-pattern="/^\d+$/" ng-model="consumeWarning.ruleInfo.weekSalePrice" ng-keyup="consumeWarning.ruleInfo.weekSalePrice= consumeWarning.ruleInfo.weekSalePrice>=0?consumeWarning.ruleInfo.weekSalePrice:''">元</p>
+                        </div>
+
+                    </div>
+                </div>
+                <div class=" col-sm-6 warning-info">
+                    <label></label>
+                    <div class="warning-info-head">
+                        <span>频次：</span>
+                    </div>
+                    <div class="alert-row-left">
+                            <p>每卡<strong>日累计</strong>消费次数超过
+                        </div>
+                    <div>
+                        <input type="text" ng-pattern="/^\d+$/" ng-model="consumeWarning.ruleInfo.oneSaleCount" ng-keyup="consumeWarning.ruleInfo.oneSaleCount= consumeWarning.ruleInfo.oneSaleCount>=0?consumeWarning.ruleInfo.oneSaleCount:''">次</p>
+                    </div>
+                    <div class="alert-row-left">
+                        <p>每卡<strong>周累计</strong>消费次数超过
+                    </div>
+                    <div>
+                        <input  type="text" ng-pattern="/^\d+$/" ng-model="consumeWarning.ruleInfo.weekSaleCount" ng-keyup="consumeWarning.ruleInfo.weekSaleCount= consumeWarning.ruleInfo.weekSaleCount>=0?consumeWarning.ruleInfo.weekSaleCount:''">次</p>
+                    </div>
+                </div>
+            </div>
+        <div class="row aler-bottom">
+                <div class="col-sm-6 warning-info">
+                    <label>储值预警阈值</label>
+                    <div class="warning-info-head">
+                        <span>金额：</span>
+                    </div>
+                    <div class="alert-row-left">
+                        <p>每卡<strong>每笔</strong>储值金额超过
+                    </div>
+                    <div>
+                        <input type="text" ng-pattern="/^\d+$/" ng-model="saleWarning.ruleInfo.oneInchargePrice" ng-keyup="saleWarning.ruleInfo.oneInchargePrice= saleWarning.ruleInfo.oneInchargePrice>=0?saleWarning.ruleInfo.oneInchargePrice:''">元</p>
+                    </div>
+                    <div class="alert-row-left">
+                        <p>每卡<strong>日累计</strong>储值金额超过
+                    </div>
+                    <div>
+                        <input type="text" ng-pattern="/^\d+$/" ng-model="saleWarning.ruleInfo.dayInchargePrice" ng-keyup="saleWarning.ruleInfo.dayInchargePrice= saleWarning.ruleInfo.dayInchargePrice>=0?saleWarning.ruleInfo.dayInchargePrice:''">元</p>
+                    </div>
+                    <div class="alert-row-left">
+                        <p>每卡<strong>周累计</strong>储值金额超过
+                    </div>
+                    <div>
+                        <input type="text" ng-pattern="/^\d+$/" ng-model="saleWarning.ruleInfo.weekInchargePrice" ng-keyup="saleWarning.ruleInfo.weekInchargePrice= saleWarning.ruleInfo.weekInchargePrice>=0?saleWarning.ruleInfo.weekInchargePrice:''">元</p>
+                    </div>
+
+                </div>
+                <div class="col-sm-6 warning-info">
+                    <label></label>
+                    <div class="warning-info-head">
+                        <span>频次：</span>
+                    </div>
+                    <div class="alert-row-left">
+                        <p>每卡<strong>日累计</strong>储值次数超过
+                    </div>
+                    <div>
+                        <input type="text" ng-pattern="/^\d+$/" ng-model="saleWarning.ruleInfo.dayInchargeCount" ng-keyup="saleWarning.ruleInfo.dayInchargeCount= saleWarning.ruleInfo.dayInchargeCount>=0?saleWarning.ruleInfo.dayInchargeCount:''">次</p>
+                    </div>
+                    <div class="alert-row-left">
+                        <p>每卡<strong>周累计</strong>储值次数超过
+                    </div>
+                    <div>
+                        <input type="text" ng-pattern="/^\d+$/" ng-model="saleWarning.ruleInfo.weekInchargeCount" ng-keyup="saleWarning.ruleInfo.weekInchargeCount= saleWarning.ruleInfo.weekInchargeCount>=0?saleWarning.ruleInfo.weekInchargeCount:''">次</p>
+                    </div>
+                </div>
+            </div>
+        <div class="row">
+                <div class="col-sm-6 warning-info">
+                    <label class="alert-label-s">操作预警阈值</label>
+                    <br/>
+                    <div class="alert-row-left">
+                        <p>每卡日累计输错密码超过
+                    </div>
+                    <div>
+                        <input type="text" ng-pattern="/^\d+$/" ng-model="errorCountWarning.ruleInfo.dayInputErrorCount" ng-keyup="errorCountWarning.ruleInfo.dayInputErrorCount= errorCountWarning.ruleInfo.dayInputErrorCount>=0?errorCountWarning.ruleInfo.dayInputErrorCount:''">次</p>
+                    </div>
+                    <div class="alert-row-left">
+                        <p>每卡日累计撤销次数超过
+                    </div>
+                    <div>
+                        <input type="text" ng-pattern="/^\d+$/" ng-model="errorCountWarning.ruleInfo.dayRevokeCount" ng-keyup="errorCountWarning.ruleInfo.dayRevokeCount= errorCountWarning.ruleInfo.dayRevokeCount>=0?errorCountWarning.ruleInfo.dayRevokeCount:''">次</p>
+                    </div>
+                </div>
+            </div>
+        <div class="checkbox row ">
+            <div class="col-sm-9 alert-checkbox-input">
+                <label>
+                    <input type="checkbox" ng-model="consumeWarning.lockFlg" ng-true-value="1" ng-false-value="0" ng-checked="consumeWarning.lockFlg == 1"> 开启锁定：<span>当会员卡操作满足以上任一阈值条件，锁定该会员卡。</span>
+                </label>
+                <div class="alert-checkbox ">
+                    <button type="button" class="main-all-btn-b" ng-click="saveTransactionWarning(consumeWarning, saleWarning, errorCountWarning)" ng-if="edit">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>

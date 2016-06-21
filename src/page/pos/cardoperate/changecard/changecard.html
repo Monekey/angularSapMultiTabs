@@ -1,0 +1,78 @@
+<div class="list-page two-form border-none">
+	<div class="canvas_title">换卡
+	</div>
+	<div class="panel-body">
+		<form class="form-horizontal recharge-form" autocomplete="off" name="changeCardForm" ng-submit="saveChangeCard(changeCardVo)" novalidate>
+			<div class="form-group">
+				<label for="cardNo" class="col-sm-3 control-label control-label-left">卡号：</label>
+				<div class="col-sm-8 company-col">
+				  <input type="text" class="form-control  form-control-input consume-text-size"  set-focus="true" id="oldCardNo" name="oldCardNo" placeholder="卡号"
+				  ng-model="changeCardVo.oldCardNo" required="required" ng-disabled="oldCardNoDisabled"
+				  ng-blur="getMemeberAndCardInfo()"
+				  ng-pattern="/^[1-9](\d{4,9}|\d{11,15})$/"
+				  tooltip-trigger="blur" 
+				  uib-tooltip="{{changeCardForm.oldCardNo.$invalid ?'请填写正确的卡号':''}}" tooltip-placement="bottom" >
+				  <span ng-if="isOldCardStatus">此卡状态不支持换卡！</span>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="cardNo" class="col-sm-3 control-label control-label-left">新卡号：</label>
+				<div class="col-sm-8 company-col">
+				  <input type="text" class="form-control  form-control-input consume-text-size" id="newCardNo" name="newCardNo" placeholder="卡号" 
+						  ng-model="changeCardVo.newCardNo" required="required" ng-disabled="newCardNoDisabled"
+						  ng-blur="verifyNewCard(changeCardVo.newCardNo)"
+						  ng-pattern="/^(([1-9](\d{4,9}|\d{11,15})))$/"
+						  tooltip-trigger="blur" 
+						  uib-tooltip="{{changeCardForm.newCardNo.$invalid ?'请填写正确的卡号':''}}" 
+						  tooltip-placement="bottom" >
+					<span ng-if="isValidCardNo" ng-bind="invalidCardNoInfo"></span>
+				</div>
+			</div>
+			 <div class="form-group">
+                <label class="col-sm-3 control-label control-label-left" for="password"><font
+                        class="required-font-icon" >*</font>密码：</label>
+                <div class="col-sm-8 company-col">
+                  <input type="password" class="form-control  form-control-input consume-text-size" name="password" id="password" placeholder="请输入6位数字密码"
+                           ng-model="changeCardVo.password" required="required" 
+                           ng-blur=""
+                           ng-pattern="/^\d{6}$/"
+                           tooltip-trigger="blur" 
+                           uib-tooltip="{{changeCardForm.password.$invalid ?'请输入6位数字密码':''}}"
+                           tooltip-placement="bottom"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label control-label-left" for="password"><font
+						class="required-font-icon">*</font>确认密码：</label>
+                <div class="col-sm-8 company-col">
+                  <input type="password" class="form-control  form-control-input consume-text-size" name="repassword" id="repassword" placeholder="请输入6位数字密码"
+                           ng-model="changeCardVo.repassword" required="required" 
+                           ng-blur="validatePasswd()"
+                           ng-pattern="/^\d{6}$/"
+                           tooltip-trigger="blur" 
+                           uib-tooltip="{{changeCardForm.repassword.$invalid ||validatePasswdresult ?validatePasswdMsg:''}}"
+                           tooltip-placement="bottom"/>
+                </div>
+            </div>
+			<div class="form-group consume-btn">
+                        <label class="col-sm-3 control-label control-label-left">工本费：</label>
+                        <label class="radio-inline">
+                            <input type="radio" name="choice_radio" ng-model="changeCardVo.cardChargeType"
+                                   ng-value="1">收取工本费
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="choice_radio" ng-model="changeCardVo.cardChargeType"
+                                   ng-value="2">不收取工本费
+                        </label>
+                    </div>
+			<div class="form-group consume-btn">
+		        <div class="col-sm-offset-3 col-sm-2 pl0">
+		            <button type="submit"  class="btn btn-primary btn-default pos-btn" ng-disabled="changeCardForm.$invalid||validatePasswdresult||isValidCardNo||isOldCardStatus">确定(Enter)</button>
+		        </div>
+		        <div class="col-sm-6">
+		            <button type="button"  class="btn btn-default pos-btn" ng-click="goBack()">取消(Esc)</button>
+		        </div>
+		   </div>
+		 <!--   <pre>{{newCardInfo}}</pre> -->
+		</form>
+</div>

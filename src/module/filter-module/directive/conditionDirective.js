@@ -8,9 +8,12 @@
  */
 define(function (require) {
     var angular = require("angular");
-    var period = require("module/period-module/directive/periodDirect");
+    var period = require("period");
 
-    var listModule = angular.module("com.tcsl.crm7.list", ['com.tcsl.crm7.service', 'ui.bootstrap']);
+    var listModule = angular.module("com.tcsl.crm7.list", []);
+    /*var listModule = require('ngAMD');
+    var uiBootstrapped = require("ngload!ui.bootstrap");*/
+
     //自定义筛选器指令
     listModule.directive('conditionFilter', [
         function () {
@@ -21,7 +24,7 @@ define(function (require) {
                     "resultName": "@"
                 },
                 replace: 'true',
-                templateUrl: 'resources/module/filter-module/template/condition_filter.html',
+                templateUrl: 'src/module/filter-module/template/condition_filter.html',
                 controller: 'com.tcsl.crm7.list.filterController'
             };
         }]);
@@ -336,7 +339,7 @@ define(function (require) {
                 if (list.length > 7) {//同一个过滤条件超过七个值，则分两个数组显示
                     var newArray = angular.copy(list);
                     more.value = list.splice(0, 7);
-                    more.templateUrl = "resources/module/filter-module/template/popver.html";
+                    more.templateUrl = "src/module/filter-module/template/popver.html";
                     more.moreValue = newArray.splice(7, (newArray.length - 1));
                 }
             }
@@ -388,6 +391,7 @@ define(function (require) {
                                 }
                             });
                         });
+                        $scope.score_post();
                         return;
                     }
                 }
@@ -407,6 +411,7 @@ define(function (require) {
                 }
 
                 $scope.filterSelected = [];
+                $scope.score_post();
             };
 
             //条件点击事件
@@ -487,11 +492,12 @@ define(function (require) {
             $scope.isFixed = false;//固定顶部的开关
             $scope.randomId = new Date().getTime();//生成不重复ID
             //开关点击事件
+            var watchUnbindFunc = null;
             $scope.fix = function(){
                 $scope.isFixed = !$scope.isFixed;
                 var cbw=$("#ControlBarWrapper"+$scope.randomId);//撑高度的遮罩
                 var nav=$("#ControlBarWrapper"+$scope.randomId+" .shaixuan"); //得到导航对象
-                var sc=$(".content-main");//滚动条DOM对象
+                var sc=$(".content-main").length<=0?$(".content-pullLeft-main"):$(".content-main");//滚动条DOM对象
                 var topBarHeight=$(".head").height();
                 var fixClass = "shaixuan-fix";
                 if(sc.length<=0){
@@ -501,11 +507,22 @@ define(function (require) {
                 }
                 if(!$scope.isFixed){
                     sc.unbind('scroll');
+                    if(watchUnbindFunc!=null){
+                        watchUnbindFunc();
+                    }
                     nav.removeClass(fixClass);
                     cbw.css('height','auto');
                 }else{
                     var navH = nav.height();
+                    var fixWidth = cbw.width();
                     var offTop = nav.offset().top-topBarHeight;
+                    var offLeft = cbw.offset().left;
+                    nav.css('left',offLeft);
+                    nav.css('width',fixWidth);
+                    watchUnbindFunc = $scope.$watch(function(){return cbw.width()}, function(width){
+                        nav.css('width',width);
+                        nav.css('left',cbw.offset().left);
+                    });
                     sc.bind('scroll',function(){
                         if(sc.scrollTop()>=offTop){
                             nav.addClass(fixClass);

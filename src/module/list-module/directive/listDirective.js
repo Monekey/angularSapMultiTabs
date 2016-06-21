@@ -9,7 +9,7 @@ define(function (require) {
 
     var angular = require("angular");
 
-    var listModule = angular.module("com.tcsl.crm7.list2", ['ui.bootstrap']);
+    var listModule = angular.module("com.tcsl.crm7.list2", []);
     //自定义列表指令
     listModule.directive('pageList', [
         function () {
@@ -21,7 +21,7 @@ define(function (require) {
                     "pageSet": "="
                 },
                 replace: 'true',
-                templateUrl: 'resources/module/list-module/template/page_list.html',
+                templateUrl: 'src/module/list-module/template/page_list.html',
                 controller: 'com.tcsl.crm7.list2.pageListController'
             };
         }]);
@@ -81,7 +81,11 @@ define(function (require) {
             //数据操作项
             $scope.taskEnything = function (data, task) {
                 if (task.type === 'toAjax') {
-                    if (data[task.field] !== 0) {
+                    if (data[task.field] == 0) {
+                        if(task.field !== 'isAccess'){
+                            data[task.field] = 1;
+                        }
+                    } else {
                         if (task.field === 'isAccess') {
                             if (data[task.field] === 1) {
                                 data[task.field] = 2;

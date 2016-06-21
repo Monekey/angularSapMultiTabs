@@ -1,0 +1,130 @@
+<div>
+    <condition-filter conditions="conditions"></condition-filter>
+
+    <div class="list-page">
+        <div class="canvas_title canvas-title-special">
+            <div class="canvas-title-1">综合账单明细</div>
+            <div class="canvas-title-selection">
+                <span>选择维度:</span>
+                <select id="selectKPI" class="form-control" onchange="selectMain(this)">
+                    <option selected value="shopGroupFlag">门店</option>
+                    <option value="cityGroupFlag">城市</option>
+                    <option value="brandGroupFlag">品牌</option>
+                    <option value="monthGroupFlag">会计月</option>
+                    <option value="weekGroupFlag">星期</option>
+                    <option value="workDayGroupFlag">营业日</option>
+                </select>
+            </div>
+            <button class="list-table-button" ng-click="exportFile()">导出excel</button>
+            <button class="list-table-button" ng-click="openSelectParam()">自定义指标</button>
+        </div>
+        <div class="batch-charge-table">
+        <div class="list-table">
+        <table class="table table-striped table-style-all" id="dataTable" >
+            <tbody class="text-nowrap">
+            <tr class="table-text-align">
+                <td class="table-thsort-special" id="index_name">序号</td>
+                <td class="table-thsort-special text-left" id="title_name">门店名称</td>
+                <td class="table-thsort-special" >总营业额（元）</td>
+                <td class="table-thsort-special" >会员消费额</td>
+
+                <td class="table-thsort-special" >消费本金(元)</td>
+                <td class="table-thsort-special" >消费赠送金额(元)</td>
+                <td class="table-thsort-special" >消费金额占比</td>
+                <td class="table-thsort-special" >总消费笔数</td>
+
+                <td class="table-thsort-special" >会员消费笔数</td>
+                <td class="table-thsort-special" >笔数占比</td>
+                <td class="table-thsort-special" >充值笔数(笔)</td>
+                <td class="table-thsort-special" >充值本金(元)</td>
+
+                <td class="table-thsort-special" >充值赠送金额(元)</td>
+                <td class="table-thsort-special" >积分笔数(笔)</td>
+                <td class="table-thsort-special" >产生积分</td>
+                <td class="table-thsort-special" >消耗笔数(笔)</td>
+
+                <td class="table-thsort-special" >消耗积分</td>
+                <td class="table-thsort-special" >售卡数</td>
+                <td class="table-thsort-special" >工本费(元)</td>
+                <td class="table-thsort-special" >退卡数</td>
+
+                <td class="table-thsort-special" >退卡金额</td>
+                <td class="table-thsort-special" >修改卡型</td>
+                <td class="table-thsort-special" >换卡</td>
+                <td class="table-thsort-special" >修改有效期</td>
+            </tr>
+            <!-- <tr class="table-text-align" style="font-weight: 600;">
+                <td class="table-thsort-special" >-</td>
+                <td class="table-thsort-special text-left" >合计</td>
+                <td class="table-thsort-special" ><span ng-bind-html="{{resultList.data.all_money_sum}}"></span></td>
+                <td class="table-thsort-special" ng-modle="{{resultList.data.member_money_sum}}" ></td>
+
+                <td class="table-thsort-special" ng-bind="{{resultList.data.money_out_sum}}" ></td>
+                <td class="table-thsort-special" ng-bind="{{resultList.data.givemoney_out_sum}}" ></td>
+                <td class="table-thsort-special" ng-bind="{{percentage(resultList.data.member_money_sum,resultList.data.all_money_sum)}}" ></td>
+                <td class="table-thsort-special" ng-bind="{{resultList.data.all_money_count}}" ></td>
+
+                <td class="table-thsort-special" ng-bind="{{resultList.data.member_money_count}}" ></td>
+                <td class="table-thsort-special" ng-bind="{{percentage(resultList.data.member_money_count,resultList.data.all_money_count)}}" ></td>
+                <td class="table-thsort-special" ng-bind="{{resultList.data.money_in_count}}" ></td>
+                <td class="table-thsort-special" ng-bind="{{resultList.data.money_in_sum}}" ></td>
+
+                <td class="table-thsort-special" ng-bind="{{resultList.data.givemoney_in_sum}}"></td>
+                <td class="table-thsort-special" ng-bind="{{resultList.data.integration_in_count}}"></td>
+                <td class="table-thsort-special" ng-bind="{{resultList.data.integration_in_sum}}"></td>
+                <td class="table-thsort-special" ng-bind="{{resultList.data.integration_out_count}}"></td>
+
+                <td class="table-thsort-special" ng-bind="{{resultList.data.integration_out_sum}}"></td>
+                <td class="table-thsort-special" ng-bind="{{resultList.data.buy_card_count}}"></td>
+                <td class="table-thsort-special" ng-bind="{{resultList.data.buy_card_sum}}"></td>
+                <td class="table-thsort-special" ng-bind="{{resultList.data.cancel_card_count}}"></td>
+
+                <td class="table-thsort-special" ng-bind="{{resultList.data.cancel_card_sum}}"></td>
+                <td class="table-thsort-special" ng-bind="{{resultList.data.change_crad_type_count}}"></td>
+                <td class="table-thsort-special" ng-bind="{{resultList.data.update_card_count}}"></td>
+                <td class="table-thsort-special" ng-bind="{{resultList.data.change_crad_date_count}}"></td>
+            </tr> -->
+            <tr ng-repeat="data in resultList.pageInfo.list" class="table-text-align">
+                <td class="table-thsort-special"  ng-bind="$index + 1"></td>
+                <td class="table-thsort-special text-left"  ng-bind="data.name"></td>
+                <td class="table-thsort-special"  style="{{showTab(resultList,'all_money_sum')}}" ng-bind="data.all_money_sum"></td>
+                <td class="table-thsort-special"  style="{{showTab(resultList,'member_money_sum')}}" ng-click='openConsume(data)'><a ng-bind="data.member_money_sum"></a></td>
+
+                <td class="table-thsort-special"  style="{{showTab(resultList,'money_out_sum')}}" ng-bind="data.money_out_sum"></td>
+                <td class="table-thsort-special"  style="{{showTab(resultList,'givemoney_out_sum')}}" ng-bind="data.givemoney_out_sum"></td>
+                <td class="table-thsort-special"  style="{{showTab1(resultList,'member_money_sum','all_money_sum','v1')}}" ng-bind="percentage(data.member_money_sum,data.all_money_sum)"></td>
+                <td class="table-thsort-special"  style="{{showTab(resultList,'all_money_count')}}" ng-bind="data.all_money_count"></td>
+
+                <td class="table-thsort-special"  style="{{showTab(resultList,'member_money_count')}}" ng-bind="data.member_money_count"></td>
+                <td class="table-thsort-special"  style="{{showTab1(resultList,'member_money_count','all_money_count','v2')}}" ng-bind="percentage(data.member_money_count,data.all_money_count)"></td>
+                <td class="table-thsort-special"  style="{{showTab(resultList,'money_in_count')}}" ng-click='openSaveMoney(data)'><a ng-bind="data.money_in_count"></a></td>
+                <td class="table-thsort-special"  style="{{showTab(resultList,'money_in_sum')}}" ng-bind="data.money_in_sum"></td>
+
+                <td class="table-thsort-special"  style="{{showTab(resultList,'givemoney_in_sum')}}" ng-bind="data.givemoney_in_sum"></td>
+                <td class="table-thsort-special"  style="{{showTab(resultList,'integration_in_count')}}" ng-bind="data.integration_in_count"></td>
+                <td class="table-thsort-special"  style="{{showTab(resultList,'integration_in_sum')}}" ng-click='openIntegration(data)'><a ng-bind="data.integration_in_sum"></a></td>
+                <td class="table-thsort-special"  style="{{showTab(resultList,'integration_out_count')}}" ng-bind="data.integration_out_count"></td>
+
+                <td class="table-thsort-special"  style="{{showTab(resultList,'integration_out_sum')}}" ng-click='openExchange(data)'><a ng-bind="data.integration_out_sum"></a></td>
+                <td class="table-thsort-special"  style="{{showTab(resultList,'buy_card_count')}}" ng-click='openBuyCard(data)'><a ng-bind="data.buy_card_count"></a></td>
+                <td class="table-thsort-special"  style="{{showTab(resultList,'buy_card_sum')}}" ng-bind="data.buy_card_sum"></td>
+                <td class="table-thsort-special"  style="{{showTab(resultList,'cancel_card_count')}}" ng-click='openCancelCard(data)'><a ng-bind="data.cancel_card_count"></a></td>
+
+                <td class="table-thsort-special"  style="{{showTab(resultList,'cancel_card_sum')}}" ng-bind="data.cancel_card_sum"></td>
+                <td class="table-thsort-special"  style="{{showTab(resultList,'change_crad_type_count')}}" ng-click='openChangeCardType(data)'><a ng-bind="data.change_crad_type_count"></a></td>
+                <td class="table-thsort-special"  style="{{showTab(resultList,'update_card_count')}}" ng-click='openUpdateCard(data)'><a ng-bind="data.update_card_count"></a></td>
+                <td class="table-thsort-special"  style="{{showTab(resultList,'change_crad_date_count')}}" ng-click='openChangeCardDate(data)'><a ng-bind="data.change_crad_date_count"></a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    </div>
+    </div>
+    <uib-pagination ng-show="resultList.pageInfo.total>10" total-items="resultList.pageInfo.total" ng-model="pageSet.currentPage"
+                    items-per-page="pageSet.numPerPage" class="pagination-ul pagination-sm"
+                    max-size="pageSet.maxSize"
+                    boundary-links="true" force-ellipses="true" ng-change="pageChanged()"
+                    previous-text="上一页"
+                    next-text="下一页" first-text="首页" last-text="尾页"></uib-pagination>
+    <div ng-show="resultList.pageInfo.total>10" class="pagination-total">总共{{resultList.pageInfo.total}}条</div>
+</div>

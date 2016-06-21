@@ -1,0 +1,24 @@
+<div class="modal-header canvas_title">
+   请输入密码
+    <i class="iconfont" style="float:right;font-size:14px;" ng-click="canceInputPwd()">&#xe63c;</i>
+</div>
+<div class="modal-body">
+    
+    <form class="form-horizontal recharge-form"  name="form" ng-submit="transferPWD()" autocomplete="off">
+          
+          <div class="form-group">
+              <!-- <label for="password1" class="col-sm-2 control-label  control-label-left sr-only">密码：</label> -->
+              <div class="col-sm-12" >
+                  <input type="password" class="form-control form-control-input consume-text-size" required="required" id="password1"
+                  ng-model="popPasswd.password" tooltip-trigger="blur" uib-tooltip="{{form.password1.$invalid?'请输入6位密码!':''}}" autocomplete="off"
+                  ng-pattern="/^\d{6}$/" tooltip-placement="bottom" placeholder="请输入6位密码!" maxlength="6" set-focus="true"/>
+              </div>
+          </div>
+          <div class="modal-footer" style="border-top: none;text-align: center;">
+                    <button type="submit" style=" height:40px;width: 96px;" class="btn btn-primary  main-all-btn-b" ng-disabled="form.$invalid">确定</button>
+                    <button type="button" style=" height:40px;width: 96px;" class="btn  btn-default  main-all-btn-w" ng-click="cancel()">取消</button>
+            </div>
+     </form>       
+</div>
+<!-- <div class="modal-footer">
+</div> -->

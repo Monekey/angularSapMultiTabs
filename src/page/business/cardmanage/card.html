@@ -1,0 +1,149 @@
+<div>
+    <uib-tabset active="activeForm">
+			<uib-tab index="0" heading="卡列表">
+				<!-- 列表展现 -->
+				<condition-filter conditions="conditions"></condition-filter>
+				<div class="list-page">
+					<div class="canvas_title" ng-bind="pageSet.title"></div>
+					<div class="panel-heading card-list-heading" ng-show="resultList.pageInfo.list.length>0">
+						<div class="row" style="margin-left: -10px;">
+							<div class="col-sm-4 ">会员卡信息</div>
+							<div class="col-sm-4 ">售卡信息</div>
+							<div class="col-sm-3 ">会员信息</div>
+							<div class="col-sm-1 ">操作</div>
+						</div>
+					</div>
+					<div ng-show="!resultList.noData&&resultList.pageInfo.list.length<=0" class="no-data">
+						<i class="iconfont">&#xe682;</i><span>没有查询到符合条件的筛选记录</span>
+					</div>
+					<div ng-show="resultList.noData&&resultList.pageInfo.list.length<=0" class="no-data">
+						<img src="src/assets/images/list/zanwushuju.png"><span>数据空空如也<span ng-if="pageSet.button && create">，快去
+            <a ng-click="createNew(pageSet.button.newtab)">添加</a> 吧</span>！</span>
+					</div>
+					<div class="list-table">
+						<div class="panel panel-default list-group" ng-repeat="baseCardUsed  in resultList.pageInfo.list">
+
+							<div class="panel-body">
+								<div class="row card-list-row ml-m10">
+									<div class="col-sm-4">
+										<div >卡号：<span ng-bind="baseCardUsed.number"></span></div>
+										<div>卡类型： <span ng-bind="baseCardUsed.cardTypeName"></span></div>
+										<div >有效期：
+											<span ng-if="baseCardUsed.validateType == 1">永久有效</span>
+	                            	<span ng-if="baseCardUsed.validateType != 1"><span ng-bind="baseCardUsed.validateBeginTime|limitTo:10">
+	                            	</span> - <span ng-bind="baseCardUsed.validateEndTime|limitTo:10"></span></span>
+										</div>
+										<!-- 100 :已开卡;101 :已售卡;102 :已挂失;103 :已退卡;104 :已作废;105 :黑名单 -->
+										<div>卡状态：
+											<span ng-if="baseCardUsed.status == 100" >已开卡</span>
+											<span ng-if="baseCardUsed.status == 101" >已售卡</span>
+											<span ng-if="baseCardUsed.status == 102" class="bt-loss">已挂失</span>
+											<span ng-if="baseCardUsed.status == 103" class="bt-return" >已退卡</span>
+											<span ng-if="baseCardUsed.status == 104"class="bt-obsolete" >已作废</span>
+											<span ng-if="baseCardUsed.status == 105" class="bt-blacklist">黑名单</span>
+										</div>
+									</div>
+									<div class="col-sm-4">
+										<div>售卡时间： <span ng-bind="baseCardUsed.createTime|date:'yyyy-MM-dd HH:mm:ss'"></span></div>
+										<div>售卡终端号： <span ng-bind="baseCardUsed.saledPosCode"></span></div>
+										<div>售卡门店： <span ng-bind="baseCardUsed.saledShopName"></span></div>
+										<div>工本费(元)： <span ng-bind="baseCardUsed.cardCharge|currency:''"></span></div>
+									</div>
+									<div class="col-sm-3">
+										<div>联系人： <span ng-bind="baseCardUsed.memberName"></span></div>
+										<div>手机号码： <span ng-bind="baseCardUsed.memberMobile"></span></div>
+									</div>
+									<div class="col-sm-1">
+										<div><a  ng-click="doCardDetail(baseCardUsed)"  ng-if="detailBtn">详情 </a></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+                <div class="pageination-special" ng-show="resultList.pageInfo.total>10">
+                    <uib-pagination total-items="resultList.pageInfo.total" ng-model="pageSet.currentPage"
+                                    items-per-page="pageSet.numPerPage" class="pagination-ul pagination-sm"
+                                    max-size="pageSet.maxSize"
+                                    boundary-links="true" force-ellipses="true" ng-change="pageChanged()"
+                                    previous-text="上一页"
+                                    next-text="下一页" first-text="首页" last-text="尾页"></uib-pagination>
+                    <div class="pagination-total">总共{{resultList.pageInfo.total}}条</div>
+                </div>
+			</uib-tab>
+			<uib-tab index="1" heading="开卡">
+				<condition-filter conditions="conditions1" result-name="openCardResultList"></condition-filter>
+				<div class="list-page">
+					<div class="canvas_title">
+						开卡记录
+
+						<button class="list-table-button" ng-click="doOpenNewCard()"  ng-if="openCardBtn">开卡 </button>
+
+					</div>
+					<div class="panel-heading card-list-heading">
+						<div class="row ml-m10">
+							<div class="col-sm-3 ">卡号及张数</div>
+							<div class="col-sm-4 ">时间</div>
+							<div class="col-sm-3 ">门店</div>
+							<div class="col-sm-2 ">操作</div>
+						</div>
+					</div>
+					<div class="list-table">
+						<div class="panel panel-default list-group" ng-repeat="bmOpenCard in openCardResultList.pageInfo.list">
+							<div class="panel-body">
+								<div class="row card-list-row ml-m10">
+									<div class="col-sm-3">
+										<div>起始卡号：<span ng-bind="bmOpenCard.initNum"></span></div>
+										<div>截止卡号：<span ng-bind="bmOpenCard.endNum"></span></div>
+										<div ng-if="!bmOpenCard.isCancel">张数：<span ng-bind="bmOpenCard.openCount" ></span>&nbsp;&nbsp;
+											未售出：
+											<span ng-if="bmOpenCard.openCount - bmOpenCard.hasSaledCount >0"><a ng-click="doUnsaledCard(bmOpenCard)" ng-bind="bmOpenCard.openCount - bmOpenCard.hasSaledCount"></a></span>
+											<span ng-if="bmOpenCard.openCount - bmOpenCard.hasSaledCount <=0" ng-bind="bmOpenCard.openCount - bmOpenCard.hasSaledCount"></span>
+										</div>
+									</div>
+									<div class="col-sm-4">
+										<div>开卡时间： <span ng-bind="bmOpenCard.createTime|date:'yyyy-MM-dd HH:mm:ss'"></span></div>
+										<div>有效期：
+											<span ng-if="bmOpenCard.validateType ==1">永久有效</span>
+	                                	<span ng-if="bmOpenCard.validateType ==2">
+	                                		<span ng-bind="bmOpenCard.validateBeginTime|limitTo:10"></span>-
+	                                		<span ng-bind="bmOpenCard.validateEndTime|limitTo:10"></span>
+	                                	</span>
+											<span ng-if="bmOpenCard.validateType ==3">从售卡之日起<span ng-bind="bmOpenCard.relativeDays"></span>天有效</span>
+
+										</div>
+
+									</div>
+									<div class="col-sm-3">
+										<div>开卡门店： <span ng-bind="bmOpenCard.openShopName"></span></div>
+										<div>卡型： <span ng-bind="bmOpenCard.cardTypeName"></span></div>
+									</div>
+									<div class="col-sm-2">
+										<div >
+											<a  ng-if="cancelOpenCardBtn && !bmOpenCard.isCancel && (bmOpenCard.openCount - bmOpenCard.hasSaledCount) >0" class="" ng-click="doCancelOpenCard(bmOpenCard)" >取消开卡 </a>
+											<span  ng-if="bmOpenCard.isCancel"  class="scoreRuleIsAble4-2" >已取消</span>
+										</div>
+										<div >
+											<a  ng-if="batchSellBtn && !bmOpenCard.isCancel && (bmOpenCard.openCount - bmOpenCard.hasSaledCount) >0" class="" ng-click="doBatchSellCard(bmOpenCard)" >批量售卡</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+                <div class="pageination-special" ng-show="openCardResultList.pageInfo.total>10">
+                    <uib-pagination  total-items="openCardResultList.pageInfo.total" ng-model="pageSet1.currentPage"
+                                    items-per-page="pageSet1.numPerPage" class="pagination-ul"
+                                    max-size="pageSet1.maxSize" class="pagination-sm"
+                                    boundary-links="true" force-ellipses="true" ng-change="pageChanged1()"
+                                    previous-text="上一页"
+                                    next-text="下一页" first-text="首页" last-text="尾页"></uib-pagination>
+                    <div class="pagination-total">总共{{openCardResultList.pageInfo.total}}条</div>
+                </div>
+			</uib-tab>
+    </uib-tabset>
+</div>
+
+
+
