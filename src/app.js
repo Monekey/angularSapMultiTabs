@@ -95,10 +95,10 @@ define(function (require) {
     ]);
 
     //前台软pos路由设置
-    test.config( ["$stateProvider","$urlRouterProvider",'$controllerProvider',function( $stateProvider,$urlRouterProvider,$controllerProvider){
+    test.config( ["$stateProvider","$urlRouterProvider",'$controllerProvider','$locationProvider',function( $stateProvider,$urlRouterProvider,$controllerProvider,$locationProvider){
         test.registerController = $controllerProvider.register;
         test.stateProvider =$stateProvider;
-
+        //$locationProvider.html5Mode(true);
         $urlRouterProvider.otherwise("home");
 
         $stateProvider

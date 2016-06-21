@@ -87,7 +87,7 @@ define(["rippleButton"], function (rippleButton) {
         $scope.showRightClickMenu = function( e,index ){
             //console.log(e);
             $scope.rightClickIndex = index;
-            angular.element( document.getElementById( "rightClickmenu" ) ).css( { top:e.clientY,left:e.clientX,display:"block" } );
+            angular.element( document.getElementById( "rightClickmenu" ) ).css( { top:e.clientY+'px',left:e.clientX+'px',display:"block" } );
         }
 
         $scope.closeSelf = function(){

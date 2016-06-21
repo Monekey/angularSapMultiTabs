@@ -79,7 +79,6 @@ define(function (require) {
                     openChildTab(aNewObj, data);
                 }
             }
-
             self.checkTabsScale();
         };
 
@@ -132,6 +131,32 @@ define(function (require) {
                 }
             }
         };
+        //获取当前页签信息
+        this.getCurrentTab = function(){
+            var tabs = $rootScope.tabs;
+            var curTab = null;
+            for (var i = 0; i < tabs.length; i++) {
+                if ( tabs[i].ng_show === true) {
+                    curTab = tabs[i];
+                }
+            }
+            return curTab;
+        }
+        //关闭当前页签
+        this.closeCurrentTab = function(){
+            var tabs = $rootScope.tabs;
+            for (var i = 0; i < tabs.length; i++) {
+                if ( tabs[i].ng_show === true) {
+                    requirejs.undef(tabs[i].ctrl);
+                    angular.element(document.getElementById(tabs[i].id)).remove();
+                    tabs[i].ng_show = false;
+                    $rootScope.tabs.splice(i, 1);
+                    this.commonFunction($rootScope.tabs[i-1]);
+                    this.checkTabsScale();
+                    $('.content-main').animate({scrollTop: 0}, 600);
+                }
+            }
+        }
         //切换tab,分为关闭当前标签和直接跳转
         this.switchTab = function (tab, type) {
             var tabs = $rootScope.tabs;

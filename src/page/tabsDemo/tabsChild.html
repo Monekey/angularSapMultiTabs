@@ -1,0 +1,30 @@
+<div>
+    <div class="list-page">
+        <div class="canvas_title ">{{'子页面'+data.id}}</div>
+        <div class="panel">
+            <div class="panel-heading">
+
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-offset-2 col-sm-3 text-right-important mt5">
+                        <label>此页TABID为：</label>
+                    </div>
+                    <div class="col-sm-7">
+                        <span ng-bind="data.id"></span>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-offset-2 col-sm-3 text-right-important mt5">
+                        <label class="text-right-important">关闭此页面并返回父页面：</label>
+                    </div>
+                    <div class="col-sm-7">
+                        <button class="btn main-all-btn-w"  ng-click="back()">返回</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
