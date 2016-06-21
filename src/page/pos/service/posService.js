@@ -5,6 +5,7 @@
  * @createAuthor LSZ
  * @updateHistory
  *                2016/5/17 0017  LSZ   create
+ *                2016/6/20 0017  liuzy   update
  */
 define(["app",'ngAMD'], function (app, ngAMD) {
     app.ngAMDCtrlRegister.service("posService", [
@@ -20,7 +21,7 @@ define(["app",'ngAMD'], function (app, ngAMD) {
                 if (!$state.get(state)) {
                     $rootScope.stateProvider.state(state, ngAMD.route({
                         url: url,
-                        templateUrl: 'resources/page/' + one.template,
+                        templateUrl: 'src/page/' + one.template,
                         controllerUrl: one.ctrl
                     }));
                 }
@@ -54,4 +55,36 @@ define(["app",'ngAMD'], function (app, ngAMD) {
             }
         }
     ]);
+    // app.ngAMDCtrlRegister.directive('autoFocus', [
+    //     "$timeout",
+    //     function($timeout){
+    //         return function(scope, element){
+    //             $timeout(function(){
+    //                 element[0].focus();
+    //             },200);
+    //         };
+    //
+    // }]);
+   
+    /**
+     * 页面打开第一个输入框获取焦点
+     * set-focus="true"
+     */
+    app.ngAMDCtrlRegister.directive('setFocus', [
+        "$timeout",
+        function($timeout) {
+        return {
+            link: function (scope, element, attrs) {
+                scope.$watch(attrs.setFocus, function(newValue){
+                    if (newValue === true){
+                        $timeout(function(){
+                                element.focus();
+                        },200);
+                    }
+
+                });
+            }
+        };
+    }]);
+
 });

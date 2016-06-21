@@ -15,7 +15,7 @@
 						ng-pattern="/^(((13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8})|([1-9](\d{4,9}|\d{11,15})))$/"
 						tooltip-trigger="blur"
 						uib-tooltip="{{form.cardNo.$invalid && form.cardNo.$dirty ?'请填写正确的卡号或手机号':''}}"
-						tooltip-placement="bottom"/>
+						tooltip-placement="bottom"  set-focus="true"/>
 				</div>
 				<div class="col-sm-2"></div>
 

@@ -14,6 +14,21 @@
     <img src="src/assets/images/loading alpha.gif" style="position: absolute; top: 350px; left: 45%;"/>
 </div>
 
+<div style="width:100%;height:100%;position: fixed;z-index:998;background: rgba(0, 0, 0, 0.51);"  ng-if="lockSys" ng-controller="testCtrl">
+    <div class="form-group col-sm-offset-2 col-sm-8 pl0" style="position:absolute;margin-top:300px;">
+        <div class="col-sm-offset-1 col-sm-6">
+            <input type="password" class="form-control unlockPswInput" placeholder="请输入密码" ng-model="paramValue" ng-keyup="hotEnterKey(paramValue,$event)">
+        </div>
+                <div class="col-sm-2 pl10 pr0">
+                    <button class="btn btn-primary unlockSystemBtn" ng-click="clearLock(paramValue)">解锁系统</button>
+                </div>
+                 <div class="col-sm-2 pl10 pr0">
+                    <button class="btn btn-primary exitSystemBtn" ng-click="logoutSystem()">退出系统</button>
+                </div>
+    </div>
+</div>
+
+<div style="width:100%;height:100%;position: absolute;z-index:98;background: rgba(0, 0, 0, 0.51);"  ng-if="backGroud"></div>
 <div ui-view style="height: 100%;overflow-y: auto;" id="ui-view">
 
 </div>

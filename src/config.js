@@ -35,7 +35,6 @@ requirejs.config({
         //配置pos/service目录下自定义pos公共service
         posService: "pos/service/posService",
 
-
         //配置module目录下公共common module
         topBar:"../module/top-bar/directive/topBarDirective",
         period: "../module/period-module/directive/periodDirect",
@@ -43,12 +42,12 @@ requirejs.config({
         listDit:"../module/list-module/directive/listDirective",
         modal: "../module/modal/directive/modalDirective",
         shopSelector:"../module/shopselector/directive/shopSelectorDirective",
-        devices:"../module/devices/directive/devicesDirective",
-        rippleButton:"../module/home/ripple-button/directive/rippleDirective",
+
+        rippleButton:"home/ripple-button/directive/rippleDirective",
 
         //配置pos/module目录下pos系统公共common module
         posTopbar: 'pos/module/pos-topbar/posTopbarDirective',
-        
+        devices:"pos/module/devices/directive/devicesDirective",
         
         //配置assets/css目录下css样式
         login_css: "../assets/css/login",

@@ -44,10 +44,10 @@
         <div class="list-page">
             <div class="canvas_title" ng-click="status.score=!status.score;" style="cursor: pointer;">
                 <div class="canvas_title_ctrlDiv" ng-click="stopPropagation($event);">
-                <label for="isScore_edit" ng-click="cardTypeEdit.baseInfo.isScore==0?status.score=true:''">积分功能</label>&nbsp;
+                <label for="isScore_edit" ng-click="cardTypeUpdate.baseInfo.isScore==0?status.score=true:''">积分功能</label>&nbsp;
                 <input type="checkbox" id="isScore_edit" ng-model="cardTypeUpdate.baseInfo.isScore"
-                       ng-true-value="1" ng-false-value="0" ng-click="cardTypeEdit.baseInfo.isScore==1?status.score=true:''">
-                <label for="isScore_edit" ng-click="cardTypeEdit.baseInfo.isScore==0?status.score=true:''">开启</label>
+                       ng-true-value="1" ng-false-value="0" ng-click="cardTypeUpdate.baseInfo.isScore==1?status.score=true:''">
+                <label for="isScore_edit" ng-click="cardTypeUpdate.baseInfo.isScore==0?status.score=true:''">开启</label>
                 <i class="iconfont canvas-title-icon" tooltip-trigger="mouseenter"
                    uib-tooltip="注：开启后，可以指定适用于此积分规则的有效期。"
                    tooltip-placement="right" tooltip-append-to-body="true">&#xe652;</i>

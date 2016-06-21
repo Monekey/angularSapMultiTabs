@@ -9,7 +9,7 @@
  */
 define(function( require ){
 	
-	require("resources/page/usermanager/empmanager/sheetjs/js-xlsx/xlsx.js");
+	require("src/page/usermanager/empmanager/sheetjs/js-xlsx/xlsx.js");
 	
     var app = require( "app" );
     var angular = require("angular");
@@ -28,7 +28,7 @@ define(function( require ){
     	$scope.import = function() {
     		
     		var xw_xfer = function (data, cb) {
-        		var worker = new Worker("resources/page/usermanager/empmanager/sheetjs/js-xlsx/xlsxworker2.js");
+        		var worker = new Worker("src/page/usermanager/empmanager/sheetjs/js-xlsx/xlsxworker2.js");
         		worker.onmessage = function(e) {
         			switch(e.data.t) {
         				case 'ready': break;

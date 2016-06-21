@@ -8,8 +8,11 @@
  * @note   文件命名规则 ：company
  *          编辑页：companyEdit
  */
-define(['app','require'],function (app,require) {
+define(function (require) {
 
+    // 引用工具包依赖
+    var app = require("app");
+    var angular = require("angular");
     var upload = require("uploadService");
 
     app.ngAMDCtrlRegister.controller("companyUpdateCtrl", [//模块依赖

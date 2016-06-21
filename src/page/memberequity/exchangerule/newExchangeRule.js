@@ -4,6 +4,7 @@
  */
 define(function (require) {
     var app = require("app");
+    var shopselector = require("shopSelector");
     var exchange_rule_css = require("css!exchange_rule_css");
     app.ngAMDCtrlRegister.controller("newExchangeRule", ["$scope", "$rootScope", "ajaxService", "getCookieService", 'register','shopSelectorService','modalService', function ($scope, $rootScope, ajaxService, getCookieService, register,shopSelectorService,modalService) {
 

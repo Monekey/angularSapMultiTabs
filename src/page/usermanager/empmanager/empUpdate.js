@@ -1,6 +1,7 @@
 define( function( require ){
 
     var app = require("app");//引用样式
+    var shopselector = require("shopSelector");
     var emp_css = require("css!emp_css");
     app.ngAMDCtrlRegister.controller("editEmpController",[//模块依赖
             "$scope",//必须引用

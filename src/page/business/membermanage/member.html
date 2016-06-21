@@ -16,9 +16,9 @@
                                 </span>
                                 <span ng-if="!member.photo || member.photo ==''">
                                     <IMG ng-if="!member.sex" CLASS="MEDIA-OBJECT member-img"
-                                         ng-src="resources/assets/images/member/female.png" ALT="..."/>
+                                         ng-src="src/assets/images/member/female.png" ALT="..."/>
                                     <IMG ng-if="member.sex" CLASS="MEDIA-OBJECT member-img"
-                                         ng-src="resources/assets/images/member/male.png" ALT="..."/>
+                                         ng-src="src/assets/images/member/male.png" ALT="..."/>
                                 </span>
                             </div>
                             <div class="media-body membesr-manager-body">
@@ -63,7 +63,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-xs-3">
-                                        <!--<IMG CLASS="MEDIA-OBJECT members-manager-img-2" src="resources/assets/images/member/birthday.png">-->
+                                        <!--<IMG CLASS="MEDIA-OBJECT members-manager-img-2" src="src/assets/images/member/birthday.png">-->
                                         <i class="iconfont" style="color:#ffad4d;margin-right:5px;">&#xe62f;</i>
                                         <span ng-bind="member.birthday|limitTo:10"></span>(阳历)
                                     </div>
