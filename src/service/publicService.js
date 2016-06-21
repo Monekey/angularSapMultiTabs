@@ -109,6 +109,15 @@ define(function (require) {
             if (Number(window.getComputedStyle(document.getElementById("tabScrollor")).width.slice(0, -2)) < ($rootScope.tabs.length * 128)) {
                 angular.element(document.getElementById("turnleft")).css("display", "block");
                 angular.element(document.getElementById("turnright")).css("display", "block");
+                var tabs = $rootScope.tabs;
+                var index = 0;
+                for (var i = 0; i < tabs.length; i++) {
+                    if (tabs[i].ng_show === true) {
+                        index = i; break;
+                    }
+                }
+                angular.element(document.getElementById("tabScrollor"))[0].scrollLeft
+                    = (index+1) * 128 + 64 - Number(window.getComputedStyle(document.getElementById("tabScrollor")).width.slice(0, -2));
             } else {
                 angular.element(document.getElementById("turnleft")).css("display", "none");
                 angular.element(document.getElementById("turnright")).css("display", "none");
@@ -134,6 +143,7 @@ define(function (require) {
                     angular.element(this.getDomObjById(tabs[i].id)).removeClass('ng-hide');
                 }
             }
+            self.checkTabsScale();
         };
         //获取当前页签信息
         this.getCurrentTab = function () {

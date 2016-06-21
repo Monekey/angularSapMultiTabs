@@ -14,13 +14,14 @@ define(function (require) {
                 $scope.closeCurTab = function(){
                     register.closeCurrentTab();
                 }
-                $scope.addOrSwtichTab = function(){
+                $scope.addOrSwtichTab = function(index){
                     var tab = register.getCurrentTab(); //获取当前tab的信息
-                    var data = {id:$scope.tabId};
+                    var tabId = index?index:$scope.tabId;
+                    var data = {id:tabId};
                     data.callback =
                     register.addToTabs({
                         title: "子Tab",//TAB页面标题
-                        id: "tabsDemo" + $scope.tabId,//Tab唯一ID
+                        id: "tabsDemo" + tabId,//Tab唯一ID
                         template: "tabsDemo/tabsChild.html",//关联Tab的html页面
                         ctrl: 'tabsDemo/tabsChild',//关联html的js文件
                         ctrlName: "tabsChildCtrl",//关联html的js中定义的controller名称
