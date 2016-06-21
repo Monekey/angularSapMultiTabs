@@ -5,6 +5,7 @@
 define(function( require ){
 	var app = require( "app" );
 	var angular = require("angular");
+	var shopselector = require("shopSelector");
 	var saving_rule_css = require("css!saving_rule_css");
 	app.ngAMDCtrlRegister.controller( "newSavingRule",["$scope","$rootScope","ajaxService","getCookieService",'register','shopSelectorService','modalService',function( $scope,$rootScope,ajaxService,getCookieService,register,shopSelectorService,modalService ){
 

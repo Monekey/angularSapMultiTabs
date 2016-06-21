@@ -11,7 +11,7 @@
               <div class="col-sm-12" >
                   <input type="password" class="form-control form-control-input consume-text-size" required="required" id="password1"
                   ng-model="popPasswd.password" tooltip-trigger="blur" uib-tooltip="{{form.password1.$invalid?'请输入6位密码!':''}}" autocomplete="off"
-                  ng-pattern="/^\d{6}$/" tooltip-placement="bottom" placeholder="请输入6位密码!" maxlength="6"/>
+                  ng-pattern="/^\d{6}$/" tooltip-placement="bottom" placeholder="请输入6位密码!" maxlength="6" set-focus="true"/>
               </div>
           </div>
           <div class="modal-footer" style="border-top: none;text-align: center;">

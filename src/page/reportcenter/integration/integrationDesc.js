@@ -61,9 +61,11 @@ define(function(require) {
 			currentPage: appConstant.pageSet.currentPage,//显示当前
 			maxSize: appConstant.pageSet.maxSize,//可显示最大页码
 			numPerPage: appConstant.pageSet.numPerPage,//每页条数
-			table: [{//表格字段
+			table: [{field: 'index', desc: '编号'
+            },{//表格字段
 				field: 'ts_code',
-				desc: '流水号'
+				desc: '流水号',
+				column: 'ts_code'
 			},
 			{
 				field: 'member_name',
@@ -75,15 +77,18 @@ define(function(require) {
 			},
 			{
 				field: 'typename',
-				desc: '卡类型'
+				desc: '卡类型',
+				column: 'typename'
 			},
 			{
 				field: 'opname',
-				desc: '操作类型'
+				desc: '操作类型',
+				column: 'opname'
 			},
 			{
 				field: 'createTime',
-				desc: '操作时间'
+				desc: '操作时间',
+				column: 'createTime'
 			},
 			{
 				field: 'terminal_code',
@@ -91,7 +96,8 @@ define(function(require) {
 			},
 			{
 				field: 'operation_name',
-				desc: '操作人'
+				desc: '操作人',
+				column: 'operation_name'
 			},
 			{
 				field: 'open_shop_name',

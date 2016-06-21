@@ -6,7 +6,7 @@ define(function( require ){
 	var app = require( "app" );
 	// var score_rule_css = require("css!score_rule_css");
     // var card_type_css = require("css!card_type_css");
-	
+	var shopselector = require("shopSelector");
 	app.ngAMDCtrlRegister.controller( "newScoreRule",["$scope","$rootScope","ajaxService","getCookieService",'register','shopSelectorService','modalService',function( $scope,$rootScope,ajaxService,getCookieService,register,shopSelectorService,modalService ){
 
 

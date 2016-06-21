@@ -951,7 +951,7 @@
           "childTree": [
             {
               "code": "10035",
-              "showName": "我的首页",
+              "showName": "主页",
               "fatherCode": "10001",
               "childTree": null,
               "orderby": 0,
@@ -968,12 +968,12 @@
             },
             {
               "code": "10005",
-              "showName": "业务处理",
+              "showName": "Tabs多标签介绍",
               "fatherCode": "10001",
               "childTree": [
                 {
                   "code": "10013",
-                  "showName": "会员管理",
+                  "showName": "主要功能",
                   "fatherCode": "10005",
                   "childTree": [
                     {
@@ -1065,9 +1065,9 @@
                   "orderby": 0,
                   "maxLevel": null,
                   "hasChildTree": 1,
-                  "template": "business/membermanage/member.html",
-                  "ctrl": "business/membermanage/member",
-                  "img": "memberManager",
+                  "template": "tabsDemo/tabs.html",
+                  "ctrl": "tabsDemo/tabs",
+                  "img": "no",
                   "routing": null,
                   "keyCode": null,
                   "authority": null,
@@ -1218,7 +1218,7 @@
               "hasChildTree": 1,
               "template": "service",
               "ctrl": "service",
-              "img": "&#xe60a;",
+              "img": "&#xe674;",
               "routing": null,
               "keyCode": null,
               "authority": null,

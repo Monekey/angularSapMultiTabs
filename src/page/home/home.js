@@ -13,7 +13,7 @@ define(["rippleButton"], function (rippleButton) {
 
         $scope.tabStatus = "pullRight";
         $scope.dynamicPopover = {
-            templateUrl: 'resources/page/home/menuPopover.html'
+            templateUrl: 'src/page/home/menuPopover.html'
         };
 
         $scope.setCurrentGroup= function(group){
@@ -87,11 +87,13 @@ define(["rippleButton"], function (rippleButton) {
         $scope.showRightClickMenu = function( e,index ){
             //console.log(e);
             $scope.rightClickIndex = index;
-            angular.element( document.getElementById( "rightClickmenu" ) ).css( { top:e.clientY,left:e.clientX,display:"block" } );
+            angular.element( document.getElementById( "rightClickmenu" ) ).css( { top:e.clientY+'px',left:e.clientX+'px',display:"block" } );
+            angular.element( document.getElementById( "rightClickmenu_backdrop" ) ).css("display","block");
         }
 
         $scope.closeSelf = function(){
             angular.element( document.getElementById( "rightClickmenu" ) ).css("display","none");
+            angular.element( document.getElementById( "rightClickmenu_backdrop" ) ).css("display","none");
         }
 
         $scope.closeOther = function(direction){

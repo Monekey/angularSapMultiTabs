@@ -1,6 +1,7 @@
 define(function( require ){
 
 	var app = require( "app" );
+	var shopselector = require("shopSelector");
 	app.ngAMDCtrlRegister.controller( "exchangeRuleEdit",["$scope","$rootScope","ajaxService","getCookieService",'register','shopSelectorService','modalService',function( $scope,$rootScope,ajaxService,getCookieService, register,shopSelectorService,modalService ){
 
 

@@ -10,9 +10,9 @@
                           </span>
                           <span ng-if="!member.photo || member.photo ==''">
                               <IMG ng-if="!member.sex" CLASS="MEDIA-OBJECT member-img-bg"
-                                   ng-src="resources/assets/images/member/female.png" ALT="..."/>
+                                   ng-src="src/assets/images/member/female.png" ALT="..."/>
                               <IMG ng-if="member.sex" CLASS="MEDIA-OBJECT member-img-bg"
-                                   ng-src="resources/assets/images/member/male.png" ALT="..."/>
+                                   ng-src="src/assets/images/member/male.png" ALT="..."/>
                           </span>
                     </div>
                     <div class="col-sm-9">
@@ -58,12 +58,12 @@
                     <div>
                         <div class="col-sm-a">民族：<span ng-bind="meberNationName"></span></div>
                     </div>
-                    <div>
+                    <!-- <div>
                         <div class="col-sm-a">亲友生日：<span class="birthinfo" ng-bind="member.birthday| limitTo:10"></span></div>
-                    </div>
-                    <div>
-                        <div class="col-sm-b">关系：<span ng-bind="meberNationName"></span></div>
-                    </div>
+                    </div> -->
+                    <!-- <div>
+                        <div class="col-sm-b">关系：<span ng-bind=""></span></div>
+                    </div> -->
                     <div>
                         <div class="col-sm-a">邀请人：<span ng-bind="member.byInviteMemberName"></span></div>
                     </div>
@@ -161,9 +161,9 @@
                               </span>
                               <span class="member-img-ml" ng-if="!memberRlationships.byInvitePhoto || memberRlationships.byInvitePhoto ==''">
                                   <IMG ng-if="!memberRlationships.byInviteSex " CLASS="MEDIA-OBJECT member-img"
-                                       ng-src="resources/assets/images/member/female.png" ALT="..."/>
+                                       ng-src="src/assets/images/member/female.png" ALT="..."/>
                                   <IMG ng-if="memberRlationships.byInviteSex " CLASS="MEDIA-OBJECT member-img"
-                                       ng-src="resources/assets/images/member/male.png" ALT="..."/>
+                                       ng-src="src/assets/images/member/male.png" ALT="..."/>
                               </span>
                                 <div class="under-pic-word"><span
                                         ng-bind="memberRlationships.byInviteMemberName?memberRlationships.byInviteMemberName:'无'"></span>
@@ -181,9 +181,9 @@
                           </span>
                           <span class="member-img-ml" ng-if="!memberRlationships.photo || memberRlationships.photo ==''">
                               <IMG ng-if="!memberRlationships.sex" CLASS="MEDIA-OBJECT member-img"
-                                   ng-src="resources/assets/images/member/female.png" ALT="..."/>
+                                   ng-src="src/assets/images/member/female.png" ALT="..."/>
                               <IMG ng-if="memberRlationships.sex" CLASS="MEDIA-OBJECT member-img"
-                                   ng-src="resources/assets/images/member/male.png" ALT="..."/>
+                                   ng-src="src/assets/images/member/male.png" ALT="..."/>
                           </span>
 
                             <div class="under-pic-word"><span
@@ -200,9 +200,9 @@
                             </span>
                          	<span class="member-img-ml" ng-if="!inviteMember.photo || inviteMember.photo ==''">
                               <IMG ng-if="inviteMember.sex =='0'" CLASS="MEDIA-OBJECT member-img"
-                                   ng-src="resources/assets/images/member/female.png" ALT="..."/>
+                                   ng-src="src/assets/images/member/female.png" ALT="..."/>
                               <IMG ng-if="inviteMember.sex =='1'" CLASS="MEDIA-OBJECT member-img"
-                                   ng-src="resources/assets/images/member/male.png" ALT="..."/>
+                                   ng-src="src/assets/images/member/male.png" ALT="..."/>
                             </span>
                                 <div class="under-pic-word"><span ng-bind="inviteMember.name?inviteMember.name:'无'"></span></div>
                             </div>

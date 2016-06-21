@@ -4,7 +4,7 @@ requirejs.config({
     paths: {
         app: "../app",
         //配置lib目录下的第三方公共包
-        angular: "../lib/angular.min",
+        angular: "../lib/angular",
         jquery: "../lib/jquery.min",
         text: "../lib/text.min",
         css: "../lib/css",
@@ -42,12 +42,12 @@ requirejs.config({
         listDit:"../module/list-module/directive/listDirective",
         modal: "../module/modal/directive/modalDirective",
         shopSelector:"../module/shopselector/directive/shopSelectorDirective",
-        devices:"../module/devices/directive/devicesDirective",
-        rippleButton:"../module/home/ripple-button/directive/rippleDirective",
+
+        rippleButton:"home/ripple-button/directive/rippleDirective",
 
         //配置pos/module目录下pos系统公共common module
         posTopbar: 'pos/module/pos-topbar/posTopbarDirective',
-        
+        devices:"pos/module/devices/directive/devicesDirective",
         
         //配置assets/css目录下css样式
         login_css: "../assets/css/login",

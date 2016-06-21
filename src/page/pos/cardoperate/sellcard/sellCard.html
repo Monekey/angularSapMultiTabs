@@ -1,16 +1,16 @@
 <div class="list-page two-form relative border-none">
 <uib-tabset active="activeForm" style="background: white;padding: 20px;">
     <!-- 会员tab -->
-    <uib-tab index="0" heading="实体卡" style="font-size: 16px;">
+    <uib-tab index="0" heading="实体卡" style="font-size: 16px;" ng-init="focusOn=true"  ng-click="focusOn2=!focusOn2;focusOn=true;">
         <form class="form-horizontal recharge-form scoll-fix-bottom-form" name="sellCardForm" ng-submit="saveRelSellCard()" autocomplete="off">
             <div class="form-group">
                 <label for="mobile" class="col-sm-2 control-label  control-label-left">手机号码：</label>
                 <div class="col-sm-4">
-                    <input type="text" class="form-control form-control-input" id="mobile"
-                           ng-model="relCardSell.cardInfo.mobile" autofocus="autofocus" maxlength="11"
+                    <input type="text" class="form-control form-control-input" set-focus="focusOn" id="mobile"
+                           ng-model="relCardSell.cardInfo.mobile" maxlength="11"
                            tooltip-trigger="blur" uib-tooltip="{{sellCardForm.mobile.$invalid?'请输入11位手机号码':''}}"
                            ng-pattern="/^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/"
-                           ng-blur="validateMobile(0)" tooltip-placement="bottom" placeholder="请输入11位手机号码"/>
+                           ng-blur="validateMobile(0)" tooltip-placement="bottom" placeholder="请输入11位手机号码" />
                 </div>
                 <div class="col-sm-5" >
                     <!-- 建议必填 -->
@@ -87,7 +87,7 @@
                 
                 <label class="col-sm-2 control-label control-label-left" >会员资料</label>
                 <div class="col-sm-9">
-                    <hr style="margin-top: 16px;"></hr>
+                    <hr style="margin-top: 16px;"/>
                 </div>
             </div>
             <div class="form-group">
@@ -230,13 +230,13 @@
         </form>
     </uib-tab>
     <!-- 电子卡 -->
-    <uib-tab index="1" heading="电子卡" style="font-size: 16px;" ng-click="changeElectronicTab()">
+    <uib-tab index="1" heading="电子卡" style="font-size: 16px;"  ng-init="focusOn2=false"  ng-click="changeElectronicTab();focusOn= !focusOn;focusOn2= true;">
        	<form class="form-horizontal recharge-form scoll-fix-bottom-form" name="eleCardForm" ng-submit="saveEelSellCard()" autocomplete="off">
             <div class="form-group">
                 <label for="mobile2" class="col-sm-2 control-label  control-label-left"><font class="required-font-icon">*</font>手机号码：</label>
                 <div class="col-sm-4">
-                    <input type="text" class="form-control form-control-input" id="mobile2" name="mobile2"
-                           ng-model="eleCardSell.cardInfo.mobile" maxlength="11" required="required" autofocus="autofocus"
+                    <input type="text"  class="form-control form-control-input"set-focus="focusOn2" id="mobile2" name="mobile2"
+                           ng-model="eleCardSell.cardInfo.mobile" maxlength="11" required="required"
                            tooltip-trigger="blur" uib-tooltip="{{eleCardForm.mobile2.$invalid?'请输入11位手机号码':''}}"
                            ng-pattern="/^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/"
                            ng-blur="validateMobile(1)" tooltip-placement="bottom" placeholder="请输入11位手机号码"/>

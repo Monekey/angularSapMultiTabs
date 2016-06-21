@@ -478,15 +478,71 @@ define(['angular', 'ui_bootstrap', 'ng_animate','esegece','sgc','base64'], funct
                 
                 printjb:function(){
                 	var printinfo = {
-            				"fileid" : 1,
+            				"fileid" : 18,
             				"exporttype" : 1,
 	            			"printer" : "report",
 	            			"printcnt": 1,
             				"DS1" :[
-            			{ID:"981",dataPackType:1,dataDate:1409529600,createDate:1410798366,uploadDate:1410798381, autoUploadFlg :1, uploadFlg :1, dataPackFileName :"1_20140915162555390_1.mdp.zip"},
-            			{ID:"982",dataPackType:1,dataDate:1409616000,createDate:1410798367,uploadDate:1410798389, autoUploadFlg :1, uploadFlg :1, dataPackFileName :"1_20140915162556640_1.mdp.zip"},
-            			{ID:"983",dataPackType :1, dataDate :1409702400, createDate :1410798369, uploadDate :1410798394, autoUploadFlg :1, uploadFlg :1, dataPackFileName :"1_20140915162557734_1.mdp.zip"}
-            					]
+		            			{
+		            				"openedPeople":1,
+		            				"wipeMoney":1,
+		            				"presentMoney":1,
+		            				"psPOSAllName":1,
+		            				"openTime":"1409529600",
+		            				"unreturnedDeposit":1,
+		            				"cancelMoney":1,
+		            				"preUnsettledBillQty":1,
+		            				"saleTotal":1,
+		            				"invoiceMoney":1,
+		            				"origMoney":1,
+		            				"useedDeposit":1,
+		            				"preUnreturnedDeposit":1,
+		            				"discMoney":1,
+		            				"returnedDeposit":1,
+		            				"fillMinimumCharge":1,
+		            				"registerDeposit":1,
+		            				"settledBillQty":1,
+		            				"settledPeople":1,
+		            				"discFix":1,
+		            				"closeTime":"1409529600",
+		            				"operatorName":1,
+		            				"psPOSId":1,
+		            				"preUnsettledMoney":1,
+		            				"itemTotalCharge":21,
+		            				"psPOSCode":1,
+		            				"revenueTotal":1,
+		            				"psPOSName":1,
+		            				"bsCode":1,
+		            				"openBillQty":1,
+		            				"pettyCash":1,
+		            				"serviceCharge":1,
+		            				"preUnsettledPeople":1,
+		            				"operatorTime":"1409529600",
+		            				"settledMoney":1,
+		            				"voidQty":1,
+		            				"payWayMoneyAndCouponMoney":1
+		            				},
+            				],
+            				"DS2" :[
+    		            		{
+    		            			"payMoney":1,
+    		            			"payway":1,
+    		            			"paywayName":1
+    		            		},
+                				],
+		                	"DS3" :[
+			            		{
+			            			"sumIncomeTotal":1,
+			            			"sumNotIncomeMoney":1,
+			            			"sumLastTotal":1
+			            		},
+		        				],
+	        				"DS4" :[
+				            		{
+				            			"couponName":1,
+				            			"couponMoney":1
+				            		},
+			        				]
             			};
 
                 	TDevices.report.print(printinfo);

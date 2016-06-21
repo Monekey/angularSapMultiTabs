@@ -4,13 +4,13 @@
 	<div class="panel-body">
 	<uib-tabset active="activeForm" style="background: white;margin-top: 10px;font-size: 16px">
     <!-- 会员tab -->
-    <uib-tab index="0" heading="充值">
+    <uib-tab index="0" heading="充值" ng-init="focusOn=true"  ng-click="focusOn2=!focusOn2;focusOn=true;">
 		<form class="form-horizontal recharge-form" autocomplete="off" name="rechargeForm" ng-submit="saveRecharge()" novalidate>
 		<div class="form-group">
 			<label for="cardNo" class="col-sm-3 control-label control-label-left">卡号/手机号：</label>
 			<div class="col-sm-8 company-col">
 			  <input type="text" class="form-control  form-control-input consume-text-size" id="cardNo" name="cardNo" placeholder="请输入卡号或手机号" ng-model="rechargeVo.cardNo" required="required" ng-disabled="cardNoDisabled"
-			  ng-blur="getMemeberAndCardInfo(rechargeTimeOper)" autofocus="autofocus" maxlength="16"
+			  ng-blur="getMemeberAndCardInfo(rechargeTimeOper)" set-focus="focusOn" maxlength="16"
 			  ng-pattern="/^(((13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8})|([1-9](\d{4,9}|\d{11,15})))$/"
 			  tooltip-trigger="blur" uib-tooltip="{{rechargeForm.cardNo.$invalid && rechargeForm.cardNo.$dirty ?'请填写正确的卡号/手机号':''}}" tooltip-placement="bottom" >
 			</div>
@@ -72,13 +72,13 @@
 		   </div>
 		</form>
 	</uib-tab>
-    <uib-tab index="1" heading="消费">
+    <uib-tab index="1" heading="消费" ng-init="focusOn2=false"  ng-click="focusOn= !focusOn;focusOn2= true;">
 	    <form class="form-horizontal recharge-form" autocomplete="off" name="consumeForm" ng-submit="saveConsume()" novalidate>
 			<div class="form-group">
 				<label for="cardNo" class="col-sm-3 control-label control-label-left">卡号/手机号：</label>
 				<div class="col-sm-8 company-col">
 				  <input type="text" class="form-control  form-control-input consume-text-size" id="cardNo" name="cardNo" placeholder="请输入卡号或手机号" ng-model="consumeVo.cardNo" required="required" ng-disabled="cardNoDisabled"
-				  ng-blur="getMemeberAndCardInfo(cosumeTimeOper)" autofocus="autofocus" maxlength="16"
+				  ng-blur="getMemeberAndCardInfo(cosumeTimeOper)" set-focus="focusOn2" maxlength="16"
 				  ng-pattern="/^(((13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8})|([1-9](\d{4,9}|\d{11,15})))$/"
 				  tooltip-trigger="blur" uib-tooltip="{{consumeForm.cardNo.$invalid && consumeForm.cardNo.$dirty ?'请填写正确的卡号/手机号':''}}" tooltip-placement="bottom" >
 				</div>

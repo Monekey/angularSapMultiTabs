@@ -6,7 +6,7 @@
 			<div class="form-group">
 				<label for="cardNo" class="col-sm-3 control-label control-label-left">卡号：</label>
 				<div class="col-sm-8 company-col">
-				  <input type="text" class="form-control  form-control-input consume-text-size" id="oldCardNo" name="oldCardNo" placeholder="卡号" 
+				  <input type="text" class="form-control  form-control-input consume-text-size"  set-focus="true" id="oldCardNo" name="oldCardNo" placeholder="卡号"
 				  ng-model="changeCardVo.oldCardNo" required="required" ng-disabled="oldCardNoDisabled"
 				  ng-blur="getMemeberAndCardInfo()"
 				  ng-pattern="/^[1-9](\d{4,9}|\d{11,15})$/"

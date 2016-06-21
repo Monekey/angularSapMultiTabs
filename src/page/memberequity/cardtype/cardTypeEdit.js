@@ -12,6 +12,7 @@ define(function( require ){
     //加载所需模块
     var app = require( "app" );
     var angular = require("angular");
+    var shopselector = require("shopSelector");
     var savingSelectorCtrl = require( "memberequity/cardtype/savingSelector" );
     var savingSelectorTemp = require( "text!memberequity/cardtype/savingSelector.html" );
     var scoreSelectorCtrl = require( "memberequity/cardtype/scoreSelector" );

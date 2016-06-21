@@ -1,7 +1,7 @@
 <div class="task-div">
     <div class="input-group col-sm-offset-2 col-sm-8 posSearchDiv">
         <input type="text" placeholder="请输入卡号或手机号" class="form-control posSearchInput" placeholder="" ng-model="paramValue"
-        ng-keyup="enterKey(paramValue,$event)"  autofocus="autofocus">
+        ng-keyup="enterKey(paramValue,$event)"  set-focus="true">
                 <span class="input-group-btn pl10">
                     <button class="btn btn-primary posSearchBtn" ng-click="clicksearch(paramValue)">提交(Enter)</button>
                 </span>

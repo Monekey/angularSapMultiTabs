@@ -10,6 +10,7 @@
 define(function( require ){
     var app = require("app");
     var angular = require("angular");
+    var shopselector = require("shopSelector");
     var savingSelectorCtrl = require( "memberequity/cardtype/savingSelector" );
     var savingSelectorTemp = require( "text!memberequity/cardtype/savingSelector.html" );
     var scoreSelectorCtrl = require( "memberequity/cardtype/scoreSelector" );

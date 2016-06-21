@@ -5,6 +5,7 @@
 define(function( require ){
 	var app = require( "app" );
 	var angular = require("angular");
+	var shopselector = require("shopSelector");
 	app.ngAMDCtrlRegister.controller( "savingRuleEdit",["$scope","$rootScope","ajaxService","getCookieService",'register','shopSelectorService','modalService',function( $scope,$rootScope,ajaxService,getCookieService,register,shopSelectorService,modalService ){
 	
 		$scope.date_seven=[];

@@ -8,7 +8,7 @@
  *                2016/5/17   hyz   edit
  *                2016/5/27 LSZ  update 触发事件lockSystem将系统锁定
  */
-define(['ngAMD','css!pos_css'], function(ngAMD) {
+define(['ngAMD','devices','css!pos_css'], function(ngAMD) {
 
     ngAMD.directive("posTopbar", [function () {
         return {
@@ -24,8 +24,8 @@ define(['ngAMD','css!pos_css'], function(ngAMD) {
     }]);
 
     ngAMD.controller('com.tcsl.crm7.posTopbarController', [
-        '$scope', "$rootScope", "ajaxService", "getCookieService",'$state','$interval',"modalService",
-        function ($scope, $rootScope, ajaxService, getCookieService, $state,$interval,modalService) {
+        '$scope', "$rootScope", "ajaxService", "getCookieService",'$state','$interval',"modalService","devicesService",
+        function ($scope, $rootScope, ajaxService, getCookieService, $state,$interval,modalService,devicesService) {
 
             //接口查询客户终端号
             var data={"sessionId":$rootScope.sessionId};
@@ -73,11 +73,13 @@ define(['ngAMD','css!pos_css'], function(ngAMD) {
             $scope.posPrint = function(){
 //                $scope.posPrinter = true;
             	modalService.info({title:'提示', content:'未找到打印机!', size:'sm', type: 'confirm'});
+//            	devicesService.info();
             };
             //打印设置
             $scope.posPrintSet = function(){
 //                $scope.posPrinter = true;
             	modalService.info({title:'提示', content:'未找到打印机!', size:'sm', type: 'confirm'});
+//            	devicesService.printjb();
             };
             $scope.closePosPrint = function(){
                 $scope.$parent.posPrinter = false;

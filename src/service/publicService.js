@@ -79,22 +79,25 @@ define(function (require) {
                     openChildTab(aNewObj, data);
                 }
             }
-
             self.checkTabsScale();
         };
 
         function openChildTab(ctrlObj, data) {
             $rootScope.tabs.push(ctrlObj);
             require(['text!' + ctrlObj.template], function (html) {
-                data.from = ctrlObj.from;
-                $rootScope.TabsData = data;
+                $rootScope.$apply(function(){
+                    data.from = ctrlObj.from;
+                    $rootScope.TabsData = data;
+                });
                 require([ctrlObj.ctrl], function (rtObj) {
-                    angular.element(self.getDomObjById("container")).append(html);
-                    angular.element(self.getLastChild("container")).attr("ng-controller", ctrlObj.ctrlName);
-                    angular.element(self.getLastChild("container")).attr("id", ctrlObj.id);
+                    $rootScope.$apply(function(){
+                        angular.element(self.getDomObjById("container")).append(html);
+                        angular.element(self.getLastChild("container")).attr("ng-controller", ctrlObj.ctrlName);
+                        angular.element(self.getLastChild("container")).attr("id", ctrlObj.id);
 
-                    $compile(self.getDomObjById(ctrlObj.id))($rootScope);
-                    self.commonFunction(ctrlObj);
+                        $compile(self.getDomObjById(ctrlObj.id))($rootScope);
+                        self.commonFunction(ctrlObj);
+                    });
                 });
 
             });
@@ -106,6 +109,15 @@ define(function (require) {
             if (Number(window.getComputedStyle(document.getElementById("tabScrollor")).width.slice(0, -2)) < ($rootScope.tabs.length * 128)) {
                 angular.element(document.getElementById("turnleft")).css("display", "block");
                 angular.element(document.getElementById("turnright")).css("display", "block");
+                var tabs = $rootScope.tabs;
+                var index = 0;
+                for (var i = 0; i < tabs.length; i++) {
+                    if (tabs[i].ng_show === true) {
+                        index = i; break;
+                    }
+                }
+                angular.element(document.getElementById("tabScrollor"))[0].scrollLeft
+                    = (index+1) * 128 + 64 - Number(window.getComputedStyle(document.getElementById("tabScrollor")).width.slice(0, -2));
             } else {
                 angular.element(document.getElementById("turnleft")).css("display", "none");
                 angular.element(document.getElementById("turnright")).css("display", "none");
@@ -126,25 +138,52 @@ define(function (require) {
                 if (tab.id !== tabs[i].id) {
                     tabs[i].ng_show = false;
                     angular.element(this.getDomObjById(tabs[i].id)).addClass('ng-hide');
-                }else{
+                } else {
                     tabs[i].ng_show = true;
                     angular.element(this.getDomObjById(tabs[i].id)).removeClass('ng-hide');
                 }
             }
+            self.checkTabsScale();
         };
+        //获取当前页签信息
+        this.getCurrentTab = function () {
+            var tabs = $rootScope.tabs;
+            var curTab = null;
+            for (var i = 0; i < tabs.length; i++) {
+                if (tabs[i].ng_show === true) {
+                    curTab = tabs[i];
+                }
+            }
+            return curTab;
+        }
+        //关闭当前页签
+        this.closeCurrentTab = function () {
+            var tabs = $rootScope.tabs;
+            for (var i = 0; i < tabs.length; i++) {
+                if (tabs[i].ng_show === true) {
+                    requirejs.undef(tabs[i].ctrl);
+                    angular.element(document.getElementById(tabs[i].id)).remove();
+                    tabs[i].ng_show = false;
+                    $rootScope.tabs.splice(i, 1);
+                    this.commonFunction($rootScope.tabs[i - 1]);
+                    this.checkTabsScale();
+                    $('.content-main').animate({scrollTop: 0}, 600);
+                }
+            }
+        }
         //切换tab,分为关闭当前标签和直接跳转
         this.switchTab = function (tab, type) {
             var tabs = $rootScope.tabs;
             var flag = false;
-            if(type === 'switch'){
+            if (type === 'switch') {
                 this.commonFunction(tab);
-            }else{
+            } else {
                 for (var i = 0; i < tabs.length; i++) {
                     if (tab.id == tabs[i].id) {
                         flag = true;
                         tabs[i].ng_show = true;
                         angular.element(this.getDomObjById(tabs[i].id)).removeClass('ng-hide');
-                    }else{
+                    } else {
                         if (tabs[i].ng_show) {//删除标签页
                             requirejs.undef(tabs[i].ctrl);
                             angular.element(document.getElementById(tabs[i].id)).remove();

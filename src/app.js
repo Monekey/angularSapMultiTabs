@@ -4,18 +4,19 @@ define(function (require) {
     var ngConstant = require("ngConstant");
     var getcookie = require("getCookie");
     var list1 = require("conditionFilterDit");
-    //var ng_overlay = require("ng_overlay");
     var list2 = require("listDit");
-    var upload = require("uploadService");
+
     var ajaxmodule = require("ngAjaxService");
-    var shopselector = require("shopSelector");
+    //var upload = require("uploadService");
+    //var shopselector = require("shopSelector");
     var router = require("router");
     var ngAMD = require("ngAMD");
     //var ngload = require("ngload");
+    //var ng_overlay = require("ng_overlay");
     var topBar = require("topBar");
-    var devices = require("devices");
 
-    var test = angular.module("test", ["public", "com.tcsl.crm7.devices","com.tcsl.crm7.list", "com.tcsl.crm7.list2", "com.tcsl.crm7.service",  'upload','ajaxmodule','ui.router']);
+
+    var test = angular.module("test", ["public", "com.tcsl.crm7.list", "com.tcsl.crm7.list2", "com.tcsl.crm7.service",'ajaxmodule','ui.router']);
 
     /*    test.run(function (bsLoadingOverlayService) {
      bsLoadingOverlayService.setGlobalConfig({
@@ -94,10 +95,10 @@ define(function (require) {
     ]);
 
     //前台软pos路由设置
-    test.config( ["$stateProvider","$urlRouterProvider",'$controllerProvider',function( $stateProvider,$urlRouterProvider,$controllerProvider){
+    test.config( ["$stateProvider","$urlRouterProvider",'$controllerProvider','$locationProvider',function( $stateProvider,$urlRouterProvider,$controllerProvider,$locationProvider){
         test.registerController = $controllerProvider.register;
         test.stateProvider =$stateProvider;
-
+        //$locationProvider.html5Mode(true);
         $urlRouterProvider.otherwise("home");
 
         $stateProvider
@@ -108,13 +109,13 @@ define(function (require) {
             }))
             .state("home",ngAMD.route({//后台
                 url: "/home",
-                templateUrl: "src/module/home/home.html",
-                controllerUrl: "src/module/home/home.js"
+                templateUrl: "src/page/home/home.html",
+                controllerUrl: "src/page/home/home.js"
             }))
             .state("report",ngAMD.route({//报表
                 url: "/report",
-                templateUrl: "src/module/home/home.html",
-                controllerUrl: "src/module/home/home.js"
+                templateUrl: "src/page/home/home.html",
+                controllerUrl: "src/page/home/home.js"
             }))
             .state("pos", ngAMD.route({//pos页
                 url: "/pos",

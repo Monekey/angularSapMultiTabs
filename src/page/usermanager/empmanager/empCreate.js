@@ -15,6 +15,7 @@ define(function (require) {
     //引用样式 
     var app = require("app");
     var angular = require("angular");
+    var shopselector = require("shopSelector");
     app.ngAMDCtrlRegister.controller("invationController", [//模块依赖
         //必须引用
         "$scope",
@@ -271,7 +272,7 @@ define(function (require) {
              $scope.getTemplate = function () {
 	             var a = document.createElement("a");
 				 document.body.appendChild(a);			
-				 a.href = 'resources/page/usermanager/empmanager/empbatch.xlsx';	
+				 a.href = 'src/page/usermanager/empmanager/empbatch.xlsx';
 				 a.target = "_blank";	
 				 a.click();
              }

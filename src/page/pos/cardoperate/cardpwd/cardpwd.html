@@ -4,14 +4,14 @@
 	<div class="panel-body">
 	<uib-tabset active="activeForm" style="background: white;margin-top: 10px;font-size: 16px">
     <!-- 会员tab -->
-    <uib-tab index="0" heading="修改密码">
+    <uib-tab index="0" heading="修改密码" ng-init="focusOn=true"  ng-click="focusOn2=!focusOn2;focusOn=true;">
 			<form class="form-horizontal recharge-form" autocomplete="off" name="editPasswdForm" ng-submit="saveEditPasswd()" novalidate>
 				<div class="form-group">
 					<label for="cardNo" class="col-sm-3 control-label control-label-left">卡号/手机号：</label>
 					<div class="col-sm-8 company-col">
 					  <input type="text" class="form-control consume-text-size"  placeholder="请输入卡号或手机号" ng-model="editPasswdVo.cardNo"
 					  required="required" ng-disabled="cardNoDisabled" ng-blur="getMemeberAndCardInfo(editPasswdVo.cardNo)" autocomplete="off"  maxlength="16"
-					  ng-pattern="/^(((13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8})|([1-9](\d{4,9}|\d{11,15})))$/" autofocus
+					  ng-pattern="/^(((13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8})|([1-9](\d{4,9}|\d{11,15})))$/" set-focus="focusOn"
 					  tooltip-trigger="blur" uib-tooltip="{{editPasswdForm.cardNo.$invalid && editPasswdForm.cardNo.$dirty ?'请填写正确的卡号/手机号':''}}" tooltip-placement="bottom" >
 					</div>
 				</div>
@@ -54,14 +54,14 @@
 			   </div>
 			</form>
 		</uib-tab>
-	    <uib-tab index="1" heading="重置密码">
+	    <uib-tab index="1" heading="重置密码" ng-init="focusOn2=false"  ng-click="focusOn= !focusOn;focusOn2= true;">
 	        <form class="form-horizontal recharge-form" autocomplete="off"  name="resetPasswdForm" ng-submit="saveResetPasswd()" novalidate>
 				<div class="form-group">
 					<label for="cardNo" class="col-sm-3 control-label control-label-left">卡号/手机号：</label>
 					<div class="col-sm-8 company-col">
 					  <input type="text" class="form-control consume-text-size" id="cardNo2" name="cardNo2" placeholder="请输入卡号或手机号" ng-model="resetPasswdVo.cardNo"
 					  required="required" ng-disabled="cardNoDisabled" ng-blur="getMemeberAndCardInfo(resetPasswdVo.cardNo)" autocomplete="off" maxlength="16"
-					  ng-pattern="/^(((13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8})|([1-9](\d{4,9}|\d{11,15})))$/" autofocus
+					  ng-pattern="/^(((13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8})|([1-9](\d{4,9}|\d{11,15})))$/" set-focus="focusOn2"
 					  tooltip-trigger="blur" uib-tooltip="{{resetPasswdForm.cardNo2.$invalid && resetPasswdForm.cardNo2.$dirty ?'请填写正确的卡号/手机号':''}}" tooltip-placement="bottom" >
 					</div>
 				</div>
