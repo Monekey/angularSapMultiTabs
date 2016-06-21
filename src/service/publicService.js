@@ -85,15 +85,19 @@ define(function (require) {
         function openChildTab(ctrlObj, data) {
             $rootScope.tabs.push(ctrlObj);
             require(['text!' + ctrlObj.template], function (html) {
-                data.from = ctrlObj.from;
-                $rootScope.TabsData = data;
+                $rootScope.$apply(function(){
+                    data.from = ctrlObj.from;
+                    $rootScope.TabsData = data;
+                });
                 require([ctrlObj.ctrl], function (rtObj) {
-                    angular.element(self.getDomObjById("container")).append(html);
-                    angular.element(self.getLastChild("container")).attr("ng-controller", ctrlObj.ctrlName);
-                    angular.element(self.getLastChild("container")).attr("id", ctrlObj.id);
+                    $rootScope.$apply(function(){
+                        angular.element(self.getDomObjById("container")).append(html);
+                        angular.element(self.getLastChild("container")).attr("ng-controller", ctrlObj.ctrlName);
+                        angular.element(self.getLastChild("container")).attr("id", ctrlObj.id);
 
-                    $compile(self.getDomObjById(ctrlObj.id))($rootScope);
-                    self.commonFunction(ctrlObj);
+                        $compile(self.getDomObjById(ctrlObj.id))($rootScope);
+                        self.commonFunction(ctrlObj);
+                    });
                 });
 
             });
@@ -125,34 +129,33 @@ define(function (require) {
                 if (tab.id !== tabs[i].id) {
                     tabs[i].ng_show = false;
                     angular.element(this.getDomObjById(tabs[i].id)).addClass('ng-hide');
-                }else{
+                } else {
                     tabs[i].ng_show = true;
                     angular.element(this.getDomObjById(tabs[i].id)).removeClass('ng-hide');
                 }
             }
-            $rootScope.$digest();
         };
         //获取当前页签信息
-        this.getCurrentTab = function(){
+        this.getCurrentTab = function () {
             var tabs = $rootScope.tabs;
             var curTab = null;
             for (var i = 0; i < tabs.length; i++) {
-                if ( tabs[i].ng_show === true) {
+                if (tabs[i].ng_show === true) {
                     curTab = tabs[i];
                 }
             }
             return curTab;
         }
         //关闭当前页签
-        this.closeCurrentTab = function(){
+        this.closeCurrentTab = function () {
             var tabs = $rootScope.tabs;
             for (var i = 0; i < tabs.length; i++) {
-                if ( tabs[i].ng_show === true) {
+                if (tabs[i].ng_show === true) {
                     requirejs.undef(tabs[i].ctrl);
                     angular.element(document.getElementById(tabs[i].id)).remove();
                     tabs[i].ng_show = false;
                     $rootScope.tabs.splice(i, 1);
-                    this.commonFunction($rootScope.tabs[i-1]);
+                    this.commonFunction($rootScope.tabs[i - 1]);
                     this.checkTabsScale();
                     $('.content-main').animate({scrollTop: 0}, 600);
                 }
@@ -162,15 +165,15 @@ define(function (require) {
         this.switchTab = function (tab, type) {
             var tabs = $rootScope.tabs;
             var flag = false;
-            if(type === 'switch'){
+            if (type === 'switch') {
                 this.commonFunction(tab);
-            }else{
+            } else {
                 for (var i = 0; i < tabs.length; i++) {
                     if (tab.id == tabs[i].id) {
                         flag = true;
                         tabs[i].ng_show = true;
                         angular.element(this.getDomObjById(tabs[i].id)).removeClass('ng-hide');
-                    }else{
+                    } else {
                         if (tabs[i].ng_show) {//删除标签页
                             requirejs.undef(tabs[i].ctrl);
                             angular.element(document.getElementById(tabs[i].id)).remove();

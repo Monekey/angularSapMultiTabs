@@ -4,7 +4,7 @@ requirejs.config({
     paths: {
         app: "../app",
         //配置lib目录下的第三方公共包
-        angular: "../lib/angular.min",
+        angular: "../lib/angular",
         jquery: "../lib/jquery.min",
         text: "../lib/text.min",
         css: "../lib/css",

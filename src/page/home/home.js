@@ -88,10 +88,12 @@ define(["rippleButton"], function (rippleButton) {
             //console.log(e);
             $scope.rightClickIndex = index;
             angular.element( document.getElementById( "rightClickmenu" ) ).css( { top:e.clientY+'px',left:e.clientX+'px',display:"block" } );
+            angular.element( document.getElementById( "rightClickmenu_backdrop" ) ).css("display","block");
         }
 
         $scope.closeSelf = function(){
             angular.element( document.getElementById( "rightClickmenu" ) ).css("display","none");
+            angular.element( document.getElementById( "rightClickmenu_backdrop" ) ).css("display","none");
         }
 
         $scope.closeOther = function(direction){
