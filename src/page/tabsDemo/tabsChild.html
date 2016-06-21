@@ -1,6 +1,6 @@
 <div>
     <div class="list-page">
-        <div class="canvas_title ">{{'子页面'+data.id}}</div>
+        <div class="canvas_title ">子页面<span ng-bind="tabId"></span></div>
         <div class="panel">
             <div class="panel-heading">
 
@@ -8,13 +8,13 @@
             <div class="panel-body">
                 <div class="row">
                     <div class="col-sm-offset-2 col-sm-3 text-right-important mt5">
-                        <label>此页TABID为：</label>
+                        <label>此页TAB的ID为：</label>
                     </div>
                     <div class="col-sm-7">
-                        <span ng-bind="data.id"></span>
+                        <span ng-bind="tabId"></span>
                     </div>
                 </div>
-                <hr>
+                <br>
                 <div class="row">
                     <div class="col-sm-offset-2 col-sm-3 text-right-important mt5">
                         <label class="text-right-important">关闭此页面并返回父页面：</label>

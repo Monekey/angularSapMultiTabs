@@ -17,16 +17,16 @@
                         <button class="main-all-btn-b" ng-click="closeCurTab()">点击关闭当前页</button>
                     </div>
                 </div>
-                <hr>
+                <br>
                 <div class="row">
                     <div class="col-sm-offset-2 col-sm-3 text-right-important mt5">
                         <i class="iconfont" style="cursor: default" tooltip-trigger="mouseenter"
-                           uib-tooltip="注：与页签右侧的关闭图标效果一样。"
+                           uib-tooltip="注：请输入ID确定唯一性。"
                            tooltip-placement="top" tooltip-append-to-body="true">&#xe652;</i>
                         <label class="text-right-important">打开新页签或切换到已有的页签：</label>
                     </div>
                     <div class="col-sm-7">
-                        <input type="text" ng-model="tabId" placeholder="请输入页签的Id">
+                        <input class="form-control" style="display: inline-block;width: auto" type="text" ng-model="tabId" placeholder="请输入页签的Id">
                         <button class="btn main-all-btn-b" ng-disabled="!tabId" ng-click="addOrSwtichTab()">新建/切换</button>
                     </div>
                 </div>

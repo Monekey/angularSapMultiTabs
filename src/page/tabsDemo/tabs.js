@@ -6,13 +6,9 @@ define(function (require) {
         arrFunc: [
             '$scope',
             '$rootScope',
-            '$uibModal',
             //自定义模块注入，与回调函数顺序应一致
             "register",
-            'appConstant',
-            "ajaxService",
-            "modalService",
-            function ($scope, $rootScope,$uibModal, register, appConstant, ajaxService, modalService) {
+            function ($scope, $rootScope, register) {
                 $scope.pageTitle = "主要功能";
                 $scope.tabId = '123456';
                 $scope.closeCurTab = function(){
@@ -21,8 +17,9 @@ define(function (require) {
                 $scope.addOrSwtichTab = function(){
                     var tab = register.getCurrentTab(); //获取当前tab的信息
                     var data = {id:$scope.tabId};
+                    data.callback =
                     register.addToTabs({
-                        title: "TabDemo",//TAB页面标题
+                        title: "子Tab",//TAB页面标题
                         id: "tabsDemo" + $scope.tabId,//Tab唯一ID
                         template: "tabsDemo/tabsChild.html",//关联Tab的html页面
                         ctrl: 'tabsDemo/tabsChild',//关联html的js文件

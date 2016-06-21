@@ -130,6 +130,7 @@ define(function (require) {
                     angular.element(this.getDomObjById(tabs[i].id)).removeClass('ng-hide');
                 }
             }
+            $rootScope.$digest();
         };
         //获取当前页签信息
         this.getCurrentTab = function(){
