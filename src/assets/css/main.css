@@ -246,6 +246,9 @@ input.ng-invalid {
 .head .dropdown-menu .see-all:active {
   text-decoration: underline;
 }
+.demo .inline-block {
+  display: inline-block !important;
+}
 .left-list-dropdown-menu {
   left: 60px !important;
   position: fixed;

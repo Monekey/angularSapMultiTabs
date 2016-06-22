@@ -39,8 +39,8 @@
             <li ng-class="{true: 'tab active', false: 'tab'}[tab.ng_show]"
                 ng-repeat="tab in tabs track by $index" ng-click="changeTab(tab)" ng-rightclick="showRightClickMenu( $event,$index )">
                 <div  ng-class="{true:'first-tab',false:'other-tab'}[tab.id == 10035 || tab.id ==10049]" tooltip-class="tab-tooltip" uib-tooltip="{{tab.title}}" tooltip-trigger="mouseenter" tooltip-append-to-body="true" tooltip-placement="bottom-right">
-                    <span ng-if="tab.title.length<=4" ng-bind="tab.title"></span>
-                    <span ng-if="tab.title.length>4" ng-bind="tab.title.substr(0,4)+'...'"></span>
+                    <span ng-if="getByteLen(tab.title)<=8" ng-bind="tab.title"></span>
+                    <span ng-if="getByteLen(tab.title)>8" ng-bind="tab.title.substr(0,4)+'...'"></span>
                 </div>
 
                 <div style="width: 31px;float:right;padding-right: 10px;">
