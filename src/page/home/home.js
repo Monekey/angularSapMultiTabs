@@ -96,6 +96,21 @@ define(["rippleButton"], function (rippleButton) {
             angular.element( document.getElementById( "rightClickmenu_backdrop" ) ).css("display","none");
         }
 
+        $scope.getByteLen = function(val) {
+            var len = 0;
+            for (var i = 0; i < val.length; i++) {
+                var length = val.charCodeAt(i);
+                if(length>=0&&length<=128)
+                {
+                    len += 1;
+                }
+                else
+                {
+                    len += 2;
+                }
+            }
+            return len;
+        }
         $scope.closeOther = function(direction){
             if(direction === 'left'){
                 var needClose = $rootScope.tabs.splice( 1,$scope.rightClickIndex-1 );

@@ -17,12 +17,10 @@
                         <button class="main-all-btn-b" ng-click="closeCurTab()">点击关闭当前页</button>
                     </div>
                 </div>
+
                 <br>
                 <div class="row">
                     <div class="col-sm-offset-2 col-sm-3 text-right-important mt5">
-                        <i class="iconfont" style="cursor: default" tooltip-trigger="mouseenter"
-                           uib-tooltip="注：请输入ID确定唯一性。"
-                           tooltip-placement="top" tooltip-append-to-body="true">&#xe652;</i>
                         <label class="text-right-important">打开新页签或切换到已有的页签：</label>
                     </div>
                     <div class="col-sm-7">
@@ -34,6 +32,9 @@
                 <br>
                 <div class="row">
                     <div class="col-sm-offset-2 col-sm-3 text-right-important mt5">
+                        <i class="iconfont" style="cursor: default" tooltip-trigger="mouseenter"
+                           uib-tooltip="注：ID是tab确定唯一性的标识：输入不同的ID会打开新的tab，输入已有的ID会切换到此ID的tab。"
+                           tooltip-placement="top" tooltip-append-to-body="true">&#xe652;</i>
                     </div>
                     <div class="col-sm-7">
                         <input class="form-control" style="display: inline-block;width: auto" type="text" ng-model="tabId" placeholder="请输入页签的Id">

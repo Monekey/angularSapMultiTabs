@@ -9,7 +9,7 @@ define(function (require) {
             //自定义模块注入，与回调函数顺序应一致
             "register",
             function ($scope, $rootScope, register) {
-                $scope.pageTitle = "主要功能";
+                $scope.pageTitle = "tabs页签";
                 $scope.tabId = '123456';
                 $scope.closeCurTab = function(){
                     register.closeCurrentTab();

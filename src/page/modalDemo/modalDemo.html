@@ -1,0 +1,146 @@
+<div>
+    <div class="list-page">
+        <div class="canvas_title " ng-bind="pageTitle"></div>
+        <div class="panel demo">
+            <div class="panel-heading">
+
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-offset-2 col-sm-3 text-right-important mt5">
+                        <i class="iconfont" style="cursor: default" tooltip-trigger="mouseenter"
+                           uib-tooltip="注：基本样式。"
+                           tooltip-placement="top" tooltip-append-to-body="true">&#xe652;</i>
+                        <label>基本样式：</label>
+                    </div>
+                    <div class="col-sm-7">
+                        <button class="btn btn-success mr20" ng-click="success()">成功提示</button>
+                        <button class="btn btn-danger mr20" ng-click="fail()">失败提示</button>
+                        <button class="btn btn-default mr20" ng-click="normal()">普通提示</button>
+                        <button class="btn btn-warning" ng-click="confirm()">确认提示</button>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-offset-2 col-sm-3 text-right-important mt5">
+                    </div>
+                    <div class="col-sm-7">
+
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-offset-2 col-sm-3 text-right-important mt5">
+                        <i class="iconfont" style="cursor: default" tooltip-trigger="mouseenter"
+                           uib-tooltip="注：请输入ID确定唯一性。"
+                           tooltip-placement="top" tooltip-append-to-body="true">&#xe652;</i>
+                        <label class="text-right-important">自定义：</label>
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="col-sm-10">
+                            <label>类型：</label>
+                            <select ng-model="custom.type" class="form-control inline-block" style="width: 200px">
+                                <option value="normal" selected>普通提示</option>
+                                <option value="confirm">确认提示</option>
+                                <option value="ok">成功提示</option>
+                                <option value="fail">失败提示</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div ng-hide="custom.type==='ok'||custom.type==='fail'">
+                    <div class="row">
+                        <div class="col-sm-offset-5 col-sm-7">
+                            <div class="col-sm-10">
+                                标题：
+                                <input class="form-control inline-block" style="width: 200px" type="text"
+                                       ng-model="custom.title" placeholder="标题">
+                            </div>
+                        </div>
+                    </div>
+                    <br></div>
+                <div class="row">
+                    <div class="col-sm-offset-5 col-sm-7">
+                        <div class="col-sm-10">
+                            内容：
+                            <input class="form-control inline-block" style="width: 200px" type="text"
+                                   ng-model="custom.content" placeholder="内容">
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div ng-hide="custom.type==='ok'||custom.type==='fail'">
+                    <div class="row">
+                        <div class="col-sm-offset-5 col-sm-7">
+                            <div class="col-sm-10">
+                                尺寸：
+                                <select ng-model="custom.size" class="form-control inline-block" style="width: 200px">
+                                    <option value="sm" selected>小</option>
+                                    <option value="md">中</option>
+                                    <option value="lg">大</option>
+                                    <option value="msm">自适应</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <br></div>
+                <div ng-show="custom.type==='ok'||custom.type==='fail'">
+                <div class="row">
+                    <div class="col-sm-offset-5 col-sm-7">
+                        <div class="col-sm-10">
+                            延迟：(毫秒)
+                            <input class="form-control inline-block" style="width: 200px" type="number"
+                                   ng-model="custom.delay" placeholder="延迟">
+                            <i class="iconfont" style="cursor: default" tooltip-trigger="mouseenter"
+                               uib-tooltip="注：延迟可以不填，默认为1000毫秒。"
+                               tooltip-placement="top" tooltip-append-to-body="true">&#xe652;</i>
+                        </div>
+                    </div>
+                </div>
+                <br></div>
+                <div class="row">
+                    <div class="col-sm-offset-5 col-sm-7">
+                        <div class="col-sm-10">
+                            <button class="btn {{custom.callback?'btn-danger':'btn-success'}}" ng-disabled="!custom.content||!custom.type"
+                                    ng-click="addOrRemoveCallback()">{{custom.callback?'移除':'添加'}}回调函数
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-offset-2 col-sm-3 text-right-important mt5">
+                        <i class="iconfont" style="cursor: default" tooltip-trigger="mouseenter"
+                           uib-tooltip="注：显示代码。"
+                           tooltip-placement="top" tooltip-append-to-body="true">&#xe652;</i>
+                        <label class="text-right-important">代码：</label>
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="col-sm-10">
+                            <span ng-show="custom.type==='ok'||custom.type==='fail'">
+                                <span ng-bind="'modalService.info({'+'content:\''+custom.content+'\''+',type:\''+custom.type+'\''+',delay:'+custom.delay+'})'"></span>
+                                <span ng-bind="'.then(function(status){alert(\'添加的alert事件!\');})'" ng-show="custom.callback"></span>
+                            </span>
+                            <span ng-hide="custom.type==='ok'||custom.type==='fail'">
+                                <span ng-bind="'modalService.info({'+'title:\''+custom.title+'\',content:\''+custom.content+'\',size:\''+custom.size+'\',type:\''+custom.type+'\''+'})'"></span>
+                                <span ng-bind="'.then(function(status){alert(\'添加的alert事件!\');})'" ng-show="custom.callback"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-offset-2 col-sm-3 text-right-important mt5">
+                    </div>
+                    <div class="col-sm-7">
+                        <button class="main-all-btn-b" ng-disabled="!custom.content||!custom.type"
+                                ng-click="customModal()">自定义弹！
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
