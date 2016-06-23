@@ -117,7 +117,7 @@
                         <label class="text-right-important">代码：</label>
                     </div>
                     <div class="col-sm-7">
-                        <div class="col-sm-10">
+                        <div class="col-sm-10 code">
                             <span ng-show="custom.type==='ok'||custom.type==='fail'">
                                 <span ng-bind="'modalService.info({'+'content:\''+custom.content+'\''+',type:\''+custom.type+'\''+',delay:'+custom.delay+'})'"></span>
                                 <span ng-bind="'.then(function(status){alert(\'添加的alert事件!\');})'" ng-show="custom.callback"></span>
