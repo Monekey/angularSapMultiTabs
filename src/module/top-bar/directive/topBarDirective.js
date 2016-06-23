@@ -35,8 +35,12 @@ define(function (require) {
                     "flexData": '='
                 },
                 replace: 'true',
-                template: ' <i class=" rules-head-right iconfont" aria-hidden="true" ng-click="flexData=!flexData" data-ng-bind-html="getArrowIcon(flexData)"></i>',
+                template: ' <i class=" rules-head-right iconfont" aria-hidden="true" ng-click="click(flexData,$event)" data-ng-bind-html="getArrowIcon(flexData)"></i>',
                 controller: ['$scope', '$sce', function ($scope, $sce) {
+                    $scope.click = function(flexData,$event){
+                        $event.stopPropagation();
+                        $scope.flexData = !$scope.flexData;
+                    }
                     $scope.getArrowIcon = function (val) {
                         if (val) {
                             return $sce.trustAsHtml("&#xe646;");
