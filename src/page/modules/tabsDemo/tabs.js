@@ -11,19 +11,22 @@ define(function (require) {
             function ($scope, $rootScope, register) {
                 $scope.pageTitle = "tabs页签";
                 $scope.tabId = '123456';
-                $scope.closeCurTab = function(){
+                //关闭当前tab
+                $scope.closeCurTab = function () {
                     register.closeCurrentTab();
                 }
-                $scope.addOrSwtichTab = function(index){
+                //新增或切换到指定标签
+                $scope.addOrSwtichTab = function (index) {
                     var tab = register.getCurrentTab(); //获取当前tab的信息
-                    var tabId = index?index:$scope.tabId;
-                    var data = {id:tabId};
-                    data.callback =
+                    var tabId = index ? index : $scope.tabId;
+                    var data = {
+                            id: tabId
+                        };
                     register.addToTabs({
                         title: "子Tab",//TAB页面标题
                         id: "tabsDemo" + tabId,//Tab唯一ID
-                        template: "tabsDemo/tabsChild.html",//关联Tab的html页面
-                        ctrl: 'tabsDemo/tabsChild',//关联html的js文件
+                        template: "modules/tabsDemo/tabsChild.html",//关联Tab的html页面
+                        ctrl: 'modules/tabsDemo/tabsChild',//关联html的js文件
                         ctrlName: "tabsChildCtrl",//关联html的js中定义的controller名称
                         ng_show: false,
                         type: 'single',

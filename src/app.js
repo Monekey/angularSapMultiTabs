@@ -94,12 +94,12 @@ define(function (require) {
         }
     ]);
 
-    //前台软pos路由设置
+    //路由设置
     test.config( ["$stateProvider","$urlRouterProvider",'$controllerProvider','$locationProvider',function( $stateProvider,$urlRouterProvider,$controllerProvider,$locationProvider){
         test.registerController = $controllerProvider.register;
         test.stateProvider =$stateProvider;
         //$locationProvider.html5Mode(true);
-        $urlRouterProvider.otherwise("home");
+        $urlRouterProvider.otherwise("home"); //表示其他
 
         $stateProvider
             .state("login",ngAMD.route({//登录页
@@ -159,7 +159,6 @@ define(function (require) {
                 controllerUrl:"src/page/basedata/companymanager/companyInfoCtroller.js"
             }));
     }] );
-
 
    // var ngAMDCtrlRegister = ngAMD.bootstrap(app);
     return {
