@@ -11,9 +11,9 @@ define(["rippleButton"], function (rippleButton) {
     // var ripple = require("rippleButton");
     return ["$scope", "$rootScope", "register", "$timeout",function ($scope, $rootScope, register, $timeout) {
 
-        $scope.tabStatus = "pullRight";
+        $scope.tabStatus = "pullRight"; //左侧菜单显示方式有两种 默认是展开状态 还有一种缩进形式的pullLeft
         $scope.dynamicPopover = {
-            templateUrl: 'src/page/home/menuPopover.html'
+            templateUrl: 'src/page/home/menuPopover.html' //pullLeft菜单鼠标悬停在图标上pop出的子菜单
         };
 
         $scope.setCurrentGroup= function(group){
@@ -31,7 +31,7 @@ define(["rippleButton"], function (rippleButton) {
             }
         };
 
-        $scope.onClickTab = function (tab) {
+        $scope.onClickTab = function (tab) { //点击菜单后新建tab页签
             var index = false;
             var tabs = $rootScope.tabs;
             for (var i = 0; i < tabs.length; i++) {
@@ -40,7 +40,6 @@ define(["rippleButton"], function (rippleButton) {
                     break;
                 }
             }
-
 
             if (index !== false) {
                 $rootScope.tabs[index].ng_show = true;
@@ -71,10 +70,10 @@ define(["rippleButton"], function (rippleButton) {
             e.stopPropagation();
         }
 
-        $scope.tabGrpTurnLeft = function () {
+        $scope.tabGrpTurnLeft = function () { //tab菜单向左滚动
             angular.element(document.getElementById("tabScrollor"))[0].scrollLeft -= 100;
         }
-        $scope.tabGrpTurnRight = function () {
+        $scope.tabGrpTurnRight = function () {//tab菜单向右滚动
             angular.element(document.getElementById("tabScrollor"))[0].scrollLeft += 100;
         }
         
@@ -84,19 +83,19 @@ define(["rippleButton"], function (rippleButton) {
 
 
         $scope.rightClickIndex = 0;
-        $scope.showRightClickMenu = function( e,index ){
+        $scope.showRightClickMenu = function( e,index ){ //tab菜单右键菜单
             //console.log(e);
             $scope.rightClickIndex = index;
             angular.element( document.getElementById( "rightClickmenu" ) ).css( { top:e.clientY+'px',left:e.clientX+'px',display:"block" } );
             angular.element( document.getElementById( "rightClickmenu_backdrop" ) ).css("display","block");
         }
 
-        $scope.closeSelf = function(){
+        $scope.closeSelf = function(){ //关闭tab右键菜单
             angular.element( document.getElementById( "rightClickmenu" ) ).css("display","none");
             angular.element( document.getElementById( "rightClickmenu_backdrop" ) ).css("display","none");
         }
 
-        $scope.getByteLen = function(val) {
+        $scope.getByteLen = function(val) { //获取tab标题的字节数
             var len = 0;
             for (var i = 0; i < val.length; i++) {
                 var length = val.charCodeAt(i);
@@ -111,7 +110,7 @@ define(["rippleButton"], function (rippleButton) {
             }
             return len;
         }
-        $scope.closeOther = function(direction){
+        $scope.closeOther = function(direction){ //tab右键菜单关闭其他功能
             if(direction === 'left'){
                 var needClose = $rootScope.tabs.splice( 1,$scope.rightClickIndex-1 );
             }else{

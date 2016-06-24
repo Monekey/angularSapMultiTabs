@@ -25,8 +25,8 @@ define(function (require) {
                     register.addToTabs({
                         title: "子Tab",//TAB页面标题
                         id: "tabsDemo" + tabId,//Tab唯一ID
-                        template: "modules/tabsDemo/tabsChild.html",//关联Tab的html页面
-                        ctrl: 'modules/tabsDemo/tabsChild',//关联html的js文件
+                        template: "demos/modules/tabsDemo/tabsChild.html",//关联Tab的html页面
+                        ctrl: 'demos/modules/tabsDemo/tabsChild',//关联html的js文件
                         ctrlName: "tabsChildCtrl",//关联html的js中定义的controller名称
                         ng_show: false,
                         type: 'single',

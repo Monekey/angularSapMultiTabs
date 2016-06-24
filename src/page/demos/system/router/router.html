@@ -1,0 +1,49 @@
+<div>
+    <div class="list-page demo">
+        <!--<div class="canvas_title ">路由配置方法</div>-->
+        <div class="panel">
+            <div class="canvas_title" ng-click="collapse[0]=!collapse[0];">
+                ui-router介绍
+                <flex flex-data="collapse[0]"></flex>
+            </div>
+            <div class="panel-collapse collapse" uib-collapse="!collapse[0]">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-12 help">
+                            <div class="help-block">
+                                <p>整个用户界面和导航中，一个状态对应于一个页面位置
+                                <p>通过定义url、controller、template等属性，来定义指定位置的用户界面和界面行为
+                                <p>crm7中在topBar里可以切换后台管理/前台POS/报表中心、以及软pos里面页面的切换，使用的是ui-router。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="canvas_title" ng-click="collapse[1]=!collapse[1];">
+                ui-router配置
+                <flex flex-data="collapse[1]"></flex>
+            </div>
+            <div class="panel-collapse collapse" uib-collapse="!collapse[1]">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-12 help">
+                            <div class="help-block">
+                                <p>如需添加一个受路由控制的login页面，代码如下：
+                                <div class="code"> $stateProvider
+                                    .state("login", ngAMD.route({//登录页
+                                    url: "/login", //url的地址
+                                    templateUrl: "src/page/login/login.html", //html片段
+                                    controllerUrl: "src/page/login/login.js" //controller
+                                    }))
+                                </div>
+                                <p>所有路由的配置在app.js，详细的配置方法参考app.js注释
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
