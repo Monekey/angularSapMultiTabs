@@ -5,7 +5,7 @@ define(function (require) {
     var getcookie = require("getCookie");
     var list1 = require("conditionFilterDit");
     var list2 = require("listDit");
-
+    var ng_message = require("ng_message");
     var ajaxmodule = require("ngAjaxService");
     //var upload = require("uploadService");
     //var shopselector = require("shopSelector");
@@ -16,7 +16,7 @@ define(function (require) {
     var topBar = require("topBar");
 
 
-    var test = angular.module("test", ["public", "com.tcsl.crm7.list", "com.tcsl.crm7.list2", "com.tcsl.crm7.service",'ajaxmodule','ui.router']);
+    var test = angular.module("test", ["public", "com.tcsl.crm7.list", "com.tcsl.crm7.list2", "com.tcsl.crm7.service",'ajaxmodule','ui.router','ngMessages']);
 
     /*    test.run(function (bsLoadingOverlayService) {
      bsLoadingOverlayService.setGlobalConfig({

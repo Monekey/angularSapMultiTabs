@@ -16,6 +16,7 @@ requirejs.config({
         router: "../lib/angular-ui-router.min",
         //ng_upload_shim:"../lib/ng-file-upload-shim",
         ng_overlay: "../lib/angular-loading-overlay.min",
+        ng_message: "../lib/angular-messages.min",
         ngAMD:"../lib/angularAMD.min",
         ngload:"../lib/ngload",
         zTree: '../lib/zTree/jquery.ztree.all.min',
@@ -103,6 +104,10 @@ requirejs.config({
         router:{
             deps: ["angular"],
             exports: "router"
+        },
+        ng_message:{
+            deps: ["angular"],
+            exports:"ng_message"
         },
         zTree:{
             deps:["jquery"],
