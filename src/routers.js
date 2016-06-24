@@ -1,3 +1,7 @@
+/**
+ * Created by Administrator on 2016/6/23 0023.
+ */
+//路由设置
 define(function (require) {
     var angular = require("angular");
     var public = require("publicService");
@@ -14,39 +18,7 @@ define(function (require) {
     //var ngload = require("ngload");
     //var ng_overlay = require("ng_overlay");
     var topBar = require("topBar");
-
-
-    var test = angular.module("test", ["public", "com.tcsl.crm7.list", "com.tcsl.crm7.list2", "com.tcsl.crm7.service",'ajaxmodule','ui.router']);
-
-    /*    test.run(function (bsLoadingOverlayService) {
-     bsLoadingOverlayService.setGlobalConfig({
-     delay: 0,
-     //activeClass: "",
-     templateUrl: 'src/service/overlay.html'
-     });
-     bsLoadingOverlayService.start({
-     referenceId: 'overlay-div'
-     });
-     });*/
-/*    test.directive('onFinishRender', function ($timeout) {//处理加载渲染的问题
-        return {
-            restrict: 'A',
-            scope: {
-                overr:'=onFinishRender'
-            },
-            link: function(scope, element, attr) {
-                console.log(scope.$parent.$last);
-                if (scope.$parent.$last === true) {
-                    console.log("fhsd");
-                    $timeout(function() {
-                        scope.overr = true;
-                    });
-                }
-                console.log("return");
-            }
-        };
-    });*/
-    //路由的配置
+    var test =  angular.module("test", ["public", "com.tcsl.crm7.list", "com.tcsl.crm7.list2", "com.tcsl.crm7.service",'ajaxmodule','ui.router']);
     test.config(["$stateProvider", "$urlRouterProvider", '$controllerProvider', '$locationProvider', function ($stateProvider, $urlRouterProvider, $controllerProvider, $locationProvider) {
         test.registerController = $controllerProvider.register;
         test.stateProvider = $stateProvider;
@@ -55,9 +27,9 @@ define(function (require) {
 
         $stateProvider
             .state("login", ngAMD.route({//登录页
-                url: "/login", //url的地址
-                templateUrl: "src/page/login/login.html", //html片段
-                controllerUrl: "src/page/login/login.js"  //controller
+                url: "/login",
+                templateUrl: "src/page/login/login.html",
+                controllerUrl: "src/page/login/login.js"
             }))
             .state("home", ngAMD.route({//后台
                 url: "/home",
@@ -115,51 +87,4 @@ define(function (require) {
         $rootScope.ctrlRegister = test.registerController;
         $rootScope.stateProvider = test.stateProvider;
     });
-    test.controller('testCtrl',[
-        '$scope',
-        '$rootScope',
-        'getCookieService',
-        "ajaxService",
-        '$state',
-        function($scope, $rootScope, getCookieService,ajaxService,$state){
-            $scope.clearLock = function(password){//系统解锁事件
-            	var sessionId = getCookieService.getCookie("CRMSESSIONID");
-            	 ajaxService.AjaxPost({"password":password,"sessionId": sessionId}, "postrade/memberhome/verifyUserPassword.do").then(
-                         function (result) {
-                             //如果验证通过
-                             if (result.status) {
-                            	 //清空锁
-                            	 getCookieService.setCookie('CRM7LOCK', false);
-                             }
-                         }
-                     );
-            };
-            //退出
-            $scope.logoutSystem = function () {
-            	var sessionId = getCookieService.getCookie("CRMSESSIONID");
-                ajaxService.AjaxPost({"sessionId": sessionId}, "login/logout.do").then(function (message) {
-                    if (message.status === 1) {
-                    	getCookieService.cleanCookie("CRMSESSIONID");
-	                      //清空锁
-	                   	getCookieService.setCookie('CRM7LOCK', false);
-	                   	$state.go('login');
-                    }
-                });
-            };
-            $scope.hotEnterKey = function(pwd,event){
-                var keyCode = window.event?event.keyCode:event.which;
-                if(keyCode===13){
-                    $scope.clearLock(pwd);
-                }
-                event.stopPropagation();
-            };
-            
-        }
-    ]);
-
-
-   // var ngAMDCtrlRegister = ngAMD.bootstrap(app);
-    return {
-        ngAMDCtrlRegister: ngAMD.bootstrap(test)
-    };
 });

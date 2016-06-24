@@ -11,7 +11,7 @@ define(function (require) {
 
     var publicService = angular.module("public", []);
     //为不是左侧主导航的其他按钮，比如修改，新增按钮，弹出的新tabs注册controller用的
-    publicService.service("register", ["$rootScope", "$compile", '$state', function ($rootScope, $compile, $state) {
+    publicService.service("register", ["$rootScope", "$compile", '$state','$timeout', function ($rootScope, $compile, $state, $timeout) {
         var self = this;
         //可以多开tabs的id的后缀
         this.tabindex = 0;
@@ -35,6 +35,7 @@ define(function (require) {
         };
 
         this.openTabWithRequest = function (tab, request) {//穿透时关闭旧页面，打开新页面
+            console.log(11);
             $rootScope.searchRequest = request;
             $rootScope.navs.forEach(function (group) {
                 group.content.forEach(function (tabIt) {
@@ -117,8 +118,11 @@ define(function (require) {
                         index = i; break;
                     }
                 }
-                angular.element(document.getElementById("tabScrollor"))[0].scrollLeft
-                    = (index+1) * 128 + 64 - Number(window.getComputedStyle(document.getElementById("tabScrollor")).width.slice(0, -2));
+                //console.log((index+1) * 128 + 128 - Number(window.getComputedStyle(document.getElementById("tabScrollor")).width.slice(0, -2)));
+                $timeout(function(){
+                    angular.element(document.getElementById("tabScrollor"))[0].scrollLeft
+                        = (index+1) * 128 +80 - Number(window.getComputedStyle(document.getElementById("tabScrollor")).width.slice(0, -2));
+                })
             } else {
                 angular.element(document.getElementById("turnleft")).css("display", "none");
                 angular.element(document.getElementById("turnright")).css("display", "none");
@@ -197,6 +201,7 @@ define(function (require) {
                 }
             }
             $('.content-main').animate({scrollTop: 0}, 200);
+            self.checkTabsScale();
         };
 
         /*切换顶部系统显示*/
