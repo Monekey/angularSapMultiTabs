@@ -51,7 +51,7 @@ define(function (require) {
         test.registerController = $controllerProvider.register;
         test.stateProvider = $stateProvider;
         //$locationProvider.html5Mode(true);
-        $urlRouterProvider.otherwise("home"); //表示其他
+        $urlRouterProvider.otherwise("home"); //表示如果状态不在配置里 默认的跳转
 
         $stateProvider
             .state("login", ngAMD.route({//登录页

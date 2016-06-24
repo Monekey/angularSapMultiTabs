@@ -1,0 +1,27 @@
+<div>
+    <div class="list-page demo">
+        <!--<div class="canvas_title ">路由配置方法</div>-->
+        <div class="panel">
+            <div class="canvas_title" ng-click="collapse[0]=!collapse[0];">
+                左侧菜单
+                <flex flex-data="collapse[0]"></flex>
+            </div>
+            <div class="panel-collapse collapse" uib-collapse="!collapse[0]">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-12 help">
+                            <div class="help-block">
+                                <p>左侧菜单的数据由接口提供，代码如下：
+                                <p class="code">ajaxService.AjaxPost({sessionId: sessionId}, "Init/getPages.do")
+                                <p>代码位置：src/module/top-bar/topBarDirective.js
+                                <p>json格式：src/testData/init/getPages.do
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
