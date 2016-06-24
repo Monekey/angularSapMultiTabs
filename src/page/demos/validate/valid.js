@@ -4,8 +4,16 @@ define(function (require) {
         ctrl: "valid",//controller名称
         arrFunc: [
             '$scope',
-            function ($scope) {
-                $scope.collapse = [true,true];//伸缩菜单的控制开关
+            'modalService',
+            function ($scope, modalService) {
+                $scope.collapse = [true];
+                $scope.cardInfo = {}
+                $scope.submitForm = function () {
+                    modalService.info({
+                        content: '保存成功',
+                        type: 'ok'
+                    })
+                }
             }]
     };
     return rtObj;

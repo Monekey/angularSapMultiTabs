@@ -261,6 +261,32 @@ define(function (require) {
             });
         };
     });
-
+    /**
+     * 验证两次密码一致性指令
+     * 在第二次输入密码的input内加上
+     * ensure-password="首次密码input的id"
+     */
+    publicService.directive('ensurePassword', function () {
+        return {
+            require: '^ngModel',
+            link: function (scope, element, attrs, ngModel)
+            {
+                var setEnsurePassword = function (bool) {
+                    ngModel.$setValidity('ensurePassword',bool);
+                };
+                ngModel.$parsers.push(function (val) {
+                    var firstPwd = $('#'+attrs.ensurePassword);
+                    firstPwd.off('keyup');
+                    firstPwd.on('keyup', function () {
+                        scope.$apply(function () {
+                            setEnsurePassword(firstPwd.val()===val);
+                        });
+                    });
+                    setEnsurePassword(firstPwd.val()===val);
+                    return val;
+                });
+            }
+        };
+    });
     return publicService;
 });
