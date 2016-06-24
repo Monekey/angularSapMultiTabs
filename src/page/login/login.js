@@ -72,6 +72,7 @@ define(['ng_animate', 'css!login_css'], function () {
                 } else {
                     request.phone = user.name;
                 }
+                /*
                 ajaxService.AjaxPost(request, "login/login.do").then(function (users) {
                     if (users.status == 1) {
                         $rootScope.user = users.data;
@@ -88,6 +89,8 @@ define(['ng_animate', 'css!login_css'], function () {
                         $state.go('home');
                     }
                 });
+                */
+                $state.go('home');
             };
         }];
 });

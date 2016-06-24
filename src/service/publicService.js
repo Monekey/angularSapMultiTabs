@@ -29,6 +29,7 @@ define(function (require) {
                     angular.element(self.getLastChild("container")).attr("ng-controller", rtObj.ctrl);
                     angular.element(self.getLastChild("container")).attr("id", tab.id);
                     $compile(self.getDomObjById(tab.id))($rootScope);
+                    $rootScope.$apply();
                 });
             });
         };

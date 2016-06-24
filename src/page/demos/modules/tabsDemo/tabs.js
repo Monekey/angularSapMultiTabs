@@ -11,6 +11,7 @@ define(function (require) {
             function ($scope, $rootScope, register) {
                 $scope.pageTitle = "tabs页签";
                 $scope.tabId = '123456';
+                $scope.hello = 'world';
                 //关闭当前tab
                 $scope.closeCurTab = function () {
                     register.closeCurrentTab();
