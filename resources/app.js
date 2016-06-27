@@ -1,6 +1,6 @@
-var appBaseUrl = 'resources/dist/page';
+var appBaseUrl = 'resources/page';
 requirejs.config({
-    baseUrl: 'resources/dist/page',
+    baseUrl: 'resources/page',
     paths: {
         app: "../app",
         //配置lib目录下的第三方公共包

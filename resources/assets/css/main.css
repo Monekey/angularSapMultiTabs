@@ -1888,3 +1888,30 @@ a:hover {
 .demo .help p {
   margin-bottom: 8px;
 }
+.list-loading {
+  position: absolute;
+  width: 100%;
+  height: 460px;
+  z-index: 10;
+  animation-name: fadeInOut;
+  animation-timing-function: ease-in-out;
+  animation-duration: 0.15s;
+  text-align: center;
+}
+.list-loading span {
+  display: inline-flex;
+  justify-content: center;
+  margin-top: 180px;
+  color: #696969;
+}
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 1;
+  }
+}

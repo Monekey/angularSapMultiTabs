@@ -35,6 +35,7 @@ define(function (require) {
         '$rootScope',
         '$timeout',
         function ($scope, ajaxService, $rootScope, $timeout) {
+            $scope.$parent.loading = true;
             $scope.moreFilter = false;
             $scope.moreConditions = {value: []};
             if ($scope.conditions.isCollapsed != false && $scope.conditions.isCollapsed != true) {
@@ -86,7 +87,9 @@ define(function (require) {
             }
 
             //查询
+            $scope.$parent.loading = true;
             ajaxService.AjaxPost($scope.conditions.request, $scope.conditions.ajaxUrl).then(function (result) {
+                $scope.$parent.loading = false;
                 $scope.noData = false;
                 if(result.pageInfo.list.length<=0){
                     $scope.noData = true;
@@ -317,7 +320,9 @@ define(function (require) {
                 }
 
 //查询
+                $scope.$parent.loading = true;
                 ajaxService.AjaxPost(postObj, $scope.conditions.ajaxUrl).then(function (result) {
+                    $scope.$parent.loading = false;
                     result.noData = $scope.noData;
                     if ($scope.resultName) {
                         $scope.$parent[$scope.resultName] = result;

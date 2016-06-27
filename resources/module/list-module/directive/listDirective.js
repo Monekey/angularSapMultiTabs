@@ -37,15 +37,18 @@ define(function (require) {
             $scope.edit= register.getRoot('修改');
             $scope.delete= register.getRoot('删除');
             $scope.detail= register.getRoot('详情');
-
+            console.log($scope.$parent);
             //点击页码翻页
             $scope.pageChanged = function () {
                 var postObj = $scope.requestObj.request;
                 postObj.pageNo = $scope.pageSet.currentPage;
                 postObj.pageCount = $scope.pageSet.numPerPage;
                 //检索积分规则
+                $scope.$parent.loading = true;
+                //$scope.results.pageInfo.list = [];
                 ajaxService.AjaxPost(postObj, $scope.requestObj.ajaxUrl).then(function (result) {
                     $scope.results = result;
+                    $scope.$parent.loading = false;
                 });
             };
             //加载自定义filter
