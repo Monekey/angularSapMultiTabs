@@ -1,0 +1,67 @@
+<div uib-collapse="conditions.isCollapsed">
+    <div class="shaixuan_content">
+        <div ng-repeat="condition in conditions.filter">
+            <div class="card" ng-if="condition.type == 'normal'">
+                <span class="main" ng-bind="condition.field"></span>
+                        <span ng-repeat="key in condition.value" ng-click="ruleStatus_click(condition.value, key)"
+                              ng-class="{'add':key.state}">{{key.name}} <var ng-if="key.count">({{key.count}})</var></span>
+            </div>
+
+            <div class="card" ng-if="condition.type == 'dateFlex'">
+                <span class="main" ng-bind="condition.field"></span>
+                        <span ng-repeat="key in condition.value" ng-click="getMemberDate(condition.value, key)"
+                              ng-class="{'add':key.state}" ng-bind="key.name"></span>
+                        <span  class="time-span">
+                             <input type="date" class="form-control" uib-datepicker-popup ng-model="conditions.memberBeginDate" ng-change="getMemberBeginDate()"
+                                    ng-required="true" style="display:inline-block;width:135px;"/>至
+                             <input type="date" class="form-control" uib-datepicker-popup ng-model="conditions.memberEndDate" ng-change="getMemberBeginDate()"
+                                    ng-required="true" style="display:inline-block;width:135px;"/>
+                        </span>
+            </div>
+
+            <div class="card" ng-if="condition.type == 'date'">
+                <span class="main" ng-bind="condition.field"></span>
+                <input type="date" class="form-control" uib-datepicker-popup ng-model="condition.startTime"
+                       ng-required="true" style="display:inline-block;width:165px;float:left;"
+                       ng-change="datepickerStart()"/>至
+                <input type="date" class="form-control" uib-datepicker-popup ng-model="condition.endTime"
+                       ng-required="true" style="display:inline-block;width:165px;"
+                       ng-change="datepickerEnd()"/>
+            </div>
+        </div>
+        <div ng-if="conditions.more">
+            <hr>
+            <div ng-click="showMore()" style="padding-left:10px;">{{moreTitle}}<i ng-class="{'fa fa-angle-up': moreFilter, 'fa fa-angle-down': !moreFilter}"></i>
+            </div>
+            <div ng-if="moreFilter" class="shaixuan_content">
+                <div class="card">
+                    <span class="main"></span>
+                    <select ng-model="moreType" ng-changed="filterChange(moreType)" class="form-control" style="width:120px;">
+                        <option value="0">品牌</option>
+                        <option value="1">城市</option>
+                        <option value="2">自定义门店组合</option>
+                        <!--  <option ng-repeat="v in codeList" ng-selected="updateForm.code == v.code">{{v.code}}</option>-->
+                    </select>
+                </div>
+                <div class="card">
+                    <span class="main" ng-bind="getFilterName(moreType)"></span>
+                            <span ng-repeat="mc in moreConditions track by $index"
+                                  ng-click="ruleStatus_click(moreConditions, mc)" ng-class="{'add':mc.state}"
+                                  ng-bind="mc.name" ng-if="$index < 3"></span>
+                            <span uib-popover-template="dynamicPopover.templateUrl" popover-placement="bottom-left"
+                                  popover-trigger="outsideClick" ng-if="moreConditions.length > 3">更多..</span>
+                </div>
+
+                <div class="card">
+                    <span class="main">筛选结果</span>
+                    <div ng-repeat="mc in filterSelected" style="display: inline-block;">
+                        <span ng-bind="mc.name"></span> <i class="fa fa-times-circle"
+                                                           ng-click="removeFilter(mc)"></i>
+                    </div>
+                    <span class="clearAll" ng-click="clearAllFilter()">清除所有筛选</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

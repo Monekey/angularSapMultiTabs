@@ -1,0 +1,20 @@
+<div id="add2ctrl">
+        <table class="table table-striped">
+				<thead>
+					<tr>
+					    <th>时间</th>
+		                <th>内容</th>		                
+					</tr>
+				</thead>
+				<tbody ng-repeat="data in resultList.pageInfo.list">
+					<tr>
+					    <td>{{data.showTime}}</td>
+		                <td><a target="_blank" href="{{ data.url }}>">{{data.showContent}}</a></td>	                
+					</tr>
+				</tbody>
+		</table>
+        <uib-pagination total-items="resultList.pageInfo.total" ng-model="pageSet.currentPage" items-per-page="pageSet.numPerPage"
+                            max-size="pageSet.maxSize" class="pagination-sm"
+                            boundary-links="true" force-ellipses="true" ng-change="pageChanged()" previous-text="上一页"
+                            next-text="下一页" first-text="首页" last-text="尾页"></uib-pagination>
+</div>

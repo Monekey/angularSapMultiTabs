@@ -1,0 +1,160 @@
+<div  id="posTopbar">
+	<div  id="posInfo">
+		<div class="col-xs-6">
+			<span ng-bind="currDate.year"></span>年
+			<span ng-bind="currDate.month"></span>月
+			<span ng-bind="currDate.date"></span>日&nbsp;
+			<span ng-bind="currDate.day"></span>&nbsp;
+			<span ng-bind="currDate.time"></span>&nbsp;
+			<i class="iconfont">&#xe66e;</i>
+			<a ng-bind="userTerminal.terminaName + '  '+ userTerminal.terminalCode"  ng-click="switchTerminal()"></a>
+		</div>
+		<div class="col-xs-6 text-right">
+			<!--<button class="btn btn-default" ng-click="goselectedpos()" ng-show="isPosHome()">首页</button>-->
+			<button class="btn btn-default" ng-click="lockSystem()">锁定</button>
+			<button class="btn btn-default" ng-click="posPrint()">打印</button><!--ng-click="posPrint()"-->
+			<button class="btn btn-default"ng-click="posPrintSet()">参数设置</button>
+			<button class="btn btn-default"ng-click="posTestss()">测试</button>
+		</div>
+	</div>
+
+
+
+	<div class="pos-print" ng-show="posPrinter">
+<!--		<ul class="nav nav-pills nav-justified">
+			<li role="presentation" class="active"><a href="#">结班打印</a></li>
+			<li role="presentation"><a href="#">重新打印</a></li>
+		</ul>
+		<period start-time="printStartTime" end-time="printEndTime"></period>-->
+
+		<uib-tabset active="activeForm">
+			<i class="iconfont" style="float:right;" ng-click="closePosPrint()">&#xe63c;</i>
+			<uib-tab index="0" heading="结班打印">
+			<div class="col-md-6">
+				<period start-time="printStartTime" end-time="printEndTime" has-time="true"></period>
+			</div>	
+			<div class="col-sm-8">
+				<span class="col-sm-8">门店名称:<span ng-bind="serialData.DS1[0].shopName"></span></span>
+				<span class="col-sm-8">终端号:<span ng-bind="serialData.DS1[0].terminalCode"></span></span>
+				<span class="col-sm-8">操作人:<span ng-bind="serialData.DS1[0].opName"></span></span>
+				<span class="col-sm-8">起始时间:<span ng-bind="serialData.DS1[0].startTime|date:'yyyy-mm-dd'"></span></span>
+				<span class="col-sm-8">结束时间:<span ng-bind="serialData.DS1[0].endTime|date:'yyyy-mm-dd'"></span></span>
+				<span class="col-sm-8">------------------</span>
+				<span class="col-sm-8">售卡统计:</span>
+				<span class="col-sm-8">售卡张数:<span ng-bind="serialData.DS2[0].sellCardCount"></span></span>
+				<span class="col-sm-8">工本费:<span ng-bind="serialData.DS2[0].sellCardCharge"></span></span>
+				<span class="col-sm-8">------------------</span>
+				<span class="col-sm-8">消费统计:</span>
+				<span class="col-sm-8">消费笔数:<span ng-bind="serialData.DS3[0].consumeCount"></span></span>
+				<span class="col-sm-8">消费金额:<span ng-bind="serialData.DS3[0].consumeAmount"></span></span>
+				<span class="col-sm-8">消费储值:<span ng-bind="serialData.DS3[0].consumeCz"></span></span>
+				<span class="col-sm-8">劵消费:<span ng-bind="serialData.DS3[0].ticketAmount"></span></span>
+				<span class="col-sm-8">积分消费:<span ng-bind="serialData.DS3[0].consumeScore"></span></span>
+				<span class="col-sm-8">------------------</span>
+				<span class="col-sm-8">充值统计:</span>
+				<span class="col-sm-8">充值笔数:<span ng-bind="serialData.DS4[0].rechargeCount"></span></span>
+				<span class="col-sm-8">充值金额:<span ng-bind="serialData.DS4[0].rechargeAmountB"></span></span>
+				<span class="col-sm-8">充值赠送金额:<span ng-bind="serialData.DS4[0].rechargeAmountZ"></span></span>
+				<span class="col-sm-8">------------------</span>
+				<span class="col-sm-8">支付方式:</span>
+				<span class="col-sm-8">现金:<span ng-bind="serialData.DS5[0].xianjin"></span></span>
+				<span class="col-sm-8">信用卡:<span ng-bind="serialData.DS5[0].xinyongka"></span></span>
+				<span class="col-sm-8">微信:<span ng-bind="serialData.DS5[0].weixin"></span></span>
+				<span class="col-sm-8">闪惠:<span ng-bind="serialData.DS5[0].shanhui"></span></span>
+				<span class="col-sm-8">支付宝:<span ng-bind="serialData.DS5[0].zhifubao"></span></span>
+				<span class="col-sm-8">支票:<span ng-bind="serialData.DS5[0].zhipiao"></span></span>
+				<span class="col-sm-8">其他:<span ng-bind="serialData.DS5[0].other"></span></span>
+				<span class="col-sm-8">------------------</span>
+				<span class="col-sm-8">退卡统计:</span>
+				<span class="col-sm-8">退卡笔数:<span ng-bind="serialData.DS6[0].annulCardCount"></span></span>
+				<span class="col-sm-8">退卡金额:<span ng-bind="serialData.DS6[0].annulCardAmount"></span></span>
+			</div>
+			<div class="col-sm-8">
+				<button class="btn btn-default"ng-click="printTest()">打印结班单</button>	
+			</div>
+			</uib-tab>
+			<uib-tab index="1" heading="重新打印">
+				dd
+			</uib-tab>
+		</uib-tabset>
+	</div>
+	
+	
+	<div ng-show="posPrinterSet">
+		<uib-tabset active="activeForm">
+			<i class="iconfont" style="float:right;" ng-click="closeposPrinterSet()">&#xe63c;</i>
+			<uib-tab index="0" heading="打印设置">
+			
+				<!-- 打印设置 -->
+				<div class="form-group">
+	                <label class="col-sm-8">业务类型：</label>
+	                <div class="col-sm-8">
+	                    <table class="table table-striped table-style-all"
+	                           style="border:1px solid #ddd;">
+	                        <tr class="table-tr-first">
+	                            <th class="col-sm-5">操作类型</th>
+	                            <th class="col-sm-4">单据打印机</th>
+	                            <th class="col-sm-3 text-center">打印份数</th>
+	                        </tr>
+	                        <tr ng-repeat="one in printSet.printSetInfos track by $index">
+	                            <td class="col-sm-5">
+	                                <span ng-bind="one.printOperationType"></span>
+	                            </td>
+	                            <td class="col-sm-4">
+	                                <select class=""
+	                                         name="{{printSet.printSetInfos[$index].printDevice}}"
+	                                         id="{{printSet.printSetInfos[$index].printDevice}}"
+	                                         tooltip-trigger="blur"
+	                                         tooltip-placement="bottom"
+	                                         ng-options="print.name as print.name for print in printers"
+	                                         ng-model="one.printDevice"
+	                                         ng-change="">
+	                                 </select>
+	                            </td>
+	                            <td class="col-sm-3">
+	                                <input class="form-control" type="text" 
+	                                id="{{printSet.printSetInfos[$index].value}}"
+	                                name="{{printSet.printSetInfos[$index].value}}"
+                                ng-model="one.printPageCount"
+                                tooltip-placement="bottom" />
+	                            </td>
+	                        </tr>
+	                    </table>
+	                </div>
+	            </div>
+	            <!-- 打印路径 -->
+	            <div class="form-group">
+                     <label for="name" class="col-sm-8">打印路径：</label>
+                     <div class="col-md-6">
+                         <input class="form-control" type="text" autofocus id="name" name="name"
+                                ng-model="printSet.Url"
+                                tooltip-placement="bottom" />
+
+                     </div>
+
+                 </div>
+	             <!-- 打印样式 -->       
+                 <div class="form-group">
+                     <label class="col-sm-8">打印样式：</label>
+                     <div class="col-sm-8">
+	                     <label class="radio-inline">
+	                         <input type="radio" name="choice_radio" ng-model="printSet.printStyle"
+	                                ng-value="1">57样式
+	                     </label>
+	                     <label class="radio-inline">
+	                         <input type="radio" name="choice_radio" ng-model="printSet.printStyle"
+	                                ng-value="2">80样式
+	                     </label>
+                     </div>
+                 </div>
+			</uib-tab>
+			<uib-tab index="1" heading="设备类型">
+				dd
+			</uib-tab>
+			<uib-tab index="2" heading="交易设置">
+				dd
+			</uib-tab>
+		</uib-tabset>
+	</div>
+</div>
+

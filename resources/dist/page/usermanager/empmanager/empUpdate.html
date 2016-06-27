@@ -1,0 +1,96 @@
+<div class="rule two-form" id="ng-editEmp" ng-controller="editEmpController">
+
+    <div class="list-page">
+        <div class="canvas_title">
+            员工信息
+        </div>
+        <!--<div class="panel">-->
+        <div class="panel-body">
+            <form class="form-horizontal" autocomplete="off" name="empUpdateForm">
+                <div class="form-group">
+                    <label for="empName" class="col-md-2 control-label control-label-left">
+                        <sup class="required-icon red-star">*</sup>姓名:</label>
+                    <div class="col-md-6 company-col">
+                        <input type="text" class="emp-form emp_form_ctrl trueName pt5" maxlength="20" id="empName"
+                               name="empName" required tooltip-trigger="blur"
+                               uib-tooltip="{{empUpdateForm.empName.$invalid?'请输入员工姓名':''}}"
+                               tooltip-placement="right" ng-model="empInfo.empName">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="phone" class="col-md-2 control-label control-label-left">手机:</label>
+                    <div class="col-md-6 company-col pt5" id="phone">
+                        {{empInfo.phone}}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email" class="col-md-2 control-label control-label-left">邮箱:</label>
+                    <div class="col-md-6 company-col pt5" id="email">
+                        {{empInfo.email}}
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="role" class="col-md-2 control-label control-label-left">
+                        所属角色
+                    </label>
+                    <div class="col-md-6 company-col">
+                        <select name="areaManage" id="role" ng-model="roleName" class="emp-form emp_form_ctrl pt5"
+                                ng-options="role.showName as role.showName for role in roleList">
+                            <option value="{{role.value}}">{{role.showName}}</option>
+                        </select>
+                        <a ng-click="createNew()">新建角色</a>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="shopBtn" class="col-md-2 control-label control-label-left">
+                        所属门店
+                    </label>
+                    <div class="col-md-7 company-col">
+                        <button id="shopBtn" class="main-all-btn-b" style="float: right"
+                                ng-click="showModal()">选择门店
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-7">
+                        <!--<condition-filter conditions="conditions"></condition-filter>-->
+                        <!--<page-list results="resultList" request-obj="requestObj" page-set="pageSet"></page-list>-->
+                        <table class="table">
+                            <thead class="sea_bggray">
+                            <tr class="userinfo_h1">
+                                <th>序号</th>
+                                <th>门店号</th>
+                                <th>门店名称</th>
+                                <!-- <th>操作</th> -->
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="shopBean in employeeUpdate.empInfo.shopIds track by $index">
+                                <td ng-bind="$index+1"></td>
+                                <td ng-bind="shopBean.shopId"></td>
+                                <td ng-bind="shopBean.shopName"></td>
+                                <!-- <td><button class="btn btn-primary btn-sm" ng-click="deleteShop(shopBean)">删除</button></td> -->
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-2"></div>
+                    <div class="col-sm-10">
+                        <button class="btn main-all-btn-b" type="submit" ng-disabled="empUpdateForm.$invalid"
+                                ng-click="confirmUpdate()">保存
+                        </button>
+                        <button class="btn main-all-btn-w ml30" ng-click="cancelIn()">取消</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+</div>

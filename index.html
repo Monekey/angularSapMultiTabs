@@ -2,17 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>crm7</title>
+    <title>crm7框架</title>
+    <link rel="shortcut icon" href="http://w.wuuxiang.com/theme/images/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <link rel="stylesheet" href="src/lib/bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" href="src/assets/css/main.css">
-    <link rel="stylesheet" href="src/assets/css/base.css">
-    <!--<base href="http://localhost:63342/angularSapMultiTabs/">-->
+    <link rel="stylesheet" href="resources/lib/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="resources/assets/css/main.css">
 </head>
 <!--<body ng-controller="testCtrl" bs-loading-overlay="overlay-div"  bs-loading-overlay-delay="500">-->
 <body>
 <div style="width:100%;height:100%;position: absolute;z-index:999;background: white;"  ng-hide="overlay">
-    <img src="src/assets/images/loading alpha.gif" style="position: absolute; top: 350px; left: 45%;"/>
+    <img src="resources/assets/images/loading alpha.gif" style="position: absolute; top: 350px; left: 45%;"/>
 </div>
 
 <div style="width:100%;height:100%;position: fixed;z-index:998;background: rgba(0, 0, 0, 0.51);"  ng-if="lockSys" ng-controller="testCtrl">
@@ -30,13 +29,13 @@
 </div>
 
 <div style="width:100%;height:100%;position: absolute;z-index:98;background: rgba(0, 0, 0, 0.51);"  ng-if="backGroud"></div>
-<div ui-view style="height: 100%;overflow-y: auto;" id="ui-view">
+<div ui-view style="height: 100%;overflow-y: auto;">
 
 </div>
 
-<script data-main="src/config.js" src="src/lib/require.min.js"></script>
+<script data-main="resources/dist/app.js" src="resources/lib/require.min.js"></script>
 <!--
-<script data-main="src/config-dev.js" src="src/lib/require.js"></script>
+<script data-main="resources/config-dev.js" src="resources/lib/require.js"></script>
 -->
 </body>
 </html>

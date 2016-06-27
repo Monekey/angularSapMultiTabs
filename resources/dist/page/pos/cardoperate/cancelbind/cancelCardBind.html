@@ -1,0 +1,45 @@
+<div class="modal-header">
+    <h3 class="modal-title">解除绑定</h3>
+</div>
+<div class="modal-body">
+    
+    <form class="form-horizontal"  name="form" ng-submit="saveCancelBind()" autocomplete="off">
+          <div class="form-group">
+              <label  class="col-sm-2 control-label  control-label-left">您的手机号：</label>
+              <div class="col-sm-8" >
+                  <p  class="form-control-static" ng-bind="card.mobile" ></p>
+              </div>
+          </div>
+          <div class="form-group">
+              <label  class="col-sm-2 control-label  control-label-left">已绑定会员卡：</label>
+              <div class="col-sm-6" >
+              	  <div style="border:1px solid gray;mergin-left:10px;padding:10px;">
+	                  <div>卡号：<span ng-bind="card.cardNo"></span></div>
+	                  <div>卡类型：<span ng-bind="card.cardTypeName"></span></div>
+	                  <div>会员名称：<span ng-bind="card.memberName"></span></div>
+                  </div>
+              </div>
+          </div>
+          <div class="form-group">
+              <label for="password" class="col-sm-2 control-label  control-label-left"><font color="red">*</font>输入原密码：</label>
+              <div class="col-sm-6" >
+                  <input type="password" class="form-control form-control-input" required="required" maxlength="6"
+                  ng-model="card.password" tooltip-trigger="blur" uib-tooltip="{{form.password.$invalid?'请输入6位密码!':''}}" autocomplete="off"
+                  ng-pattern="/^\d{6}$/" tooltip-placement="bottom" placeholder="请输入6位密码!"/>
+              </div>
+              <div class="col-sm-2">
+              		<p  class="form-control-static" ><a ng-click="resetPasswd(card.cardNo)">忘记密码？</a></p>
+              </div>
+          </div>
+          <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-2 pl0">
+                    <button type="submit" class="btn btn-primary btn-large pos-btn" ng-disabled="form.$invalid ||!card.cardNo">确定</button>
+                </div>
+                <div class="col-sm-2 pl0">
+                    <button type="button" class="btn  btn-default btn-large pos-btn" ng-click="cancel()">取消</button>
+                </div>
+            </div>
+     </form>       
+</div>
+<!-- <div class="modal-footer">
+</div> -->

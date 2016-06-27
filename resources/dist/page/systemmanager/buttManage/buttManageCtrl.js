@@ -1,0 +1,1 @@
+define(["require"],function(require){var rtObj={ctrl:"buttCtrl",arrFunc:["$scope","$rootScope","ajaxService",function($scope,$rootScope,ajaxService){var sessionId=$rootScope.sessionId;ajaxService.AjaxPost({sessionId:sessionId},"memberEquity/cardType/list.do").then(function(result){result&&($scope.cards=result.pageInfo.list)})}]};return rtObj});

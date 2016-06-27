@@ -1,0 +1,113 @@
+<div>
+    <div class="list-page demo two-form">
+        <!--<div class="canvas_title ">路由配置方法</div>-->
+        <div class="panel">
+            <div class="canvas_title" ng-click="collapse[0]=!collapse[0];">
+                ng-messages
+                <flex flex-data="collapse[0]"></flex>
+            </div>
+            <div class="panel-collapse collapse" uib-collapse="!collapse[0]">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-12 help">
+                            <div class="help-block">
+                                <p>使用ngMessages做表单的验证信息提示。
+                            </div>
+                        </div>
+                    </div>
+                    <form class="form-horizontal recharge-form scoll-fix-bottom-form" name="demoForm" ng-submit="submitForm()" autocomplete="off">
+                        <div class="form-group" ng-class="{'has-error':!demoForm.mobile.$pristine && demoForm.mobile.$invalid}">
+                        <label for="mobile" class="col-sm-2 control-label  control-label-left"><sup class="required-icon red-star">*</sup>手机号码：</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control form-control-input" set-focus="focusOn" id="mobile"
+                                   ng-model="cardInfo.mobile" maxlength="11" name="mobile"
+                                   ng-pattern="/^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/"
+                                   placeholder="请输入11位手机号码" required/>
+                            <i class="iconfont input-in-icon ng-hide" ng-show="demoForm.mobile.$valid">&#xe639;</i>
+                            <div class="help-block" ng-messages="demoForm.mobile.$error" ng-if="!demoForm.mobile.$pristine">
+                                <p ng-message="pattern">请填写正确的手机号码</p>
+                                <p ng-message="required">请填写手机号码</p>
+                            </div>
+                        </div>
+                    </div>
+                        <div class="form-group" ng-class="{'has-error':!demoForm.email.$pristine && demoForm.email.$invalid}">
+                            <label for="mobile" class="col-sm-2 control-label  control-label-left"><sup class="required-icon red-star">*</sup>邮箱：</label>
+                            <div class="col-sm-4">
+                                <input type="email" class="form-control form-control-input" set-focus="focusOn" id="email"
+                                       ng-model="cardInfo.email" name="email"
+                                       placeholder="请输入邮箱" required/>
+                                <i class="iconfont input-in-icon ng-hide" ng-show="demoForm.email.$valid">&#xe639;</i>
+                                <div class="help-block" ng-messages="demoForm.email.$error" ng-if="!demoForm.email.$pristine">
+                                    <p ng-message="email">邮箱格式不正确</p>
+                                    <p ng-message="required">请填写邮箱</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error':!demoForm.cardNo.$pristine && demoForm.cardNo.$invalid}">
+                            <label class="col-sm-2 control-label control-label-left" for="cardNo"><sup class="required-icon red-star">*</sup>卡号：</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control form-control-input"  autocomplete="off"
+                                       ng-model="cardInfo.cardNo" name="cardNo" id="cardNo"
+                                       tooltip-trigger="blur" placeholder="请读取或输入卡号" maxlength="16"
+                                       ng-pattern="/^[1-9](\d{4,9}|\d{11,15})$/" required/>
+                                <i class="iconfont input-in-icon ng-hide" ng-show="demoForm.cardNo.$valid">&#xe639;</i>
+                                <div class="help-block" ng-messages="demoForm.cardNo.$error" ng-if="!demoForm.cardNo.$pristine">
+                                    <p ng-message="pattern">请读取或输入正确卡号</p>
+                                    <p ng-message="required">请读取或输入卡号</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error':!demoForm.password1.$pristine && demoForm.password1.$invalid}">
+                            <label class="col-sm-2 control-label control-label-left" for="password1"><sup class="required-icon red-star">*</sup>密码：</label>
+                            <div class="col-sm-4">
+                                <input type="password" class="form-control form-control-input"
+                                       ng-model="cardInfo.password" autocomplete="off" maxlength="6"
+                                        placeholder="请输入6位数字密码" id="password1" name="password1"
+                                       ng-minlength="6"
+                                       ng-pattern="/^\d{6}$/" required/>
+                                <i class="iconfont input-in-icon ng-hide" ng-show="demoForm.password1.$valid">&#xe639;</i>
+                                <div class="help-block" ng-messages="demoForm.password1.$error" ng-if="!demoForm.password1.$pristine">
+                                    <p ng-message="required">请填写密码</p>
+                                    <p ng-message="ensurePassword">两次输入不一致</p>
+                                    <p ng-message="minlength">密码长度为6位</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="{'has-error':!demoForm.repassword1.$pristine && demoForm.repassword1.$invalid}">
+                            <label class="col-sm-2 control-label control-label-left" for="repassword1"><sup class="required-icon red-star">*</sup>确认密码：</label>
+                            <div class="col-sm-4">
+                                <input type="password" class="form-control form-control-input" id="repassword1" name="repassword1"
+                                       ng-model="cardInfo.repassword" autocomplete="off" maxlength="6"
+                                       placeholder="请输入6位数字密码" ensure-password="password1"
+                                       required/>
+                                <i class="iconfont input-in-icon ng-hide" ng-show="demoForm.repassword1.$valid">&#xe639;</i>
+                                <div class="help-block" ng-messages="demoForm.repassword1.$error" ng-if="!demoForm.repassword1.$pristine">
+                                    <p ng-message="required">请填写密码</p>
+                                    <p ng-message="ensurePassword">两次输入不一致</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-top: 20px">
+                            <div class="col-sm-2 text-right-important">
+                                <button type="submit" class="btn main-all-btn-b" ng-disabled="demoForm.$invalid">保存</button>
+                            </div>
+                            <div class="col-sm-3">
+                                <button type="button" class="btn main-all-btn-w" ng-click="cancel()">取消</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 help">
+                                <div class="help-block">
+                                    <p>model
+                                    <p class="code">{{cardInfo}}
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>

@@ -1,0 +1,84 @@
+<div class="task-div">
+    <div class="input-group col-sm-offset-2 col-sm-8 posSearchDiv">
+        <input type="text" placeholder="请输入卡号或手机号" class="form-control posSearchInput" placeholder="" ng-model="paramValue"
+        ng-keyup="enterKey(paramValue,$event)"  auto-focus>
+                <span class="input-group-btn pl10">
+                    <button class="btn btn-primary posSearchBtn" ng-click="clicksearch(paramValue)">提交(Enter)</button>
+                </span>
+    </div>
+
+
+    <div class="clearfix speed-div">
+        <div>
+            <span class="shortcut-title"><i class="iconfont">&#xe66f;</i>快捷入口:</span>
+            <hr class="shortcut-hr">
+        </div>
+        <div class="text-center">
+            <div class="posFunCell" ng-if="menu.shortcutMenu==2" ng-click="gotoPos(menu)"
+                 ng-repeat="menu in shortcutmenu track by $index"  ng-mousedown="menu._color=menu.color;menu.color=menu.clickColor" ng-mouseleave="menu._color?menu.color=menu._color:''" ng-mouseup="menu.color=menu._color" ng-style="{background: menu.color}">
+                <div ng-bind="menu.showName.substring(0,menu.showName.length-3)"></div>
+                <div ng-bind="menu.showName.substring(menu.showName.length-3,menu.showName.length)"></div>
+            </div>
+            <div class="posFunCell" ng-if="menu.shortcutMenu==1" ng-click="gotoPos(menu)"
+                 ng-repeat="menu in shortcutmenu track by $index" ng-mousedown="menu._color=menu.color;menu.color=menu.clickColor" ng-mouseleave="menu._color?menu.color=menu._color:''" ng-mouseup="menu.color=menu._color" ng-style="{background: menu.color}">
+                <div ng-bind="menu.showName.substring(0,menu.showName.length-3)"></div>
+                <div ng-bind="menu.showName.substring(menu.showName.length-3,menu.showName.length)"></div>
+            </div>
+            <div class="posFunCell" ng-mousedown="customBg='#B8B8B8'" ng-mouseleave="customBg=''" ng-mouseup="customBg=''" ng-style="{background: customBg}"  ng-click="customBtn()">
+                <div>自定义</div>
+                <div>&nbsp;&nbsp;</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal modal-backdrop fade in" style="z-index: 98; display: block;" ng-show="isShowCustomPanel"></div>
+    <div class="customBtnPanel list-page" ng-show="isShowCustomPanel">
+
+        <div class="canvas_title ">自定义快捷入口
+            <i class="iconfont" style="float:right;padding-right: 8px;font-size:14px;" ng-click="isShowCustomPanel = false"></i>
+        </div>
+        <div style="padding:10px 5px;">
+        
+       		<div class="col-xs-12" ng-if="systemShortCutcount>0">系统功能</div>
+       		
+            <div class="col-xs-3" ng-repeat="one in popupOperteMenu track by $index" ng-if="one.shortcutMenu==2">
+                <div class="posCell posCell1" >
+                    <div class="text-center">
+                        <span ng-bind="one.showName"></span>
+                    </div>
+                    <div class="checkedIcon-disabled"><i
+                            class="iconfont iconfont-left correctIcon">&#xe639;</i></div>
+                </div>
+
+            </div>
+
+            <div class="col-xs-12" style="margin-top:10px;" ng-if="memberShortCutcount>0">会员卡功能<span style="color:red;" ng-show="isEnough">(最多选择三项)</span></div>
+
+            <div class="col-xs-3" ng-repeat="one in popupOperteMenu track by $index" ng-if="one.shortcutMenu !==2">
+
+                <div class="posCell posCell1" ng-click="checked($index,one)">
+                    <div class="text-center">
+                        <span ng-bind="one.showName"></span>
+                    </div>
+                    <div class="checkedIcon" ng-if="one.shortcutMenu==1"><i
+                            class="iconfont iconfont-left correctIcon">&#xe639;</i></div>
+                </div>
+
+            </div>
+
+
+            <div class="col-xs-12 mb10 mt10 text-center">
+                <button type="button" class="customize-btn main-all-btn-b" ng-click="confirmIn()">
+                    确定
+                </button><!--
+                --><button type="button" class="main-all-btn-w customize-btn" ng-click="cancel()">
+                    取消
+                </button>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+

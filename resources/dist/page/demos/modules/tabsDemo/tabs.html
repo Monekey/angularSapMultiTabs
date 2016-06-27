@@ -1,0 +1,48 @@
+<div>
+    <div>{{ hello }}</div>
+    <div class="list-page">
+        <div class="canvas_title " ng-bind="pageTitle"></div>
+        <div class="panel">
+            <div class="panel-heading">
+                
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-offset-2 col-sm-3 text-right-important mt5">
+                        <i class="iconfont" style="cursor: default" tooltip-trigger="mouseenter"
+                           uib-tooltip="注：与页签右侧的关闭图标效果一样。"
+                           tooltip-placement="top" tooltip-append-to-body="true">&#xe652;</i>
+                        <label>关闭当前页：</label>
+                    </div>
+                    <div class="col-sm-7">
+                        <button class="main-all-btn-b" ng-click="closeCurTab()">点击关闭当前页</button>
+                    </div>
+                </div>
+
+                <br>
+                <div class="row">
+                    <div class="col-sm-offset-2 col-sm-3 text-right-important mt5">
+                        <label class="text-right-important">打开新页签或切换到已有的页签：</label>
+                    </div>
+                    <div class="col-sm-7">
+                        <button class="btn main-all-btn-b mr20" ng-click="addOrSwtichTab('1')">页面1</button>
+                        <button class="btn main-all-btn-b mr20  " ng-click="addOrSwtichTab('2')">页面2</button>
+                        <button class="btn main-all-btn-b" ng-click="addOrSwtichTab('3')">页面3</button>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-offset-2 col-sm-3 text-right-important mt5">
+                        <i class="iconfont" style="cursor: default" tooltip-trigger="mouseenter"
+                           uib-tooltip="注：ID是tab确定唯一性的标识：输入不同的ID会打开新的tab，输入已有的ID会切换到此ID的tab。"
+                           tooltip-placement="top" tooltip-append-to-body="true">&#xe652;</i>
+                    </div>
+                    <div class="col-sm-7">
+                        <input class="form-control" style="display: inline-block;width: auto" type="text" ng-model="tabId" placeholder="请输入页签的Id">
+                        <button class="btn main-all-btn-b" ng-disabled="!tabId" ng-click="addOrSwtichTab()">新建/切换</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

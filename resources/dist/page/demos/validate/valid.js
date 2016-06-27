@@ -1,0 +1,1 @@
+define(["require","ngAMD"],function(require){var ngAMD=require("ngAMD");return ngAMD.controller("valid",["$scope","modalService",function($scope,modalService){$scope.collapse=[!0],$scope.cardInfo={},$scope.submitForm=function(){modalService.info({content:"保存成功",type:"ok"})}}]),"valid"});

@@ -1,0 +1,1 @@
+define(["require","ngAMD"],function(require){var ngAMD=require("ngAMD");return ngAMD.controller("flexDemoCtrl",["$scope",function($scope){$scope.collapse=[!1,!1]}]),"flexDemoCtrl"});

@@ -1,0 +1,178 @@
+<div ng-cloak class="ul-point">
+    <div class="row role">
+        <div class="col-md-3 list-page user-title-l-s">
+            <div class="col-md-12 canvas_title">
+                <i class="iconfont">&#xe603;</i>角色
+            </div>
+            <div class=" col-md-12 ">
+                <div id="role-operation-group " class="role-operation-s">
+                    <a class="role-a role-a-1" ng-click="openCreate()" ng-if="createRole"><i class="iconfont role-i-create" aria-hidden="true">&#xe63a;</i><span>创建</span></a>&nbsp;&nbsp;
+                    <a class="role-a role-a-2" ng-click="openEdit()" ng-if="editRole"><i class="iconfont role-i-edit" aria-hidden="true">&#xe638;</i><span>修改</span></a>&nbsp;&nbsp;
+                    <a class="role-a role-a-3" ng-click="deleteRole()" ng-if="deleteRole"><i class="iconfont role-i-delete" aria-hidden="true">&#xe63b;</i><span>删除</span></a>
+                </div>
+                <div class="col-md-12 role-list">
+                    <div  ng-if="status.open == true">
+                    	<form class="form-horizontal" name="roleEditForm" ng-submit="editRole()" autocomplete="off">
+	                        <div class="row input-group role-edit">
+	                            <input class="form-control" type="text" id="roleName" name="roleName"
+	                                   maxlength="16"
+	                                   ng-model="roleEdit.name"
+	                                   ng-pattern="/^[a-zA-Z0-9\u4e00-\u9fa5]+$/"
+	                                   placeholder="角色名称"
+	                                   tooltip-trigger="keyup"
+	                                   uib-tooltip="{{roleEditForm.roleName.$invalid?'请填写正确的角色名称':''}}"
+	                                   tooltip-placement="bottom" required>
+	                             <span class="input-group-btn">
+	                                <button type="submit" class="role-btn main-all-btn-b"  ng-disabled="roleEditForm.$invalid">保存</button>
+	                                <button type="button" class="role-btn main-all-btn-w" ng-click="colseEdit()">取消</button>
+	                             </span>
+	                        </div>
+                        </form>
+                    </div>
+                    <div ng-class="{true:'role-list-info-down',false:'role-list-info'}[status.open]">
+                        <ul ng-repeat="role in roles" class="role-click-ul" ng-click="setRole(role)">
+                            <li  ng-class="{'clickRole': clickedRole.name== role.name}"  >
+                                <div class="role-i">
+                                    <i class="iconfont role-i-click" ng-show="clickedRole.name==role.name" >&#xe671;</i>
+                                </div> 
+                                <span  ng-bind="role.name" >
+                                </span>
+                            </li>
+
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9 list-page user-title-r-s" ng-cloak>
+            <div class="col-md-12 canvas_title">
+                <span><i class="iconfont">&#xe608;</i>权限</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size:14px" ng-bind="clickedRole.name"></span>
+            </div>
+            <div class="col-md-12 authority-list">
+                <div class="col-md-12">
+                    <div class="col-md-4 padding-special">
+                        <div id="child-system-label">
+                            <label>子系统</label>
+                        </div>
+                        <div ng-show="clickedRole" class="menu-list" ng-cloak>
+                            <ul class="col-md-12 child-system-ul"  ng-click="openMenus(backManage)">
+                                <li>
+                                    <div class="col-md-8" ng-class="{'childOpened':clickChildSystem == backManage}" >
+                                        <div class="role-i">
+                                            <i class="iconfont role-i-click" ng-show="clickChildSystem == backManage" >&#xe671;</i>
+                                        </div> 
+                                        <span ng-bind="backManage.showName">    
+                                        </span>
+                                    </div>
+                                    <div class="col-md-4 padding-special" ng-show="backManage">
+                                        <span class="select-count" ng-bind="backSelectSonCount"></span>/
+                                        <span ng-bind="backSonCount"></span>
+                                    </div>
+                                </li>
+                            </ul>
+                            <ul class="col-md-12 child-system-ul" ng-click="openMenus(reportManage)" >
+                                <li ng-class="{'clickRole': clickedRole == role}">
+                                    <div class="col-md-8" ng-class="{'childOpened':clickChildSystem == reportManage}" >
+                                        <div class="role-i">
+                                            <i class="iconfont role-i-click" ng-show="clickChildSystem == reportManage" >&#xe671;</i>
+                                        </div>
+                                        <span ng-bind="reportManage.showName"></span>
+                                    </div>
+                                    <div class="col-md-4 padding-special" ng-show="reportManage" >
+                                        <span class="select-count" ng-bind="reportSelectSonCount"></span>/
+                                        <span ng-bind="reportSonCount"></span>
+                                    </div>
+                                </li>
+                            </ul>
+                            <ul class="col-md-12 child-system-ul" ng-click="openMenus(frontManage)">
+                                <li>
+                                    <div class="col-md-8" ng-class="{'childOpened':clickChildSystem == frontManage}"  >
+                                        <div class="role-i">
+                                            <i class="iconfont role-i-click" ng-show="clickChildSystem == frontManage">&#xe671;</i>
+                                        </div>
+                                        <span ng-bind="frontManage.showName"></span>
+                                    </div>
+                                    <div class="col-md-4 padding-special" ng-show="frontManage">
+                                        <span class="select-count" ng-bind="frontSelectSonCount"></span>/
+                                        <span ng-bind="frontSonCount"></span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-4 padding-special">
+                        <div id="child-system-menu-label">
+                            <label>菜单</label>
+                        </div>
+
+                        <div class="col-md-12 menu-list">
+                            <div ng-show="clickChildSystem && clickChildSystem == backManage">
+                                <div class="col-md-12 check-all-box">
+                                    <span ng-class="{true:'all-checkbox',false:'all-uncheckbox'}[checkAllBack]" ng-click="checkAllBackManage()">
+
+                                    </span>
+                                    <span class="checkbox-span">全部</span>
+                                    <!--<input type="checkbox" class="" ng-model="checkAllBack" ng-click="checkAllBackManage(checkAllBack)"> 全部-->
+                                </div>
+                                <!--<ul class="ztree col-md-12" id="backTree" z-nodes = "backMenuTree" setting = "backSetting" z-tree></ul>-->
+                                <ul class="ztree col-md-12" id="backTree" ></ul>
+                            </div>
+                            <div ng-show="clickChildSystem && clickChildSystem == reportManage">
+                                <div class="col-md-12 check-all-box">
+                                       <span ng-class="{true:'all-checkbox',false:'all-uncheckbox'}[checkAllReport]" ng-click="checkAllReportManage()">
+
+                                    </span>
+                                    <span class="checkbox-span">全部</span>
+                                    <!--<input type="checkbox" class=""  ng-model="checkAllReport" ng-click="checkAllReportManage(checkAllReport)"> 全部-->
+                                </div>
+                                <!--<ul class="ztree col-md-12" id="reportTree" z-nodes = "reportMenuTree" setting = "reportSetting" z-tree></ul>-->
+                                <ul class="ztree col-md-12" id="reportTree" ></ul>
+                            </div>
+                            <div ng-show="clickChildSystem && clickChildSystem == frontManage">
+                                <div class="col-md-12 check-all-box">
+                                      <span ng-class="{true:'all-checkbox',false:'all-uncheckbox'}[checkAllFront]" ng-click="checkAllFrontManage()">
+
+                                    </span>
+                                    <span class="checkbox-span">全部</span>
+                                    <!--<input type="checkbox" class="" ng-model="checkAllFront" ng-click="checkAllFrontManage(checkAllFront)"> 全部-->
+                                </div>
+                                <!--<ul class="ztree col-md-12" id="frontTree" z-nodes = "frontMenuTree" setting = "frontSetting" z-tree></ul>-->
+                                <ul class="ztree col-md-12" id="frontTree" ></ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 padding-special">
+                        <div id="child-system-operation-label">
+                            <label>操作</label>
+                        </div>
+
+                        <div class="col-md-12 operation-list">
+                            <div class="check-all-box" ng-if="clickChildSystem == backManage && backFilterCode" ng-repeat="operation in backOperationTree| filter:{'fatherCode':backFilterCode}">
+                                <span ng-class="{true:'all-checkbox',false:'all-uncheckbox'}[operation.authority]" ng-click="checkFatherNode(operation)"></span>
+                                <span class="checkbox-span" ng-bind="operation.showName"></span>
+                                <!--<input type="checkbox" class=""  ng-model="operation.authority" ng-click="checkFatherNode(operation.authority)"><span ng-bind="operation.showName"></span>-->
+                            </div>
+                            <div class="check-all-box" ng-if="clickChildSystem == reportManage && reportFilterCode" ng-repeat="operation in reportOperationTree| filter:{'fatherCode':reportFilterCode}">
+                                <!--<input type="checkbox" class=""  ng-model="operation.authority"><span ng-bind="operation.showName"></span>-->
+                                <span ng-class="{true:'all-checkbox',false:'all-uncheckbox'}[operation.authority]" ng-click="checkReportFatherNode(operation)"></span>
+                                <span class="checkbox-span" ng-bind="operation.showName"></span>
+                            </div>
+                            <div class="check-all-box" ng-if="clickChildSystem == frontManage && frontFilterCode" ng-repeat="operation in frontOperationTree| filter:{'fatherCode':frontFilterCode}">
+                                <!--<input type="checkbox" class=""  ng-model="operation.authority"><span ng-bind="operation.showName"></span>-->
+                                <span ng-class="{true:'all-checkbox',false:'all-uncheckbox'}[operation.authority]" ng-click="checkFrontFatherNode(operation)"></span>
+                                <span class="checkbox-span" ng-bind="operation.showName"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-offset-6 col-md-6 save-btn">
+                    <button type="button"class="main-all-btn-b " ng-click="saveAuthority()" ng-if="updateRole">保存</button>
+                    <span>保存后选中的权限生效</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

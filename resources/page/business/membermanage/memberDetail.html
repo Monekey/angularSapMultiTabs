@@ -1,0 +1,220 @@
+<div id="memberDetail" class="member-detail-frame">
+    <div class="row">
+        <div class="col-xs-5 pl20 pb10 pr5">
+            <div class="posLeft panel1">
+                <div class="posLeft-top clearfix ml20 pt20 ">
+                    <div style="float: left;" id="pos_avatar">
+                           <span ng-if="member.photo && member.photo !=''">
+                         		<IMG class="media-object member-img-bg img-circle" ng-src="{{imgServer + member.photo}}"
+                                     alt="">
+                          </span>
+                          <span ng-if="!member.photo || member.photo ==''">
+                              <IMG ng-if="!member.sex" CLASS="MEDIA-OBJECT member-img-bg"
+                                   ng-src="resources/assets/images/member/female.png" ALT="..."/>
+                              <IMG ng-if="member.sex" CLASS="MEDIA-OBJECT member-img-bg"
+                                   ng-src="resources/assets/images/member/male.png" ALT="..."/>
+                          </span>
+                    </div>
+                    <div class="col-sm-9">
+                        <div class="col-xs-12 pl0 posMinfo">
+                            <span ng-bind="member.name"></span>
+								<span>
+                                   <i ng-if="!member.sex"
+                                      class="iconfont iconfont-left pink_color"
+                                      style="color: #ef4480;font-weight: normal;">&#xe648;</i><!-- 女-->
+                                   <i ng-if="member.sex"
+                                      class="iconfont iconfont-left pink_color"
+                                      style="color: #1f66c7;font-weight: normal;">&#xe649;</i><!-- 男-->
+	                            </span>
+	                            <span>
+                                   <i ng-if="member.accountTypeId ==1"
+                                      class="iconfont iconfont-left alipay_color"
+                                      style="color: #0dc91a;font-weight: normal;">&#xe64f;</i>
+                                   <i ng-if="member.accountTypeId ==2"
+                                      class="iconfont iconfont-left alipay_color"
+                                      style="color: #ff8400;font-weight: normal;">&#xe64e;</i>
+                                   <i ng-if="member.accountTypeId ==3"
+                                      class="iconfont iconfont-left alipay_color"
+                                      style="color: #009de8;font-weight: normal;">&#xe650;</i>
+	                            </span>
+                            <!-- <i class="iconfont iconfont-left pink_color">&#xe643;</i>
+                            <i class="iconfont iconfont-left alipay_color">&#xe645;</i> -->
+                        </div>
+                        <div class="col-xs-12 pl0 pr0 posMemTel"><span
+                                ng-bind="member.mobile"></span></div>
+                        <div class="col-xs-12 pl0 pr0 posMemTel"><span
+                                ng-bind="member.email"></span></div>
+                        <div class="col-xs-12 birthinfo pl0">
+                            <span ng-bind="member.birthday | limitTo:10"></span>（阳历）&nbsp;
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <!--<div class="triangle-right"></div>-->
+                    <hr class="triangle-line" style="width: 99%;border-top:1px solid #cadcdc"/>
+                    <!--<div class="triangle-left"></div>-->
+                </div>
+                <div class="col-xs-12 text-nowrap ml20">
+                    <div>
+                        <div class="col-sm-a mb10">民族：<span ng-bind="meberNationName"></span></div>
+                    </div>
+                    <!-- <div>
+                        <div class="col-sm-a">亲友生日：<span class="birthinfo" ng-bind="member.birthday| limitTo:10"></span></div>
+                    </div> -->
+                    <!-- <div>
+                        <div class="col-sm-b">关系：<span ng-bind=""></span></div>
+                    </div> -->
+                    <div>
+                        <div class="col-sm-a mb10">邀请人：<span ng-bind="member.byInviteMemberName"></span></div>
+                    </div>
+                    <div>
+                        <div class="col-sm-a mb10">我的邀请码：<span ng-bind="member.myInviteCode"></span></div>
+                    </div>
+                    <div>
+                        <div class="col-sm-a">所属门店：<span ng-bind="member.shopName"></span></div>
+                    </div>
+                    <br>
+                    <div ng-if="member.workUnit">
+                        <div class="col-sm-a">单位：<span ng-bind="member.workUnit"></span></div>
+                    </div>
+                    <div ng-if="member.job">
+                        <div class="col-sm-a">职位：<span ng-bind="member.job"></span></div>
+                    </div>
+                    <div ng-if="member.address">
+                        <div class="col-sm-a">地址：<span ng-bind="member.address"></span></div>
+                    </div>
+                    <div ng-if="cardKindName && member.certificateNo">
+                        <div class="col-sm-a">证件：<span ng-bind="cardKindName"></span><span
+                                ng-bind="member.certificateNo"></span></div>
+                    </div>
+                    <div ng-if="member.note">
+                        <div class="col-sm-a">备注：<span ng-bind="member.note"></span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-7 pl5 pr20 pb10">
+            <div class="panel2 panel-default">
+                <div class="panel-heading members-detail-title">
+                    <h3 class="panel-title"><span class="member-detail-dt-icon">■</span>会员标签</h3>
+                </div>
+                <div class="panel-body">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-5 pl20 pb10 pr5">
+            <div class="panel3 panel-default">
+                <div class="panel-heading members-detail-title">
+                    <h3 class="panel-title"><span class="member-detail-dt-icon">■</span>会员行为分析</h3>
+                </div>
+                <div class="panel-body ml20 mt5 text-nowrap posLeft" style="background:none;height: auto;">
+                	<div ng-if="myBeaviors.lastConsumeTime">
+	                    <div>
+	                        <div class="col-sm-a mb10">上次消费时间：<span
+	                                ng-bind="myBeaviors.lastConsumeTime|date:'yyyy-MM-dd HH:mm:ss'"></span></div>
+	                    </div>
+	                    <div>
+	                        <div class="col-sm-a mb20">已经<span ng-bind="myBeaviors.noConsumeDays">  </span>天未消费了</div>
+	                    </div>
+	                    <div>
+	                        <div class="col-sm-a mb20">上次消费地点：<span ng-bind="myBeaviors.lastConsumeShopName"></span></div>
+	                    </div>
+                    </div>
+                    <div  ng-if="!myBeaviors.lastConsumeTime" >
+                    	 <div class="col-sm-a mb10">该会员没有消费记录</div>
+                    </div>
+                    <div>
+                        <div class="col-sm-a mb20">累计消费/储值情况：（次数:次 金额:元）</div>
+                    </div>
+                    <div>
+                        <div class="col-sm-a mb20">储值次数：<span ng-bind="myBeaviors.totalRechargeTimes"></span></div>
+                    </div>
+                    <div>
+                        <div class="col-sm-a mb10">储值金额(元)：<span ng-bind="myBeaviors.totalRechargeMoney|currency:''"></span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="col-sm-a mb10">储值赠送金额(元)：<span ng-bind="myBeaviors.totalRechargeDonatedMoney|currency:''"></span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="col-sm-a mb10">消费次数：<span ng-bind="myBeaviors.totalConsumeTimes"></span></div>
+                    </div>
+                    <div>
+                        <div class="col-sm-a">消费金额(元)：<span ng-bind="myBeaviors.totalConsumeMoney+myBeaviors.totalConsumeDonatedMoney|currency:''"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-7 pl5 pr20 pb10">
+            <div class="panel4 panel-default">
+                <div class="panel-heading members-detail-title">
+                    <h3 class="panel-title"><span class="member-detail-dt-icon">■</span>会员关系图谱</h3>
+                </div>
+                <div class="panel-body ml20" style="">
+                    
+                    <div class="row mb30">
+                        <div class="col-xs-3 mt50">我的邀请人</div>
+                        <div class="col-xs-9">
+                            <div>
+                              <span ng-if="memberRlationships.byInvitePhoto && memberRlationships.byInvitePhoto !=''">
+                                    <IMG class="media-object member-img"
+                                         ng-src="{{imgServer + memberRlationships.byInvitePhoto}}" alt="">
+                              </span>
+                              <span class="member-img-ml" ng-if="!memberRlationships.byInvitePhoto || memberRlationships.byInvitePhoto ==''">
+                                  <IMG ng-if="!memberRlationships.byInviteSex " CLASS="MEDIA-OBJECT member-img"
+                                       ng-src="resources/assets/images/member/female.png" ALT="..."/>
+                                  <IMG ng-if="memberRlationships.byInviteSex " CLASS="MEDIA-OBJECT member-img"
+                                       ng-src="resources/assets/images/member/male.png" ALT="..."/>
+                              </span>
+                                <div class="under-pic-word"><span
+                                        ng-bind="memberRlationships.byInviteMemberName?memberRlationships.byInviteMemberName:'无'"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+					<div class="row mb30">
+                        <span class="col-xs-3 mt50">我</span>
+                        <div class="col-xs-9">
+						 <span ng-if="memberRlationships.photo && memberRlationships.photo !=''">
+                         		<IMG class="media-object member-img" ng-src="{{imgServer + memberRlationships.photo}}"
+                                     alt="">
+                          </span>
+                          <span class="member-img-ml" ng-if="!memberRlationships.photo || memberRlationships.photo ==''">
+                              <IMG ng-if="!memberRlationships.sex" CLASS="MEDIA-OBJECT member-img"
+                                   ng-src="resources/assets/images/member/female.png" ALT="..."/>
+                              <IMG ng-if="memberRlationships.sex" CLASS="MEDIA-OBJECT member-img"
+                                   ng-src="resources/assets/images/member/male.png" ALT="..."/>
+                          </span>
+
+                            <div class="under-pic-word"><span
+                                    ng-bind="memberRlationships.name?memberRlationships.name:'无'"></span></div>
+                        </div>
+                    </div>
+
+                    <div class="row mb30">
+                        <div class="col-xs-3 mt50">我邀请的人</div>
+                        <div class="col-xs-9">
+                            <div style="float:left;margin:1px;" ng-repeat="inviteMember in myInviteMembers">
+							<span  ng-if="inviteMember.photo && inviteMember.photo !=''">
+                         		<IMG class="media-object member-img" ng-src="{{imgServer + inviteMember.photo}}" alt="">
+                            </span>
+                         	<span class="member-img-ml" ng-if="!inviteMember.photo || inviteMember.photo ==''">
+                              <IMG ng-if="inviteMember.sex =='0'" CLASS="MEDIA-OBJECT member-img"
+                                   ng-src="resources/assets/images/member/female.png" ALT="..."/>
+                              <IMG ng-if="inviteMember.sex =='1'" CLASS="MEDIA-OBJECT member-img"
+                                   ng-src="resources/assets/images/member/male.png" ALT="..."/>
+                            </span>
+                                <div class="under-pic-word"><span ng-bind="inviteMember.name?inviteMember.name:'无'"></span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

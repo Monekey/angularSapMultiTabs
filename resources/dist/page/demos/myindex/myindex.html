@@ -1,0 +1,161 @@
+<div id="myindex">
+	<div class="myindex_big-box">
+		<div class="container-fluid" style="width: 100%">
+			<div class="row">
+				<div id="col-sm-12">
+					<div class=" mia list-page" style="width:46.3337%;float:left;">
+						<div class="canvas_title ">企业信息</div>
+						<img  class="myindex-img" src="{{ imgServer + showURL }}" >
+						<p class="myindex-start" ng-bind="showName"></p>
+						<P class="myindex-duanxin">短信余额(条)：</p>
+						<span class="myindex-xiaofei font-b" ng-bind="surplusCount"></span>
+						<button type="button" id="addValue" 
+							class="btn-add main-all-btn-w">充值</button>
+						<!--                     <div class="myindex-record">
+                        <p class="myindex-add">消费记录</p>
+                        <p>充值记录</p>
+                    </div> -->
+                    <br/>
+						<a ng-click="addWarning()" href="#">余额预警</a>
+					</div>
+					<div class="col-xs-8  mia  left list-page">
+						<div class=" canvas_title " style="border-bottom:0;">
+							系统公告
+							<a ng-click="addTab1()" id="showAllMsg" class="myindex-third">更多</a>
+						</div>
+						<ul class="message">
+							<div ng-repeat="j in list" class="mescontent">
+								<li>
+								<a class="message-content" target="_blank" href="{{ j.url }}" ng-bind="j.showContent"></a>
+								<a class="message-time" target="_blank" href="{{ j.url }}" ng-bind="j.showTime"></a>
+								<div class="img-two"><img width="12px" height="12px" style="display:{{isShow(j.hot)}}" src="src/assets/images/message.png"></img></div>
+								</li>
+							</div>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="list-page">
+			<div class="row">
+				<div id="ng_member">
+					<div class="  col-xs-12  ">
+						<div class=" canvas_title">关键指标</div>
+						<div class="row mic list-table">
+							<div class=" col-xs-4">
+								<P class=" b"> <i class="icon1 iconfont">&#xe62c;</i>会员总量（人）</p>
+								<p class="font" ng-click="allMember()" ng-bind="memberCount"></p>
+							</div>
+
+						
+							<div class=" col-xs-4 ">
+								 
+								<P class=" b"><i class="icon2 iconfont">&#xe62a;</i>今日新增（人）</p>
+								<p class="font" ng-click="todayMember()" ng-bind="toDayMemberCount"></p>
+
+								<p class="img-two">日</p>
+								<div class="img-two">
+									<i class="iconfont img-two-i" ng-class="{1:'img-two-up',2:'img-two-down'}[addMemberCountChose]" id='addMemberCount'
+									ng-bind-html="addMemberCountImg | getIconNomal"></i>
+								</div>
+								<p class="img-two" ng-bind="addMemberCount"></p>
+							</div>
+							<div class=" col-xs-4 ">
+								<P class=" b"> <i class="icon3 iconfont">&#xe62b;</i>今日消费（元）</p>
+								<p class="font" ng-click="todayTrans()" ng-bind="toDayConsume"></p>
+								<p class="img-two">日</p>
+								<div class="img-two">
+									<i class="iconfont img-two-i" ng-class="{1:'img-two-up',2:'img-two-down'}[addDayConsumeChose]" id='addDayConsume'
+									ng-bind-html="addDayConsumeImg | getIconNomal"></i>
+								</div>
+								<p class="img-two" ng-bind="addDayConsume"></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class=row>
+			<div class="col-xs-12 ">
+				<div class="weui_actionsheet_menu">
+					<div class="bigbox">
+						<div class="list-page ">
+							<ul class="canvas_title tab btn-group tn-group-s" style="width:100%;">
+								<li class="canvas-title-1">趋势</li>
+								<li ng-class="{true:'canvas-title-li-special  bt-tab-u',false:'canvas-title-li-special bt-tab1'}[typer.statu]" type="button"
+									 ng-click="setColor(typer)" ng-repeat="typer in typers" ng-bind="typer.name"></li>
+								<!--<li><button class="canvas-title-li-special btn btn-primary" title="d1" type="button">会员数</button></li>
+								<li><button class="canvas-title-li-special btn btn-primary" title="d2" type="button">会员消费金额</button></li>
+								<li><button class="canvas-title-li-special btn btn-primary" title="d3" type="button">会员积分</button></li>
+								<li><button class="canvas-title-li-special btn btn-primary" title="d4" type="button">会员储值</button></li>-->
+							</ul>
+
+
+							<div class="list-table">
+								<div id="d1" class="bd" data-toggle="buttons-radio">
+			                        <div class="bd-btn">
+	                                    <button ng-class="{true:'bta  bt-tab-s ',false:'bta bt-tab '}[date.statu]" type="button"
+										 ng-click="setDateColor(date,1) " ng-repeat="date in dates" ng-bind="date.name"></button>
+										  <i class="iconfont myindex-i" tooltip-trigger="mouseenter"
+                       						uib-tooltip="注：所选时间段的指标数据包括本月，但都不包含本日。"
+                       						tooltip-placement="right">&#xe652;</i>
+									</div>
+									<!-- <button type="button" value="近7天" class="bt btn-primary bt-tab bt-tab-1" id="d1_1" ng-click="click1_1()">近7天</button>
+									<button type="button" value="近15天" class="bta btn-primary bt-tab" id="d1_2" ng-click="click1_2()">近15天</button>
+									<button type="button" value="近30天" class="btb btn-primary bt-tab" id="d1_3" ng-click="click1_3()">近30天</button>
+									<button type="button" value="近12个月" class="btb btn-primary bt-tab bt-tab-2" id="d1_4" ng-click="click1_4()">近12个月</button> -->
+									<div id="main" class="my-index-canvas" style="width: auto; height: 300px;"></div>
+								</div>
+								<div id="d2" class="bd" data-toggle="buttons-radio" style="display: none">
+									<div class="bd-btn">
+										 <button ng-class="{true:'bta  bt-tab-s',false:'bta  bt-tab'}[date.statu]" type="button"
+										 ng-click="setDateColor(date,2) " ng-repeat="date in dates" ng-bind="date.name"></button>
+										   <i class="iconfont myindex-i" tooltip-trigger="mouseenter"
+                       						uib-tooltip="注：所选时间段的指标数据包括本月，但都不包含本日。"
+                       						tooltip-placement="right">&#xe652;</i>
+									</div>
+									<!-- <button type="button" value="近7天" class="bt btn-primary bt-tab bt-tab-1" id="d2_1" ng-click="click2_1()">近7天</button>
+									<button type="button" value="近15天" class="bta stn-primary bt-tab" id="d2_2" ng-click="click2_2()">近15天</button>
+									<button type="button" value="近30天" class="btb btn-primary bt-tab" id="d2_3" ng-click="click2_3()">近30天</button>
+									<button type="button" value="近12个月" class="btb btn-primary bt-tab bt-tab-2" id="d2_4" ng-click="click2_4()">近12个月</button> -->
+									<div id="maina" class="my-index-canvas" style="width: auto; height: 300px;"></div>
+								</div>
+								<div id="d3" class="bd" data-toggle="buttons-radio" style="display: none">
+									<div class="bd-btn">
+										 <button ng-class="{true:'bta  bt-tab-s',false:'bta  bt-tab'}[date.statu]" type="button"
+										 ng-click="setDateColor(date,3) " ng-repeat="date in dates" ng-bind="date.name"></button>
+										   <i class="iconfont myindex-i" tooltip-trigger="mouseenter"
+                       						uib-tooltip="注：所选时间段的指标数据包括本月，但都不包含本日。"
+                       						tooltip-placement="right">&#xe652;</i>
+									</div>
+									<!-- <button type="button" value="近7天" class="bt btn-primary bt-tab bt-tab-1" id="d3_1" ng-click="click3_1()">近7天</button>
+									<button type="button" value="近15天" class="bta btn-primary bt-tab" id="d3_2" ng-click="click3_2()">近15天</button>
+									<button type="button" value="近30天" class="btb btn-primary bt-tab" id="d3_3" ng-click="click3_3()">近30天</button>
+									<button type="button" value="近12个月" class="btb btn-primary bt-tab bt-tab-2" id="d3_4" ng-click="click3_4()">近12个月</button> -->
+									<div id="mainb" class="my-index-canvas" style="width: auto; height: 300px;"></div>
+								</div>
+								<div id="d4" class="bd" data-toggle="buttons-radio" style="display: none">
+									<div class="bd-btn">
+										 <button ng-class="{true:'bta  bt-tab-s',false:'bta  bt-tab'}[date.statu]" type="button"
+										 ng-click="setDateColor(date,4) " ng-repeat="date in dates" ng-bind="date.name"></button>
+										   <i class="iconfont myindex-i" tooltip-trigger="mouseenter"
+                       						uib-tooltip="注：所选时间段的指标数据包括本月，但都不包含本日。"
+                       						tooltip-placement="right">&#xe652;</i>
+									</div>
+								<!-- 	<button type="button" value="近7天" class="bt btn-primary bt-tab bt-tab-1" id="d4_1" ng-click="click4_1()">近7天</button>
+									<button type="button" value="近15天" class="bta btn-primary bt-tab" id="d4_2" ng-click="click4_2()">近15天</button>
+									<button type="button" value="近30天" class="btb btn-primary bt-tab" id="d4_3" ng-click="click4_3()">近30天</button>
+									<button type="button" value="近12个月" class="btb btn-primary bt-tab bt-tab-2" id="d4_4" ng-click="click4_4()">近12个月</button> -->
+									<div id="maind"  class="my-index-canvas"style="width: auto; height: 300px;"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+

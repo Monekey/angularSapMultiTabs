@@ -1,0 +1,80 @@
+<div class="list-page two-form border-none">
+	<div class="canvas_title">积分
+	</div>
+	<div class="panel-body">
+	<uib-tabset active="activeForm" style="background: white;margin-top: 10px;font-size: 16px">
+    <!-- 会员tab -->
+    <uib-tab index="0" heading="增加积分" ng-click="setFocus('cardNo')">
+			<form class="form-horizontal recharge-form" autocomplete="off" name="rechargeScoreForm" ng-submit="saveRechargeScore()" novalidate>
+				<div class="form-group">
+					<label for="cardNo" class="col-sm-3 control-label control-label-left">卡号/手机号：</label>
+					<div class="col-sm-8 company-col">
+					  <input type="text" class="form-control consume-text-size" id="cardNo" name="cardNo" placeholder="请输入卡号或手机号" ng-model="rechargeScoreVo.cardNo" required="required" ng-disabled="cardNoDisabled"
+					  ng-blur="getMemeberAndCardInfo(rechargeScoreOper)" auto-focus maxlength="16"
+					  ng-pattern="/^(((13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8})|([1-9](\d{4,9}|\d{11,15})))$/"
+					  tooltip-trigger="blur" uib-tooltip="{{rechargeScoreForm.cardNo.$invalid && rechargeScoreForm.cardNo.$dirty ?'请填写正确的卡号/手机号':''}}" tooltip-placement="bottom" >
+					</div>
+				</div>
+				<div class="form-group" ng-if="rechargeScoreVo.isValidScoreAccount">
+					<label for="cardNo" class="col-sm-3 control-label sr-only ">剩余积分</label>
+					<div class="col-sm-8 consume-text-c">
+					  	<p class="form-control-static ">剩余积分：<span ng-bind="rechargeScoreVo.scoreBalance|number:0"></span></p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="changeScore" class="col-sm-3 control-label control-label-left">增加积分：</label>
+					<div class="col-sm-8 company-col">
+					  <input type="text" class="form-control consume-text-size" id="changeScore"  name="changeScore" ng-model="rechargeScoreVo.changeScore" required="required"
+					  ng-pattern="/^[1-9]\d*$/" tooltip-trigger="blur"  tooltip-placement="bottom" 
+					  uib-tooltip="{{rechargeScoreForm.changeScore.$invalid && rechargeScoreForm.changeScore.$dirty?'请输入正确的增加积分！':''}}" />
+					</div>
+				</div>
+				
+				<div class="form-group">
+			        <div class="col-sm-offset-3 col-sm-2 pl0">
+			            <button type="submit"  class="btn btn-primary btn-default pos-btn " ng-disabled="rechargeScoreForm.$invalid || rechargeScoreVo.forbideSave || !rechargeScoreVo.isValidScoreAccount">确定(Enter)</button>
+			        </div>
+			        <div class="col-sm-6 pl0">
+			            <button type="button"  class="btn btn-default pos-btn" ng-click="goBack()">取消(Esc)</button>
+			        </div>
+			   </div>
+			</form>
+		</uib-tab>
+	    <uib-tab index="1" heading="扣减积分" ng-click="setFocus('cardNo2')">
+	    	<form class="form-horizontal recharge-form" autocomplete="off" name="consumeScoreForm" ng-submit="saveConsumeScore()" novalidate>
+	           <div class="form-group">
+					<label for="cardNo" class="col-sm-3 control-label control-label-left">卡号/手机号：</label>
+					<div class="col-sm-8 company-col">
+					  <input type="text" class="form-control consume-text-size" id="cardNo2" name="cardNo2" placeholder="请输入卡号或手机号" ng-model="consumeScoreVo.cardNo" required="required" ng-disabled="cardNoDisabled"
+					  ng-blur="getMemeberAndCardInfo(consumeScoreOper)"  maxlength="16"
+					  ng-pattern="/^(((13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8})|([1-9](\d{4,9}|\d{11,15})))$/"
+					  tooltip-trigger="blur" uib-tooltip="{{consumeScoreForm.cardNo2.$invalid && consumeScoreForm.cardNo2.$dirty ?'请填写正确的卡号/手机号':''}}" tooltip-placement="bottom" >
+					</div>
+				</div>
+				<div class="form-group" ng-if="consumeScoreVo.isValidScoreAccount">
+					<label for="cardNo" class="col-sm-3 control-label sr-only ">剩余积分</label>
+					<div class="col-sm-8 consume-text-c">
+					  	<p class="form-control-static ">剩余积分：<span ng-bind="consumeScoreVo.scoreBalance|number:0"></span></p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="changeScore2" class="col-sm-3 control-label control-label-left">扣减积分：</label>
+					<div class="col-sm-8 company-col">
+					  <input type="text" class="form-control consume-text-size" id="changeScore2"  name="changeScore2" ng-model="consumeScoreVo.changeScore" required="required"
+					  ng-pattern="/^[1-9]\d*$/" tooltip-trigger="blur"  tooltip-placement="bottom" 
+					  uib-tooltip="{{consumeScoreForm.changeScore2.$invalid && consumeScoreForm.changeScore2.$dirty?'请输入正确的扣减积分！':''}}" />
+					</div>
+				</div>
+				
+				<div class="form-group">
+			        <div class="col-sm-offset-3 col-sm-2 pl0">
+			            <button type="submit"  class="btn btn-primary btn-default pos-btn " ng-disabled="consumeScoreForm.$invalid || consumeScoreVo.forbideSave || !consumeScoreVo.isValidScoreAccount">确定(Enter)</button>
+			        </div>
+			        <div class="col-sm-6 pl0">
+			            <button type="button"  class="btn btn-default pos-btn" ng-click="goBack()">取消(Esc)</button>
+			        </div>
+			   </div>
+		   </form>
+	    </uib-tab>
+	</uib-tabset>
+</div>

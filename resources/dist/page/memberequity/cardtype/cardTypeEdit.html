@@ -1,0 +1,461 @@
+<div class="rule two-form">
+    <form class="form-horizontal" autocomplete="off" name="cardTypeUpdateForm" novalidate>
+        <div class="list-page">
+            <div class="canvas_title"> 基本信息
+            </div>
+            <div class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label for="name" class="col-sm-2 control-label control-label-left"><sup class="required-icon">*</sup>卡型名称：</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="name" name="name"
+                                   placeholder="可输入中文和数字，长度10个以内"
+                                   ng-pattern="/^[0-9\u4E00-\u9FA5]{1,10}$/"
+                                   ng-model="cardTypeUpdate.baseInfo.name" required
+                                   tooltip-trigger="blur"
+                                   uib-tooltip="{{cardTypeUpdateForm.name.$invalid?'请填写正确的卡型名称':''}}"
+                                   tooltip-placement="bottom">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="note" class="col-sm-2 control-label control-label-left">权益说明：</label>
+                        <div class="col-sm-6">
+                            <div class="textarea-input">
+                                 <textarea class="form-control" id="note" name="note" placeholder="200字以内" rows="7" cols="30" maxlength="200"
+                                           ng-model="cardTypeUpdate.baseInfo.note"></textarea>
+                                <span ng-class="{'remindColor':200-cardTypeUpdate.baseInfo.note.length<=50}" ng-show="cardTypeUpdate.baseInfo.note"ng-bind="200-cardTypeUpdate.baseInfo.note.length"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="cardCharge" class="col-sm-2 control-label control-label-left">工本费（元）：</label>
+                        <div class="col-sm-6">
+                            <input type="text" ng-pattern="/^\d+$/" class="form-control" id="cardCharge" name="cardCharge"
+                                   ng-model="cardTypeUpdate.baseInfo.cardCharge"
+                                   ng-keyup="cardTypeUpdate.baseInfo.cardCharge= cardTypeUpdate.baseInfo.cardCharge>0?cardTypeUpdate.baseInfo.cardCharge:''" placeholder="可输"
+                                   tooltip-trigger="blur"
+                                   uib-tooltip="{{cardTypeUpdateForm.cardCharge.$invalid?'请填写正确的工本费':''}}"
+                                   tooltip-placement="bottom">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="list-page">
+            <div class="canvas_title" ng-click="status.score=!status.score;" style="cursor: pointer;">
+                <div class="canvas_title_ctrlDiv" ng-click="stopPropagation($event);">
+                <label for="isScore_edit" ng-click="cardTypeUpdate.baseInfo.isScore==0?status.score=true:''">积分功能</label>&nbsp;
+                <input type="checkbox" id="isScore_edit" ng-model="cardTypeUpdate.baseInfo.isScore"
+                       ng-true-value="1" ng-false-value="0" ng-click="cardTypeUpdate.baseInfo.isScore==1?status.score=true:''">
+                <label for="isScore_edit" ng-click="cardTypeUpdate.baseInfo.isScore==0?status.score=true:''">开启</label>
+                <i class="iconfont canvas-title-icon" tooltip-trigger="mouseenter"
+                   uib-tooltip="注：开启后，可以指定适用于此积分规则的有效期。"
+                   tooltip-placement="right" tooltip-append-to-body="true">&#xe652;</i>
+            </div>
+                <flex flex-data="status.score"></flex>
+            </div>
+            <div class="panel-collapse collapse in rule-panel-collapse" uib-collapse="!status.score">
+                <div class="panel-body">
+                    <div class="form-group rule-panel-collapse-label-title">
+                        <label class="col-sm-2">按规则自动积分</label>
+                    </div>
+                    <div class="form-group  form-group-terminal">
+                        <label for="name" class="col-sm-2 control-label control-label-left" style="text-align: left">选择积分规则：<i class="iconfont canvas-title-icon" tooltip-trigger="mouseenter"
+                                                                                                                               uib-tooltip="注：规则的上下顺序表示优先级的先后，有效期、生效星期、方式三者全相同的时，执行优先级高的规则。"
+                                                                                                                               tooltip-placement="right" tooltip-append-to-body="true">&#xe652;</i></label>
+                        <div class="col-sm-4">
+                            <button class="main-all-btn-b" ng-click="createNew('score')">新建</button>
+                            <button class="main-all-btn-b new-score-rule-btn" ng-click="showScoreModal()">+添加积分规则</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-6">
+                            <table class="table table-striped table-style-all table-rule-style">
+                                <thead>
+                                <tr class="table-tr-first">
+                                    <th>名称</th>
+                                    <th>积分方式</th>
+                                    <th>积分内容</th>
+                                    <th class="text-center">操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="relScoreRule in cardTypeUpdate.scoreSet.relScoreRules">
+                                    <td ng-bind="relScoreRule.name"></td>
+                                    <td ng-bind="scoreWay[relScoreRule.type]"></td>
+                                    <td>
+                                        <span ng-if="relScoreRule.type==0">每<span ng-bind="relScoreRule.howMoney"></span>元积<span ng-bind="relScoreRule.howScore"></span>分</span>
+                                        <span ng-if="relScoreRule.type!=0">每次积<span ng-bind="relScoreRule.howScore"></span>分</span>
+                                    </td>
+                                    <td class="list-task-row text-nowrap relative">
+                                        <i class="iconfont" style="cursor: pointer;" ng-click="minus(cardTypeUpdate.scoreSet.relScoreRules,$index)">&#xe67d;</i>
+                                        <i class="iconfont" style="cursor: pointer;" ng-if="$index!=cardTypeUpdate.scoreSet.relScoreRules.length-1" ng-click="down(cardTypeUpdate.scoreSet.relScoreRules,$index)">&#xe62d;</i>
+                                        <i class="iconfont" style="cursor: pointer;" ng-if="$index!=0" ng-click="up(cardTypeUpdate.scoreSet.relScoreRules,$index)">&#xe62e;</i>
+                                    </td>
+                                    <td ng-hide="true" ng-bind = "relScoreRule.priority=$index"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="form-group rule-panel-collapse-label-title">
+                        <label class="col-sm-2">积分清零</label>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12 checkbox">
+                            <input type="checkbox" ng-model="cardTypeUpdate.scoreSet.isClear"
+                                   ng-true-value="1" ng-false-value="0">开启积分清零
+                            <i class="iconfont tooltip-icon canvas-title-icon" tooltip-trigger="mouseenter"
+                               uib-tooltip="注：设置后，该卡型积分将于清零日期当日23：59进行清零操作"
+                               tooltip-placement="right">&#xe652;</i>
+                        </div>
+                    </div>
+                    <div class="form-group card-type-clear-date" ng-show="cardTypeUpdate.scoreSet.isClear == 1">
+                        <span class="control-label-left">清零日期：</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span>
+                            每年
+                            <select id="month" name="month"
+                                    ng-model="cardTypeUpdate.scoreSet.clearMonth"
+                                    ng-change="changeMonth(cardTypeUpdate.scoreSet.clearMonth)"
+                                    ng-options="month as month for month in months" ng-required="cardTypeUpdate.scoreSet.isClear==1"
+                                    tooltip-trigger="blur"
+                                    uib-tooltip="{{cardTypeUpdateForm.month.$invalid?'请选择月数':''}}"
+                                    tooltip-placement="bottom">
+                                <option>--</option>
+                            </select>月
+                            <select id="day" name="day" ng-model="cardTypeUpdate.scoreSet.clearDay"
+                                    ng-options="day as day for day in days"  ng-required="cardTypeUpdate.scoreSet.isClear==1"
+                                    tooltip-trigger="blur"
+                                    uib-tooltip="{{cardTypeUpdateForm.day.$invalid?'请选择天数':''}}"
+                                    tooltip-placement="bottom">
+                                <option>--</option>
+                            </select>日
+                        </span>
+                    </div>
+                    <div class="form-group card-type-clear-date" ng-show="cardTypeUpdate.scoreSet.isClear == 1">
+                        <span class="control-label-left">清除方式：</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="radio" id="clearWayFlgAll" name="clearWayFlg" value="1"
+                               ng-model="cardTypeUpdate.scoreSet.clearWayFlg" ng-checked="true">
+                        全部清除
+                        <input type="radio" id="clearWayFlg" name="clearWayFlg" value="2"
+                               ng-model="cardTypeUpdate.scoreSet.clearWayFlg">
+                        分段清除
+                            <span ng-show="cardTypeUpdate.scoreSet.clearWayFlg == 2">每次清除<input type="text" ng-pattern="/^\d+$/"　id="clearBeforeYear" name="clearBeforeYear"
+                                                                                              ng-init="cardTypeUpdate.scoreSet.clearBeforeYear=0"
+                                                                                              ng-keyup="cardTypeUpdate.scoreSet.clearBeforeYear=cardTypeUpdate.scoreSet.clearBeforeYear>=0?cardTypeUpdate.scoreSet.clearBeforeYear:''"
+                                                                                              ng-required="cardTypeUpdate.scoreSet.clearWayFlg == 2"
+                                                                                              ng-model="cardTypeUpdate.scoreSet.clearBeforeYear" tooltip-trigger="blur"
+                                                                                              uib-tooltip="{{cardTypeUpdateForm.clearBeforeYear.$invalid?'请填写年数':''}}"
+                                                                                              tooltip-placement="bottom">年之前的积分</span>
+                    </div>
+                    <div class="form-group" ng-show="cardTypeUpdate.scoreSet.isClear==1">
+                        <div class="col-sm-12 checkbox">
+                            <input type="checkbox" ng-model="cardTypeUpdate.scoreSet.isClearNotice" ng-checked=""
+                                   ng-true-value="1" ng-false-value="0">开启积分清零提醒
+                            <i class="iconfont tooltip-icon canvas-title-icon" tooltip-trigger="mouseenter"
+                               uib-tooltip="注：设置提醒日后，提醒日当天15：30会给会员发提醒消息，包含短信及微信两种提醒方式"
+                               tooltip-placement="right">&#xe652;</i>
+                        </div>
+                    </div>
+                    <div class="form-group card-type-clear-date" ng-show="cardTypeUpdate.scoreSet.isClearNotice == 1">
+                        提前<input type="text" ng-pattern="/^\d+$/" id="clearNoticeBeforeDay" name="clearNoticeBeforeDay" ng-model="cardTypeUpdate.scoreSet.clearNoticeBeforeDay"
+                                 ng-required="cardTypeUpdate.scoreSet.isClearNotice == 1"
+                                 ng-init="cardTypeUpdate.scoreSet.clearNoticeBeforeDay=0"
+                                 ng-keyup="cardTypeUpdate.scoreSet.clearNoticeBeforeDay=cardTypeUpdate.scoreSet.clearNoticeBeforeDay>=0?cardTypeUpdate.scoreSet.clearNoticeBeforeDay:''"
+                                 tooltip-trigger="blur"
+                                 uib-tooltip="{{cardTypeUpdateForm.clearNoticeBeforeDay.$invalid?'请填写天数':''}}"
+                                 tooltip-placement="bottom">天提醒
+                    </div>
+                    <div class="form-group rule-panel-collapse-label-title">
+                        <label class="col-sm-2">积分&消费</label>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12 checkbox">
+                            <input type="checkbox" ng-model="cardTypeUpdate.scoreSet.isSocreMoney" ng-checked=""
+                                   ng-true-value="1" ng-false-value="0">开启积分消费
+                        </div>
+                    </div>
+                    <div class="form-group card-type-clear-date" ng-show="cardTypeUpdate.scoreSet.isSocreMoney == 1">
+                        <span>
+                            <input type="text" ng-pattern="/^\d+$/" id="scoreMoneyScale" name="scoreMoneyScale"
+                                   ng-model="cardTypeUpdate.scoreSet.scoreMoneyScale"
+                                   ng-keyup="cardTypeUpdate.scoreSet.scoreMoneyScale=cardTypeUpdate.scoreSet.scoreMoneyScale>0?cardTypeUpdate.scoreSet.scoreMoneyScale:''"
+                                   ng-required="cardTypeUpdate.scoreSet.isSocreMoney == 1"
+                                   tooltip-trigger="blur"
+                                   uib-tooltip="{{cardTypeUpdateForm.scoreMoneyScale.$invalid?'请填写积分数':''}}"
+                                   tooltip-placement="bottom">积分/元
+                            <i class="iconfont tooltip-icon canvas-title-icon" tooltip-trigger="mouseenter"
+                               uib-tooltip="注：30积分/元=30积分折算1元"
+                               tooltip-placement="right" style="vertical-align: middle">&#xe652;</i>
+                        </span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="checkbox span-inline">
+                            <input type="checkbox" ng-model="cardTypeUpdate.scoreSet.isScoreMoneyFirst"
+                                   ng-init="cardTypeUpdate.scoreSet.isScoreMoneyFirst=1"
+                                   ng-checked="cardTypeUpdate.scoreSet.isScoreMoneyFirst==1"
+                                   ng-true-value="1" ng-false-value="0">优先使用积分
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12 checkbox">
+                            <input type="checkbox" ng-model="cardTypeUpdate.scoreSet.isInvestmentScore" ng-checked=""
+                                   ng-true-value="1" ng-false-value="0">本金允许积分
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12 checkbox">
+                            <input type="checkbox" ng-model="cardTypeUpdate.scoreSet.isFreeMoneyScore" ng-checked=""
+                                   ng-true-value="1" ng-false-value="0">赠送本金允许积分
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="list-page">
+            <div class="canvas_title" ng-click="status.exchange=!status.exchange;" style="cursor: pointer;">
+                <div class="canvas_title_ctrlDiv" ng-click="stopPropagation($event);">
+                    <label for="isExchange_edit" ng-click="cardTypeUpdate.baseInfo.isExchange==0?status.exchange=true:''">兑换功能</label>&nbsp;
+                    <input type="checkbox" id="isExchange_edit" ng-model="cardTypeUpdate.baseInfo.isExchange"
+                           ng-true-value="1" ng-false-value="0" ng-click="cardTypeUpdate.baseInfo.isExchange==1?status.exchange=true:''">
+                    <label for="isExchange_edit" ng-click="cardTypeUpdate.baseInfo.isExchange==0?status.exchange=true:''">开启</label>
+                    <i class="iconfont canvas-title-icon" tooltip-trigger="mouseenter"
+                       uib-tooltip="注：开启后，卡型具备兑换功能，且可设置兑换规则。"
+                       tooltip-placement="right" tooltip-append-to-body="true">&#xe652;</i>
+                </div>
+                <flex flex-data="status.exchange"></flex>
+            </div>
+            <div class="panel-collapse collapse in rule-panel-collapse" uib-collapse="!status.exchange">
+                <div class="panel-body">
+                    <div class="form-group  form-group-terminal">
+                        <label for="name" class="col-sm-2 control-label control-label-left" style="text-align: left">选择兑换规则：<i class="iconfont canvas-title-icon" tooltip-trigger="mouseenter"
+                                                                                                                               uib-tooltip="注：规则的上下顺序表示优先级的先后，有效期、生效星期、方式三者全相同的时，执行优先级高的规则。"
+                                                                                                                               tooltip-placement="right" tooltip-append-to-body="true">&#xe652;</i></label>
+                        <div class="col-sm-4">
+                            <button class="main-all-btn-b" ng-click="createNew('exchange')">新建</button>
+                            <button class="main-all-btn-b new-score-rule-btn" ng-click="showExchangeModal()">+添加兑换规则</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-6">
+                            <table class="table table-striped table-style-all table-rule-style">
+                                <thead>
+                                <tr class="table-tr-first">
+                                    <th>名称</th>
+                                    <th>兑换类型</th>
+                                    <th>兑换内容</th>
+                                    <th class="text-center">操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="relExchangeRule in cardTypeUpdate.relExchangeRules">
+                                    <td ng-bind="relExchangeRule.name"></td>
+                                    <td ng-bind="exchangeWay[relExchangeRule.giftType]"></td>
+                                    <td ng-bind="relExchangeRule.giftName"></td>
+                                    <td class="list-task-row text-nowrap relative"><i class="iconfont" style="cursor: pointer;" ng-click="minus(cardTypeUpdate.relExchangeRules,$index)">&#xe67d;</i></td>
+                                </tr>
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="list-page">
+            <div class="canvas_title"  ng-click="status.recharge=!status.recharge;" style="cursor: pointer;">
+                <div class="canvas_title_ctrlDiv" ng-click="stopPropagation($event);">
+                    <label for="isSaving_edit" ng-click="cardTypeUpdate.baseInfo.isSaving==0?status.recharge=true:''">储值功能</label>&nbsp;
+                    <input type="checkbox" id="isSaving_edit" ng-model="cardTypeUpdate.baseInfo.isSaving"
+                           ng-true-value="1" ng-false-value="0" ng-click="cardTypeUpdate.baseInfo.isSaving==1?status.recharge=true:''">
+                    <label for="isSaving_edit" ng-click="cardTypeUpdate.baseInfo.isSaving==0?status.recharge=true:''">开启</label>
+                    <i class="iconfont canvas-title-icon" tooltip-trigger="mouseenter"
+                       uib-tooltip="注：开启后，卡型具备储值功能，且可设置兑换储值赠送规则。"
+                       tooltip-placement="right" tooltip-append-to-body="true">&#xe652;</i>
+                </div>
+                <flex flex-data="status.recharge"></flex>
+            </div>
+            <div class="panel-collapse collapse in rule-panel-collapse" uib-collapse="!status.recharge">
+                <div class="panel-body">
+                    <div class="form-group  form-group-terminal">
+                        <label for="name" class="col-sm-2 control-label control-label-left" style="text-align: left">选择储值规则：<i class="iconfont canvas-title-icon" tooltip-trigger="mouseenter"
+                                                                                                                               uib-tooltip="注：规则的上下顺序表示优先级的先后，有效期、生效星期、方式三者全相同的时，执行优先级高的规则。"
+                                                                                                                               tooltip-placement="right" tooltip-append-to-body="true">&#xe652;</i></label>
+                        <div class="col-sm-4">
+                            <button class="main-all-btn-b" ng-click="createNew('recharge')">新建</button>
+                            <button class="main-all-btn-b new-score-rule-btn" ng-click="showSavingModal()">+添加储值规则</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-6">
+                            <table class="table table-striped table-style-all table-rule-style">
+                                <thead>
+                                <tr class="table-tr-first">
+                                    <th>名称</th>
+                                    <th>储值方式</th>
+                                    <th class="text-center">操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="relSavingRule in cardTypeUpdate.relSavingRules">
+
+                                    <td ng-bind="relSavingRule.name"></td>
+                                    <td ng-bind="savingWay[relSavingRule.savingType]"></td>
+                                    <td class="list-task-row text-nowrap relative">
+                                        <i class="iconfont" style="cursor: pointer;" ng-click="minus(cardTypeUpdate.relSavingRules,$index)">&#xe67d;</i>
+                                        <i class="iconfont" style="cursor: pointer;" ng-if="$index!=cardTypeUpdate.relSavingRules.length-1" ng-click="down(cardTypeUpdate.relSavingRules,$index)">&#xe62d;</i>
+                                        <i class="iconfont" style="cursor: pointer;" ng-if="$index!=0" ng-click="up(cardTypeUpdate.relSavingRules,$index)">&#xe62e;</i>
+                                    </td>
+                                    <td ng-hide="true"ng-bind="relSavingRule.priority=$index"></td>
+                                </tr>
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="list-page">
+            <div class="canvas_title"  ng-click="status.limit=!status.limit;" style="cursor: pointer;">
+                <div class="canvas_title_ctrlDiv" ng-click="stopPropagation($event);">
+                    <label for="isUseLimit_edit" ng-click="cardTypeUpdate.baseInfo.isUseLimit==0?status.limit=true:''">使用限制</label>&nbsp;
+                    <input type="checkbox" id="isUseLimit_edit" ng-model="cardTypeUpdate.baseInfo.isUseLimit"
+                           ng-true-value="1" ng-false-value="0" ng-click="cardTypeUpdate.baseInfo.isUseLimit==1?status.limit=true:''">
+                    <label for="isUseLimit_edit" ng-click="cardTypeUpdate.baseInfo.isUseLimit==0?status.limit=true:''">开启</label>
+                    <i class="iconfont canvas-title-icon" tooltip-trigger="mouseenter"
+                       uib-tooltip="注：开启后，可以为该卡型设置相关使用限制。"
+                       tooltip-placement="right" tooltip-append-to-body="true">&#xe652;</i>
+                </div>
+                <flex flex-data="status.limit"></flex>
+            </div>
+            <div class="panel-collapse collapse in rule-panel-collapse" uib-collapse="!status.limit">
+                <div class="panel-body">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                                <span class="checkbox span-inline">
+                                     <input type="checkbox" id="isFirstConsume" name="isFirstConsume"
+                                            ng-model="cardTypeUpdate.limitSet.isFirstConsume" ng-checked="" ng-true-value="1"
+                                            ng-false-value="0">首次消费允许使用
+                                卡内
+                                </span>
+                               <span class="span-inline">
+                                   <input type="text" ng-pattern="/^\d+$/" id="firstConsumeScale" name="firstConsumeScale"
+                                          ng-model="cardTypeUpdate.limitSet.firstConsumeScale"
+                                          ng-init="cardTypeUpdate.limitSet.firstConsumeScale=70"
+                                          ng-keyup="cardTypeUpdate.limitSet.firstConsumeScale=cardTypeUpdate.limitSet.firstConsumeScale>0?cardTypeUpdate.limitSet.firstConsumeScale:''"
+                                          ng-required="cardTypeUpdate.limitSet.isFirstConsume==1" tooltip-trigger="blur"
+                                          uib-tooltip="{{cardTypeUpdateForm.firstConsumeScale.$invalid?'请填写正确的数字':''}}"
+                                          tooltip-placement="bottom">%余额
+                               </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <span class="checkbox span-inline">
+                                 <input type="checkbox" id="isMinRecharge" name="isMinRecharge"
+                                        ng-model="cardTypeUpdate.limitSet.isMinRecharge"
+                                        ng-checked="" ng-true-value="1"
+                                        ng-false-value="0">最低储值金额
+                            </span>
+                           <span class="span-inline">
+                               <input type="text" ng-pattern="/^\d+$/" id="minRechargeAmount" name="minRechargeAmount"
+                                      ng-model="cardTypeUpdate.limitSet.minRechargeAmount"
+                                      ng-init="cardTypeUpdate.limitSet.minRechargeAmount=100"
+                                      ng-keyup="cardTypeUpdate.limitSet.minRechargeAmount=cardTypeUpdate.limitSet.minRechargeAmount>0?cardTypeUpdate.limitSet.minRechargeAmount:''"
+                                      ng-required="cardTypeUpdate.limitSet.isMinRecharge==1" tooltip-trigger="blur"
+                                      uib-tooltip="{{cardTypeUpdateForm.minRechargeAmount.$invalid?'请填写正确的数字':''}}"
+                                      tooltip-placement="bottom">元
+                           </span>
+
+                        </div>
+                    </div>
+                    <!--<div class="form-group">-->
+                        <!--<div class="col-sm-12 checkbox">-->
+                            <!--<input type="checkbox" id="isUnSellRecharge" name="isUnSellRecharge"-->
+                                   <!--ng-model="cardTypeUpdate.limitSet.isUnSellRecharge" ng-checked="" ng-true-value="1"-->
+                                   <!--ng-false-value="0">允许未售卡先充值-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <div class="form-group">
+                        <div class="col-sm-12 checkbox">
+                            <input type="checkbox" id="isShopLimit" name="isShopLimit"
+                                   ng-model="cardTypeUpdate.limitSet.isShopLimit" ng-checked="" ng-true-value="1"
+                                   ng-false-value="0">开启门店限制
+                        </div>
+                    </div>
+                    <div class="card-type-clear-date" ng-show="cardTypeUpdate.limitSet.isShopLimit == 1">
+                        <div class="form-group  form-group-terminal ">
+                            <label for="name" class="col-sm-2 control-label control-label-left" style="text-align: left">适用门店：</label>
+                            <div class="col-sm-4">
+                                <button type="button" class="main-all-btn-b" ng-click="showModal(limitSet.relShops)">选择门店</button>
+                                <span class="span-selected-account">已选择<span ng-bind="cardTypeUpdate.limitSet.relShops.length>0?cardTypeUpdate.limitSet.relShops.length:0"></span>个</span>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <div class="col-sm-6">
+                                <table class="table table-striped table-style-all table-rule-style">
+                                    <thead>
+                                    <tr class="table-tr-first">
+                                        <th>门店号</th>
+                                        <th>门店名称</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="relShop in cardTypeUpdate.limitSet.relShops">
+                                        <td ng-bind="relShop.code"></td>
+                                        <td ng-bind="relShop.showName"></td>
+                                    </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="list-page">
+            <div class="canvas_title"  ng-click="status.remind=!status.remind;" style="cursor: pointer;">
+                <div class="canvas_title_ctrlDiv" ng-click="stopPropagation($event);">
+                    <label for="isRemind_edit" ng-click="cardTypeUpdate.baseInfo.isRemind==0?status.remind=true:''">到期提醒</label>&nbsp;
+                    <input type="checkbox" id="isRemind_edit" ng-model="cardTypeUpdate.baseInfo.isRemind"
+                           ng-true-value="1" ng-false-value="0" ng-click="cardTypeUpdate.baseInfo.isRemind==1?status.remind=true:''">
+                    <label for="isRemind_edit" ng-click="cardTypeUpdate.baseInfo.isRemind==0?status.remind=true:''">开启</label>
+                    <i class="iconfont canvas-title-icon" tooltip-trigger="mouseenter"
+                       uib-tooltip="注：开启后，可为该卡设置到期提醒时间。"
+                       tooltip-placement="right" tooltip-append-to-body="true">&#xe652;</i>
+                </div>
+                <flex flex-data="status.remind"></flex>
+            </div>
+            <div class="panel-collapse collapse in rule-panel-collapse" uib-collapse="!status.remind">
+                <div class="panel-body">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            提前<input type="text" ng-pattern="/^\d+$/" id="remindBeforeDay" name="remindBeforeDay"
+                                     ng-model="cardTypeUpdate.baseInfo.remindBeforeDay"
+                                     ng-init="cardTypeUpdate.baseInfo.remindBeforeDay=7"
+                                     ng-keyup="cardTypeUpdate.baseInfo.remindBeforeDay=cardTypeUpdate.baseInfo.remindBeforeDay>=0?cardTypeUpdate.baseInfo.remindBeforeDay:''"
+                                     ng-required="cardTypeUpdate.baseInfo.isRemind==1"
+                                     tooltip-trigger="blur"
+                                     tooltip-placement="bottom"
+                                     uib-tooltip="{{cardTypeUpdate.baseInfo.remindBeforeDay.$invalid?'请填写正确的天数':''}}"
+                        >天提醒
+                            <small>（0表示当天，1表示提前1天）</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="form-group ">
+                <div class="form-btn-left">
+                    <button type="button" class="btn btn-primary main-all-btn-b" ng-click="confirmUpdate()"
+                            ng-disabled="cardTypeUpdateForm.$invalid">确定
+                    </button>
+                </div>
+                <div class="col-sm-6 form-btn-right">
+                    <button type="button" class="btn btn-default main-all-btn-w" ng-click="cancelIn()">取消</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

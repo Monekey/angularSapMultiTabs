@@ -1,0 +1,1 @@
+define(["require","ngAMD"],function(require){var ngAMD=require("ngAMD");ngAMD.controller("tabsChildCtrl",["$scope","register","modalService","$rootScope",function($scope,register,modalService,$rootScope){var tabData=$rootScope.TabsData,data=angular.copy(tabData);$scope.tabId=data.id,$scope.from=data.from,$scope.back=function(){register.switchTab({id:$scope.from})}}])});

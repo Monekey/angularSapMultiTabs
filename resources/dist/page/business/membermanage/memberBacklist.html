@@ -1,0 +1,24 @@
+<div class="modal-header">
+    <h3 class="modal-title">加入黑名单</h3>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-12">
+            提示：加入黑名单后，该会员所有卡将禁用。
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-12">
+            <textarea rows="4" class="form-control" ng-model="member.note" placeholder="*备注，必填"
+                      ng-keyup="calcCharacterCount()">
+            </textarea>
+        </div>
+        <div class="col-md-12 ">
+            <span class="pull-right">还可输入<span ng-bind="20-member.note.length"></span>字</span>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="saveBackList()" ng-disabled="disabledSubmit">确定</button>
+    <button class="btn btn-primary" type="button" ng-click="cancel()">取消</button>
+</div>

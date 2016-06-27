@@ -1,0 +1,138 @@
+<div class="rule two-form" ng-controller="invationController">
+    <form class="form-horizontal" autocomplete="off" name="empEditForm">
+        <div class="list-page">
+            <div class="canvas_title">
+                邀请员工
+            </div>
+            <div class="panel">
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label for="selectoption" class="col-md-2 control-label control-label-left"><sup
+                                class="required-icon red-star">*</sup>
+                            选择所属角色：
+                        </label>
+                        <div class="col-md-6 company-col">
+                            <select name="areaManage" id="selectoption" ng-model="roleName" required
+                                    class="emp-form emp_form_ctrl pt5"
+                                    ng-options="role.showName as role.showName for role in roleList">
+                                <option value="{{role.value}}">{{role.showName}}</option>
+                            </select>
+                            <a ng-click="createNew()">新建角色</a>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-2 control-label control-label-left"><sup
+                                class="required-icon red-star">*</sup>
+                            选择所属门店：
+                        </label>
+                        <div class="col-md-6 company-col">
+                            <button type="button" class="main-all-btn-b" style="float: right"
+                                    ng-click="showModal(shopIds)">选择门店
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-2"></div>
+                        <div class="col-md-6 company-col">
+                            <table class="table table-bordered userinfo_table1 table-cardType">
+                                <thead>
+                                <tr class="userinfo_h1">
+                                    <th>序号</th>
+                                    <th>门店号</th>
+                                    <th>门店名称</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="shopIds in shopIds track by $index">
+                                    <td ng-bind="$index+1"></td>
+                                    <td ng-bind="shopIds.shopId"></td>
+                                    <td ng-bind="shopIds.shopName"></td>
+                                </tr>
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+
+            <div class="form-group">
+                <label class="col-md-2 control-label control-label-left">
+                    <sup class="required-icon red-star">*</sup>添加员工：
+                </label>
+                <div class="col-md-10 company-col control-label-left" style="margin-top: 8px;margin-bottom: 5px">
+                      <span class="f14">添加员工联系方式( 手机或者邮箱 )，员工收到邀请完成注册后，即可具备所属门店和角色的权限。</span>
+                </div>
+            </div>
+                <div class="form-group">
+                    <div class="col-xs-2"></div>
+                    <div class="col-md-6">
+                        <div style="float: right">
+                            <a ng-click="getTemplate()">下载模板</a>
+                            <button type="button" class="main-all-btn-b" ng-click="showImport()">批量导入</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group emp_contact_box">
+                    <div class="col-xs-2"></div>
+                    <table class="table table-striped table-style-all">
+                        <tr>
+                            <th><sup class="required-icon red-star">*</sup>手机/邮箱</th>
+                            <th>姓名</th>
+                            <th style="text-align: center">操作</th>
+                        </tr>
+                        <tr class="onePieceContactInfo" ng-repeat="empBusines in empBusiness track by $index">
+                            <td class="col-sm-7 text-nowrap emp_table_select">
+                                <select ng-model="empBusines.accountType" ng-change="">
+                                    <option ng-repeat="accountType in accountTypes"
+                                            value="{{accountType.value}}" ng-selected="$index==0">
+                                        {{accountType.text}}
+                                    </option>
+                                </select>
+                                <input ng-model="empBusines.email" type="text" name="name"
+                                       class="telephoneNum" required tooltip-trigger="blur" ng-focus="focu =true"
+                                       maxlength=20
+                                       uib-tooltip="{{getValid(empBusines.email)?'请填写正确的邮箱或手机号':''}}"
+                                       tooltip-placement="top-right">
+                                <!--<input ng-model="empBusines.phone" type="tel" ng-hide="true" -->
+                                <!--class="telephoneNum" required tooltip-trigger="blur" ng-focus="focu =true"-->
+                                <!--uib-tooltip="{{getValid(empBusines.phone)?'请填写正确的邮箱或手机号':''}}"-->
+                                <!--tooltip-placement="top-right">-->
+                            </td>
+                            <td class="col-sm-3">
+                                <!--
+                                <input ng-model="empBusines.empName" tooltip-trigger="blur" ng-focus="focu =true"
+                                       uib-tooltip="{{empEditForm.empName.$invalid?'请正确填写姓名,不能含有特殊字符':''}}" maxlength=20
+                                       ng-pattern="/[\a-\z\A-\Z0-9\u4E00-\u9FA5]/g"
+                                       tooltip-placement="right" required name="empName"
+                                       maxlength="20" type="text" class="trueName form-control"/> -->
+                                <input ng-model="empBusines.empName" type="text" name="empName"
+                                       class="trueName form-control" required tooltip-trigger="blur"
+                                       ng-focus="focu =true" maxlength=20
+                                       uib-tooltip="{{getValidNm(empBusines.empName)}}"
+                                       tooltip-placement="right">
+                            </td>
+                            <td class="col-sm-2 list-task-row text-nowrap relative">
+                                <i class="iconfont point" ng-click="addRow()" tooltip-trigger="mouseenter"
+                                   uib-tooltip="增加" tooltip-placement="top">&#xe67c;</i>
+                                <i ng-if="empBusiness.length>1" class="iconfont point" ng-click="minusRow($index)"
+                                   tooltip-trigger="mouseenter" uib-tooltip="删除" tooltip-placement="top">
+                                    &#xe67d;</i>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="form-group">
+                <div class="col-xs-2"></div>
+                <div class="col-sm-10 company-col">
+                    <button class="btn main-all-btn-b"
+                            ng-disabled="validAll()||empEditForm.$invalid||changeItems.length<=0" type="submit"
+                            id="submitBtn" ng-click="submitForm()">发送邀请
+                    </button>
+                    <button class="btn main-all-btn-w ml30" ng-click="cancelIn()">取消</button>
+                </div>
+            </div>
+        </div>
+            </div>
+        </div>
+    </form>
+</div>

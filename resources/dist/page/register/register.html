@@ -1,0 +1,95 @@
+<div class="row" style="padding-top: 100px;background: white;">
+	<div class="col-sm-offset-3 col-sm-5">
+			<form class="form-horizontal" autocomplete="off" name="registerForm" ng-submit="saveUser(newUser)"  novalidate> 
+				<!-- 标题 -->
+				<div class="form-group">
+		            <div class=" col-sm-offset-3 col-sm-9" style="text-align: center;font-size: x-large;">
+		                	用户注册
+		            </div>
+	            </div>
+	            <!-- 手机号或电子邮箱 -->
+	            <!-- 手机号 -->
+		        <div class="form-group" ng-if="newUser.showMobile">
+		        	<label class="col-sm-3 control-label  control-label-left" ><font color="red">*</font>手机号码:</label>
+		            <div class="col-sm-6" >
+		                <input type="text" ng-pattern="/^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/" class="form-control"  
+		                name="mobile" id="mobile"  ng-model="newUser.mobile" placeholder="请输入11位手机号" maxlength="11"  ng-blur="validateMobileFormat(newUser)"
+		                 tooltip-trigger="blur" uib-tooltip="{{registerForm.mobile.$invalid?'请输入11位手机号码':''}}" tooltip-placement="bottom">
+		            </div>
+		        	<div class="col-sm-3" style="margin:0px; padding:0px;">
+		        		<p class="form-control-static">或<span ng-click="taggleAccountType(!newUser.showMobile)" style="text-decoration: underline;color: blue;cursor: pointer;" >邮箱注册</span></p>
+		        	</div>
+		        </div>
+		        <!-- 短信校验码 -->
+		        <div class="form-group" ng-if="newUser.showMobile">
+	       			<label class="col-sm-3 control-label  control-label-left" for="smsCode"><font color="red">*</font>短信校验码:</label>
+		            <div class="col-sm-5">
+		                <input type="text"  class="form-control"  
+		                 name="smsCode" id="smsCode"  ng-model="newUser.smsCode" placeholder="请输入验证码" ng-blur="checkSmsCode(newUser)"
+		                 tooltip-trigger="blur" uib-tooltip="{{registerForm.smsCode.$invalid?'请输入验证码':''}}" tooltip-placement="bottom"
+		                        style="width: 85%;display: inline-block;"/>
+                    <span ng-if="newUser.isValidSmsCode"  class="glyphicon glyphicon-ok-sign" style="color: green;display: inline-block;font-size: 14px;"></span>
+                    <span ng-if="!newUser.isValidSmsCode" class="glyphicon glyphicon-remove-sign" style="color: red;display: inline-block;font-size: 14px;"></span>
+		            </div>
+		        	<div class="col-sm-4">
+		        		 <button type="button" class="btn  btn-primary" ng-click="getSellCardSmsCode(newUser)">发送验证码</button>
+		        	</div>
+		        </div>
+		        <!-- 电子邮箱 -->
+		        <div class="form-group" ng-if="!newUser.showMobile">
+		        	<label class="col-sm-3 control-label  control-label-left" ><font color="red">*</font>邮箱账号:</label>
+		            <div class="col-sm-6">
+		                 <input type="text"  class="form-control"   ng-blur="validateEmailFormat(newUser)"
+		                 name="email" id="email"  ng-model="newUser.email" placeholder="请输入邮箱账号" ng-pattern="/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/"
+		                 tooltip-trigger="blur" uib-tooltip="{{registerForm.email.$invalid?'请输入有效邮箱账号':''}}" tooltip-placement="bottom">
+		            </div>
+		        	<div class="col-sm-3" style="margin:0px; padding:0px;">
+		        		 <p  class="form-control-static">或<span ng-click="taggleAccountType(!newUser.showMobile)" style="text-decoration: underline;color: blue;cursor: pointer;">手机注册</span></p>
+		        	</div>
+		        </div>
+		        <!-- 姓名 -->
+		        <div class="form-group">
+	       			 <label class="col-sm-3 control-label  control-label-left" for="name">姓名:</label>
+		            <div class="col-sm-9">
+		                <input type="text"  class="form-control"  
+		                 name="name" id="name"  ng-model="newUser.name" placeholder="" >
+		            </div>
+		        </div>
+		        <!-- 密码 -->
+		        <div class="form-group">
+	       			 <label class="col-sm-3 control-label  control-label-left" for="password"><font color="red">*</font>密码:</label>
+		            <div class="col-sm-9">
+		                <input type="password"  class="form-control" name="password" id="password"  
+		                 ng-model="newUser.password" placeholder="请输入密码" ng-pattern="/^[0-9a-zA-Z]{1,20}$/" required maxlength="20"
+		                 tooltip-trigger="blur" uib-tooltip="{{registerForm.password.$invalid?'请输入密码':''}}" tooltip-placement="bottom">
+		            </div>
+		        </div>
+		        <!-- 确认密码 -->
+		        <div class="form-group">
+	       			<label class="col-sm-3 control-label  control-label-left" for="repassword"><font color="red">*</font>确认密码:</label>
+		            <div class="col-sm-9">
+		                <input type="password"  class="form-control" name="repassword" id="repassword"  maxlength="20"
+		                 ng-model="newUser.repassword" placeholder="请输入确认密码" ng-pattern="/^[0-9a-zA-Z]{1,20}$/" required
+		                 tooltip-trigger="blur" uib-tooltip="{{validatePasswd(newUser)? tipMsg.repassword:''}}" tooltip-placement="bottom">
+		            </div>
+		        </div>
+		        
+		        <!-- 注册按钮 -->
+		        <div class="form-group">
+		            <div class="col-sm-offset-3 col-sm-9">
+		            	<button type="submit" class="btn btn-primary col-sm-12" ng-disabled="registerForm.$invalid || forbideSave
+		            	||(newUser.showMobile &&(!newUser.mobile||newUser.mobile == '' ||!newUser.isValidMobile || !newUser.smsCode ||newUser.smsCode == '' || !newUser.isValidSmsCode))
+		            	||(!newUser.showMobile &&(!newUser.email ||newUser.email == '' ||!newUser.isValidEmail)) 
+		            	||!newUser.isValidPassword" 
+		            	>注册</button>
+		            </div>
+	        	</div>
+	        	
+		    </form>
+	</div>
+	<div class="col-sm-3" style="padding-top:5px;">
+		<p class="form-control-static">已有账号，可以<span ng-click="goLogin()" style="text-decoration: underline;color: blue;cursor: pointer;" >直接登录</span></p>
+	</div>
+</div>
+
+

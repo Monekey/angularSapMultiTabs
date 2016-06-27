@@ -1,0 +1,13 @@
+<div class="shaixuan">
+    <div class="canvas_title">
+        会员首页
+            <button class="back-home-page-btn" ng-click="goselectedpos()" ng-show="isPosHome()"><i class="iconfont">&#xe681;</i>回到首页</button>
+    </div>
+    <div class="shaixuan_content desc-content">
+        <div ng-repeat="one in ruledata track by $index"  ng-click="gotoPos(one)" ng-mousedown="one._color=one.color;one.color=one.clickColor" ng-mouseleave="one._color?one.color=one._color:''" ng-mouseup="one.color=one._color" class="task-keyboard text-center" ng-if="one.shortcutMenu !== 2" ng-style="{background: one.color}"><!--ng-style="{background:linear-gradient(red, blue)}"-->
+
+                <div class="icon-p-div"><i class="iconfont" ng-bind-html="one.icon | getIconNomal"></i></div><span class="icon-name" ng-bind="one.showName"></span>
+        </div>
+    </div>
+</div>
+

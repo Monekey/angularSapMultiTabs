@@ -1,0 +1,130 @@
+<div class="rule two-form">
+    <form class="form-horizontal" autocomplete="off" name="cardUpgradeForm" novalidate>
+        <div class="list-page">
+            <div class="canvas_title"> 基本信息
+            </div>
+            <div class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label for="name" class="col-md-2 control-label control-label-left"><sup
+                                class="required-icon">*</sup>升级规则名称：</label>
+                        <div class="col-md-6">
+                            <input class="form-control" type="text" autofocus id="name" name="name"
+                                   ng-model="card_upgrade_data.name"
+                                   placeholder="可输入中文和数字，长度10个以内"
+                                   ng-pattern="/^[0-9\u4E00-\u9FA5]{1,10}$/"
+                                   tooltip-trigger="blur"
+                                   uib-tooltip="{{cardUpgradeForm.name.$invalid?'请输入升级规则名称':''}}"
+                                   tooltip-placement="bottom" required/>
+
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label control-label-left">升级规则类型：</label>
+                        <div class="col-sm-6">
+                            <label class="radio-inline">
+                                <!-- 1：消费总额  2：积分总额   3：充值金额  4：余额 -->
+                                <input type="radio" name="choice_radio" ng-model="card_upgrade_data.upgradeType"
+                                       ng-value="1">消费满
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="choice_radio" ng-model="card_upgrade_data.upgradeType"
+                                       ng-value="3">积分满
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="choice_radio" ng-model="card_upgrade_data.upgradeType"
+                                       ng-value="2">充值满
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="choice_radio" ng-model="card_upgrade_data.upgradeType"
+                                       ng-value="4">余额满
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label control-label-left"></label>
+                        <div class="col-sm-9">
+                            <div class="upgrade-rule-concrete">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label control-label-left">规则内容：</label>
+                                    <div class="col-sm-8">
+                                        <table class="table table-striped table-style-all"
+                                               style="border:1px solid #ddd;">
+                                            <tr class="table-tr-first">
+                                                <th class="col-sm-5">升级条件</th>
+                                                <th class="col-sm-4">升级为</th>
+                                                <th class="col-sm-3 text-center">操作</th>
+                                            </tr>
+                                            <tr ng-repeat="one in card_upgrade_data.initList track by $index">
+                                                <td class="col-sm-5 text-nowrap">
+                                                    <span ng-if="card_upgrade_data.upgradeType==1&&$index!=0">消费满(元)</span>
+                                                    <span ng-if="card_upgrade_data.upgradeType==2&&$index!=0">充值满(元)</span>
+                                                    <span ng-if="card_upgrade_data.upgradeType==3&&$index!=0">积分满(分)</span>
+                                                    <span ng-if="card_upgrade_data.upgradeType==4&&$index!=0">余额满(元)</span>
+                                                    <span ng-if="$index==0">初始卡型:</span>
+                                            <span ng-if="$index!=0"><input class=""
+                                                                           type="text"
+                                                                           id="{{card_upgrade_data.initList[$index].value}}"
+                                                                           name="{{card_upgrade_data.initList[$index].value}}"
+                                                                           ng-model="one.value"
+                                                                           tooltip-trigger="blur"
+                                                                           uib-tooltip="{{cardUpgradeForm.card_upgrade_data.initList[$index].value.$invalid||checkTag==true?'请输入大于当前规则的钱数':''}}"
+                                                                           tooltip-placement="bottom"
+                                                                           ng-change="checkThisValue($index,one.value)"
+                                                                           required></span>
+                                                </td>
+                                                <td class="col-sm-4">
+                                                    <select class=""
+                                                            name="{{card_upgrade_data.initList[$index].upCardTypeId}}"
+                                                            id="{{card_upgrade_data.initList[$index].upCardTypeId}}"
+                                                            tooltip-trigger="blur"
+                                                            uib-tooltip="{{!one.upCardTypeId||checkSelect==true||cardUpgradeForm.card_upgrade_data.initList[$index].upCardTypeId.$invalid?'卡型不能为空且不能选择已选卡型':''}}"
+                                                            tooltip-placement="bottom"
+                                                            ng-options="cardtype.id as cardtype.typeName for cardtype in comboList"
+                                                            ng-model="one.upCardTypeId"
+                                                            ng-change="checkIsSelected($index,one)"
+                                                            required>
+                                                    </select>
+                                                </td>
+                                                <td class="col-sm-3 list-task-row text-nowrap relative">
+                                                    <i class="iconfont point" ng-click="add(0)"
+                                                       ng-disabled="!one.upCardTypeId||one.upCardTypeId.$invalid" tooltip-trigger="mouseenter"
+                                                       uib-tooltip="增加" tooltip-placement="top">&#xe67c;</i>
+                                                    <i ng-click="reduce($index,0)" ng-if="Count>1&&$index!=0" class="iconfont point"
+                                                       tooltip-trigger="mouseenter" uib-tooltip="删除" tooltip-placement="top">
+                                                        &#xe67d;</i>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                <div class="checkbox col-sm-3 score-rule-enable">
+                    <input type="checkbox" id="isAble" name="isAble" ng-model="card_upgrade_data.upgradeStatus"
+                           ng-true-value="1"
+                           ng-false-value="0">立即启用
+                </div>
+            </div>
+            <div class="form-group ">
+                <div class="form-btn-left">
+                    <button type="button" class="btn btn-primary main-all-btn-b" ng-click="confirmIn()"
+                            ng-disabled="cardUpgradeForm.$invalid||cardUpgradeForm.card_upgrade_data.initList[$index].upCardTypeId.$invalid||checkTag==true||checkSelect==true||disabledBtn">确定
+                    </button>
+                </div>
+                <div class="col-sm-6 form-btn-right">
+                    <button type="button" class="btn btn-default main-all-btn-w" ng-click="cancelIn()">取消</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+

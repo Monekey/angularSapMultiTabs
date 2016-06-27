@@ -1,0 +1,78 @@
+<div>
+    <div class="list-page">
+        <div class="canvas_title canvas-title-special" ng-cloak>{{::pageSet.title}}
+            <button type="button" class=" list-table-button" ng-click="createNew(pageSet.button.newtab)"
+                    ng-if="pageSet.button && create" ng-bind="::pageSet.button.title"></button>
+        </div>
+            <div ng-show="!results.noData&&results.pageInfo.list.length<=0" class="no-data">
+                <i class="iconfont">&#xe682;</i><span>没有查询到符合条件的筛选记录</span>
+            </div>
+        <div ng-show="results.noData&&results.pageInfo.list.length<=0" class="no-data">
+            <img src="resources/assets/images/list/zanwushuju.png"><span>数据空空如也<span ng-if="pageSet.button && create">，快去
+            <a ng-click="createNew(pageSet.button.newtab)">添加</a> 吧</span>！</span>
+        </div>
+            <div class="list-table" style="overflow: auto" ng-show="results.pageInfo.list.length>0">
+                <table class="table table-striped table-style-all">
+                    <tbody class="text-nowrap">
+                    <tr class=" table-tr-first">
+                        <th ng-repeat="table in pageSet.table track by $index" class="table-thsort-special"
+                            ng-mouseover="table.sort_show=true" ng-mouseleave="table.sort_show=false" ng-style="{'width':table.width}">
+                            <div class="table-hr-sort table--sort-special" ng-bind="::table.desc"
+                                 ng-click="setSort((table.sort===true?'desc':'asc'),table)"></div>
+                            <div class="float-left relative">
+                                <div class="table-hr-sort table-sort-icon" ng-if="$index !== 0 && table.column != undefined"
+                                     ng-show="table.sort_show||table.sort===true||table.sort===false">
+                                    <i class="iconfont" ng-class="{true: 'asc-sort', false: 'desc-sort'}[table.sort]"
+                                       ng-click="setSort('asc', table)">&#xe629;</i>
+                                    <i class="iconfont" ng-class="{false: 'asc-sort', true: 'desc-sort'}[table.sort]"
+                                       ng-click="setSort('desc', table)">&#xe627;</i>
+                                </div>
+                            </div>
+                        </th>
+                        <th ng-if="pageSet.task.length > 0 && (edit || delete || detail)" class="list-task-row">
+                            <div class="table--sort-special ml5 mr10">操作</div>
+                        </th>
+                    </tr>
+                    <tr ng-repeat="j in results.pageInfo.list  track by $index">
+                        <td ng-repeat="results in pageSet.table" class="table-list-special">
+                        <span class="table-list-special-span" ng-if="results.field === 'index'" ng-bind="$parent.$parent.$index+1"></span>
+                        <span class="table-list-special-span" ng-if="results.field !== 'index' && !results.filter">{{j[results.field]}}</span>
+                        <span ng-if="results.filed !== 'index' && results.filter"
+                              ng-bind="getContext(j, results)" class="{{getStateCss(j,results)}} text-nowrap"></span>
+                        </td>
+
+                        <!-- 把按钮替换成图片按钮 -->
+                        <td ng-if="pageSet.task.length > 0 &&(edit || delete || detail)" class="list-task-row text-nowrap relative">
+                            <i data-ng-bind-html="getIconFont(j, task)" ng-repeat="task in pageSet.task" class="iconfont"
+                               ng-click="taskEnything(j, task)" tooltip-trigger="mouseenter"
+                               uib-tooltip="{{getContext(j, task)}}" tooltip-placement="top"
+                               ng-if="task.type == 'toAjax' && edit"></i>
+                            <i ng-repeat="task in pageSet.task" class="iconfont" tooltip-trigger="mouseenter"
+                               uib-tooltip="{{::getContext(j, task)}}" tooltip-placement="top"
+                               ng-click="taskEnything(j, task)"
+                               ng-if="task.type == 'toChange' && edit">&#xe613;</i>
+                            <i ng-repeat="task in pageSet.task" class="iconfont" tooltip-trigger="mouseenter"
+                               uib-tooltip="{{::getContext(j, task)}}" tooltip-placement="top"
+                               ng-click="taskEnything(j, task)" title="{{getContext(j, task)}}"
+                               ng-if="task.type == 'delete' && delete">&#xe60e;</i>
+                            <i ng-repeat="task in pageSet.task" class="iconfont" tooltip-trigger="mouseenter"
+                               uib-tooltip="{{::getContext(j, task)}}" tooltip-placement="top"
+                               ng-click="taskEnything(j, task)" ng-if="task.type == 'toDetail' && detail">&#xe60f;</i>
+                        </td>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+    </div>
+
+    <uib-pagination ng-show="results.pageInfo.total>10" total-items="results.pageInfo.total" ng-model="pageSet.currentPage"
+                    items-per-page="pageSet.numPerPage"
+                    max-size="pageSet.maxSize" class="pagination-sm pagination-ul"
+                    boundary-links="true" force-ellipses="true" ng-change="pageChanged()" previous-text="上一页"
+                    next-text="下一页" first-text="首页" last-text="尾页"></uib-pagination>
+    <div ng-show="results.pageInfo.total>10" class="pagination-total">总共{{results.pageInfo.total}}条</div>
+    <div class="clearfix"></div>
+</div>

@@ -1,0 +1,59 @@
+<div>
+    <div class="list-page">
+        <div class="canvas_title ">flex伸缩菜单</div>
+        <div class="panel">
+            <div class="panel-heading">
+
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-offset-2 col-sm-3 text-right-important mt5">
+                        <button class="btn btn-success mr20" ng-click="collapse[0]=!collapse[0];">展开/收起第一个</button>
+                        <button class="btn btn-success" ng-click="collapse[1]=!collapse[1];">展开/收起第二个</button>
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="col-sm-10">
+
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="canvas_title" ng-click="collapse[0]=!collapse[0];" >
+                    标签1
+                    <flex flex-data="collapse[0]"></flex>
+                </div>
+                <div class="panel-collapse collapse" uib-collapse="!collapse[0]">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-offset-2 col-sm-3 text-right-important mt5">
+                            </div>
+                            <div class="col-sm-7">
+                                <div class="col-sm-10">
+                                    这里是标签1的内容
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="canvas_title" ng-click="collapse[1]=!collapse[1];" >
+                    标签2
+                    <flex flex-data="collapse[1]"></flex>
+                </div>
+                <div class="panel-collapse collapse" uib-collapse="!collapse[1]">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-offset-2 col-sm-3 text-right-important mt5">
+                            </div>
+                            <div class="col-sm-7">
+                                <div class="col-sm-10">
+                                    这里是标签2的内容
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

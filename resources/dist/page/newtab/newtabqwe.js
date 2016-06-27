@@ -1,0 +1,1 @@
+define(["require"],function(require){var rtObj={ctrl:"newtabCtrl",arrFunc:["$scope",function($scope,$rootScope,register){$scope.hello="world1"}]};return rtObj});

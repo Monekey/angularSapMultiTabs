@@ -1,0 +1,36 @@
+1：新建模块的页面和ctrl里不需要配置页面id，编辑页面返回指定的tab页时，传指定菜单的code码
+3:条件搜索请参考会员管理。有用到uib-tabset的给页面表格resultlist赋值,请参考会员管理！
+5:已加弹出层消息模态框，如： modalService.info({title:'提示', content:'不能获取起始、截止卡号！', size:'sm', type: 'confirm'});
+6:resources下的config文件里有各个目录说明，把各自头部引入的带有路径的文件都配置到config里去，各自头部改为引入对应名称,尽可能少的用路径引入。
+7:去除页面闪烁方法：页面中含有{{}}改为ng-bind方式，或者加ng-cloak
+8:字段排序，需要配置pageSet.table里的column字段（对应数据库字段名），参考基础档案->终端
+12：时间段有统一组件<period start-time="model1" end-time="model2"></peroid>,此种方式不显示时间,默认起始时间00:00:00,结束时间23:59:59，设置时间is-time="true",
+   设置最大限制时间max-date="now"或max-date="2016-01-01",设置最小限制时间min-date="now"或者min-date="2016-01-01"
+   example:<period start-time="model1" end-time="model2" is-time="true" max-date="now" min-date="2016-05-30"></period>
+13：$sce定义为统一filter：getIconNomal，供转义图标编码等使用，如：ng-bind-html="one.icon | getIconNomal"
+14：创建动态依赖posService存放pos系统通用方法（路由跳转动态配置），修改路由切换，路由回退
+15：modalService支持回调，即在点击确定后执行；fail回调，即点击取消或空白处执行，链式结构
+16:打开编辑，详情等二级页调用register.addToTabs（）方法，页面穿透需调用register.openTabWithRequest（）方法；
+17:switchTab切换tab,分为关闭当前标签和直接跳转，如register.switchTab({id: $scope.from})直接关闭并跳转至指定tab，register.switchTab({id: $scope.from, type:switch})跳转到指定tab
+18：tab页有列表的，防止页面根据数据依次加载并渲染：ng-show="resultList"
+19：ajax请求不需要进行错误提示，已经统一对statu=0 做处理，接口需要返回errMessage，提示内容为errMessage的内容
+20: 日历月份组件<month-select month='model'></month-select>,model格式：2016-06,参考报表中心->月度对账
+    日历时间组件<month-select month="member.birthday" format="YYYY-MM-DD"></month-select>format为日期格式，如：YYYY-MM,YYYY-MM-DD,YYYY-MM-DD hh:mm:ss,不写默认YYYY-MM。参考会员管理修改页面。
+21:时间筛选做配置的时候，“今天”对应value值0，“昨天”对应value值为1，默认“全部”的value为空，"本月"对应value：‘M0’，"上月"对应value:'M1'
+22:input框默认焦点加autofocus="autofocus"
+23.modalService 成功提示和失败提示,type新增可选属性'ok'和'fail'，可省略title和size，例如 modalService.info({content:'保存成功!', type: 'ok'}) 注：提示框宽度适应文字长度，最大300px
+24.modalService 成功提示和失败提示会自动关闭，默认延时为1000毫秒，如需修改加参数delay:毫秒数 如modalService.info({content:'保存成功!', type: 'fail',delay:3000}) 效果为三秒后消失
+25.列表组件新增宽度属性width，例如table: [{field: 'id', desc: '编号',width:'35%'},{field: 'number', desc: '卡号',column:'number',width:'auto'}]
+26：本地调试时禁用浏览器缓存，使用config.js内的urlArgs
+27：关于性能需要注意的一些事情：timeout一定要在destroy时销毁，一次绑定one-time binding的用法：{{::model}}（可减少watch的产生），尽量少的使用watch方法
+28:表单验证新增自定义指令ensurePassword 在第二次输入密码的input内加上:ensure-password="pwdId" pwdId为第一次密码的ID
+29:前端构建方法：本地预装nodejs环境，设置当前目录到项目的resources下，将app.js和index.html文件中的appBaseUrl，baseUrl， data-main的路径统一改为'resources/dist/page',运行命令node r.js -o build.js,
+    根目录下生成的dist目录即为生产环境的目录
+
+    /*"gulp-eslint": "^2.0.0",
+    "gulp-less": "^3.1.0",
+    "gulp-htmlmin": "^2.0.0",
+    "gulp-ngmin": "^0.3.0",
+    "gulp-uglify":"^1.5.3",
+    "gulp-minify-css": "^1.0.0",
+    "gulp-imagemin": "3.0.1"*/
