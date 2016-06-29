@@ -218,7 +218,7 @@ define(function (require) {
         servers: {
         	//local: 'http://192.168.4.140:8080/crm7/'//测试环境
             //local: window.location.href.split('#')[0],//本地环境
-            local: 'http://'+window.location.host+'/merge/resources/testData/',
+            local: window.location.href.split('index.html')[0]+'resources/testData/',
             imgServer: 'http://192.168.12.40/'//图片前缀地址
         },
         //种族
